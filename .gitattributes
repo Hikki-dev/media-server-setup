@@ -1,0 +1,5 @@
+* text=auto
+*.sh text eol=lf
+"Start on Mac.command" text eol=lf
+wizard/app/slate.ts binary linguist-generated
+*.bat text eol=crlf

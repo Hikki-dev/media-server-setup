@@ -1,0 +1,42 @@
+# NordVPN connections for Live TV. Two small apps: one appears in the UK, one in the US.
+# Use the file Start NordVPN instead of editing this.
+services:
+  gluetun-uk:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun-uk
+    restart: unless-stopped
+    cap_add: [NET_ADMIN]
+    labels:
+      deunhealth.restart.on.unhealthy: "true"   # a server that rejects the login keeps the exit down; a restart picks another server
+    devices: ["/dev/net/tun:/dev/net/tun"]
+    env_file: nord.env
+    environment:
+      VPN_SERVICE_PROVIDER: nordvpn
+      VPN_TYPE: openvpn
+      SERVER_COUNTRIES: United Kingdom
+      HTTPPROXY: "on"
+      HTTPPROXY_LISTENING_ADDRESS: ":8888"
+      FIREWALL_INPUT_PORTS: "8888"
+    mem_limit: 192m
+    networks: [arr_stack_default]
+  gluetun-us:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun-us
+    restart: unless-stopped
+    cap_add: [NET_ADMIN]
+    labels:
+      deunhealth.restart.on.unhealthy: "true"   # a server that rejects the login keeps the exit down; a restart picks another server
+    devices: ["/dev/net/tun:/dev/net/tun"]
+    env_file: nord.env
+    environment:
+      VPN_SERVICE_PROVIDER: nordvpn
+      VPN_TYPE: openvpn
+      SERVER_COUNTRIES: United States
+      HTTPPROXY: "on"
+      HTTPPROXY_LISTENING_ADDRESS: ":8888"
+      FIREWALL_INPUT_PORTS: "8888"
+    mem_limit: 192m
+    networks: [arr_stack_default]
+networks:
+  arr_stack_default:
+    external: true
