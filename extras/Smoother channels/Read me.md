@@ -14,6 +14,10 @@ How to use it:
 
 If your computer has an Intel graphics chip, it is used, so the processor stays calm. Otherwise the processor does the work.
 
+## Fixing a channel that has no sound
+
+YouTube keeps the sound and the picture of a live channel apart. Jellyfin then plays the picture with no sound. The same file joins them into one stream without changing the quality, only while someone is watching. The setup turns this on for every YouTube channel by itself. Set remuxYoutube to false in the Live TV choices to turn it off.
+
 ## Keeping the server calm
 
 The file jf_reaper.py stops things that were left running by mistake, like a channel check that never finished or a live channel nobody is watching. Run it every 2 minutes. It also restarts a NordVPN connection that gets stuck.

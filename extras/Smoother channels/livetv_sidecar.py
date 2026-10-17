@@ -22,6 +22,13 @@ def items():
         return {}
 
 
+def modes():
+    try:
+        return {i["slug"]: i.get("mode", "encode") for i in json.load(open(STATE))}
+    except (OSError, ValueError):
+        return {}
+
+
 def pid_of(slug):
     out = subprocess.run(["pgrep", "-f", f"[r]elay/{slug}/s%d"], capture_output=True, text=True).stdout.split()
     return out[0] if out else ""
@@ -38,12 +45,20 @@ def stop(slug):
     subprocess.run(["docker", "exec", "jellyfin", "pkill", "-f", f"[r]elay/{slug}/s%d"], capture_output=True, timeout=60)
 
 
-def start(slug, src):
+def start(slug, src, mode="encode"):
     d, pl = f"/config/livetv/relay/{slug}", f"/config/livetv/relay/{slug}/index.m3u8"
     gpu = os.path.exists("/dev/dri/renderD128")      # Intel QSV: far less CPU than a software encode
     enc = "-init_hw_device vaapi=va:/dev/dri/renderD128 -init_hw_device qsv=hw@va -filter_hw_device hw " if gpu else ""
     vid = ("-vf hwupload=extra_hw_frames=32,vpp_qsv=deinterlace=2:format=nv12 -c:v h264_qsv -preset veryfast -b:v 2500k -maxrate 3500k " if gpu
            else "-vf yadif=0:-1:0 -c:v libx264 -preset veryfast -crf 23 -maxrate 3500k -bufsize 7000k -sc_threshold 0 -pix_fmt yuv420p -profile:v main -level 4.0 ")
+    if mode == "copy":      # no re-encoding: only join the separate audio track to the picture
+        cmd = (f"mkdir -p {d} && rm -f {d}/*.ts {d}/*.m3u8; exec nice -n 10 /usr/lib/jellyfin-ffmpeg/ffmpeg -nostdin -loglevel warning "
+               f"-user_agent {shlex.quote(UA)} -rw_timeout 15000000 -fflags +genpts+discardcorrupt -i {shlex.quote(src)} "
+               f"-map 0:v:0 -map 0:a:0? -c copy -f hls -hls_time 3 -hls_list_size 8 -hls_flags delete_segments+independent_segments "
+               f"-hls_segment_filename {d}/s%d.ts {pl}")
+        subprocess.run(["docker", "exec", "-d", "jellyfin", "sh", "-c", f"{cmd} > {d}.log 2>&1"], timeout=60)
+        print(time.strftime("%F %T"), "started joiner for", slug, flush=True)
+        return
     cmd = (f"mkdir -p {d} && rm -f {d}/*.ts {d}/*.m3u8; exec nice -n 10 /usr/lib/jellyfin-ffmpeg/ffmpeg -nostdin -loglevel warning {enc}"
            f"-user_agent {shlex.quote(UA)} -rw_timeout 15000000 -fflags +genpts+discardcorrupt -i {shlex.quote(src)} "
            f"-map 0:v:0 -map 0:a:0? {vid}-g 100 -keyint_min 100 -c:a aac -b:a 128k -ar 48000 -ac 2 "
@@ -74,7 +89,7 @@ def ensure(slug):
             if pid_of(slug):
                 stop(slug)
                 time.sleep(1)
-            start(slug, src)
+            start(slug, src, modes().get(slug, "encode"))
             last[slug + "#started"] = time.time()
     for _ in range(START_WAIT * 2):
         if segments_ready(slug):
@@ -126,7 +141,7 @@ def reaper():
                         # a source that is off the air makes the encoder die at once: back off so it is not hammered (8 s up to 2 min)
                         short = time.time() - began < wait + 25
                         last[slug + "#wait"] = min(wait * 2, 120) if short else 8
-                        start(slug, src)
+                        start(slug, src, modes().get(slug, "encode"))
                         last[slug + "#started"] = time.time()
             elif running and idle > IDLE:
                 stop(slug)
