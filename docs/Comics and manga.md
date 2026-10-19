@@ -21,7 +21,7 @@ The setup uses a personal copy of Kapowarr, [Hikki-dev/Kapowarr](https://github.
 4. Programs and scripts hidden in a download are blocked.
 5. Older databases start without errors.
 
-Its manga search is switched off by the setup, because Kaizoku does manga.
+The manga code of the original was taken out of this copy, because Kaizoku does manga.
 
 When the install finishes, the setup has already done this inside Kapowarr:
 

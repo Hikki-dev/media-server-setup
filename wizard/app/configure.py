@@ -1556,7 +1556,7 @@ def setup_bazarr(ctx):
 
 
 def setup_kapowarr(ctx):
-    """Kapowarr (Hikki-dev's fork, comics only): login, FlareSolverr, Prowlarr, qBittorrent, the comics root folder and the ComicVine key.
+    """Kapowarr (Hikki-dev's fork, comics only; its manga code was removed): login, FlareSolverr, Prowlarr, qBittorrent, the comics root folder and the ComicVine key.
 
     Its API takes the key as ?api_key=; a fresh install has no password, and POST /auth then hands the key out.
     ComicVine needs a personal free key, so without one the person is told where to paste it.
@@ -1579,7 +1579,7 @@ def setup_kapowarr(ctx):
     q = {"api_key": k}
     put = {"flaresolverr_base_url": ctx.host_url("flaresolverr"),
            "prowlarr_base_url": ctx.host_url("prowlarr"), "prowlarr_api_key": ctx.keys.get("prowlarr", ""),
-           "mangadex_enabled": False, "auth_username": login["username"], "auth_password": login["password"]}
+           "auth_username": login["username"], "auth_password": login["password"]}
     cv = ((cfg.get("comics") or {}).get("comicvine_key") or "").strip()
     if cv:
         put["comicvine_api_key"] = cv
