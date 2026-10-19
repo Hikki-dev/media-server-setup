@@ -1,0 +1,6 @@
+{
+  // Cloudflare: serves the demo website (the folder "site", made by tools/build_demo.py). See docs/Demo website.md
+  "name": "media-server-setup-demo",
+  "compatibility_date": "2026-10-19",
+  "assets": { "directory": "./site" }
+}

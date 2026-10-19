@@ -45,6 +45,10 @@ The small numbers on the arrows are the standard ports of each app. Click the pi
 
 The full story of one request, step by step, is in [How everything fits](docs/How%20everything%20fits.md).
 
+## Try it first
+
+You can click through the whole setup page, and read the guide, in a demo that installs nothing. How to host it for free on Cloudflare is in [Demo website](docs/Demo%20website.md).
+
 ## Before you start
 
 You need three things:

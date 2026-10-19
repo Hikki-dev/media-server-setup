@@ -1,0 +1,218 @@
+{
+ "apps": [],
+ "known": {
+  "sonarr": "Sonarr",
+  "radarr": "Radarr",
+  "prowlarr": "Prowlarr",
+  "qbittorrent": "qBittorrent",
+  "bazarr": "Bazarr",
+  "jellyfin": "Jellyfin",
+  "seerr": "Seerr",
+  "flaresolverr": "FlareSolverr / Byparr"
+ },
+ "needs": {
+  "sonarr": [],
+  "radarr": [],
+  "prowlarr": [],
+  "bazarr": [],
+  "seerr": [],
+  "flaresolverr": [],
+  "qbittorrent": [
+   "user",
+   "password"
+  ],
+  "jellyfin": [
+   "key"
+  ]
+ },
+ "groups": {
+  "sonarr.sizes": {
+   "app": "Sonarr",
+   "title": "How big a TV episode can be"
+  },
+  "sonarr.media": {
+   "app": "Sonarr",
+   "title": "How finished downloads are filed"
+  },
+  "sonarr.downloads": {
+   "app": "Sonarr",
+   "title": "What happens when a download finishes"
+  },
+  "sonarr.delay": {
+   "app": "Sonarr",
+   "title": "Prefer torrents, start right away"
+  },
+  "sonarr.indexer": {
+   "app": "Sonarr",
+   "title": "How often it looks for new episodes"
+  },
+  "sonarr.naming": {
+   "app": "Sonarr",
+   "title": "How episode files and folders are named"
+  },
+  "sonarr.profiles": {
+   "app": "Sonarr",
+   "title": "Quality choices (what Sonarr is allowed to download)"
+  },
+  "sonarr.dropstock": {
+   "app": "Sonarr",
+   "title": "Delete the quality choices Sonarr came with"
+  },
+  "sonarr.roots": {
+   "app": "Sonarr",
+   "title": "Add the TV and anime folders from this setup"
+  },
+  "sonarr.qbit": {
+   "app": "Sonarr",
+   "title": "Remove a torrent after it is filed"
+  },
+  "sonarr.auth": {
+   "app": "Sonarr",
+   "title": "Password for the Sonarr web page"
+  },
+  "radarr.sizes": {
+   "app": "Radarr",
+   "title": "How big a movie can be"
+  },
+  "radarr.media": {
+   "app": "Radarr",
+   "title": "How finished downloads are filed"
+  },
+  "radarr.downloads": {
+   "app": "Radarr",
+   "title": "What happens when a download finishes"
+  },
+  "radarr.delay": {
+   "app": "Radarr",
+   "title": "Prefer torrents, start right away"
+  },
+  "radarr.indexer": {
+   "app": "Radarr",
+   "title": "Release checks, biggest movie, subtitles in the video"
+  },
+  "radarr.naming": {
+   "app": "Radarr",
+   "title": "How movie files and folders are named"
+  },
+  "radarr.profiles": {
+   "app": "Radarr",
+   "title": "Quality choices (what Radarr is allowed to download)"
+  },
+  "radarr.dropstock": {
+   "app": "Radarr",
+   "title": "Delete the quality choices Radarr came with"
+  },
+  "radarr.roots": {
+   "app": "Radarr",
+   "title": "Add the movie folders from this setup"
+  },
+  "radarr.qbit": {
+   "app": "Radarr",
+   "title": "Remove a torrent after it is filed"
+  },
+  "radarr.auth": {
+   "app": "Radarr",
+   "title": "Password for the Radarr web page"
+  },
+  "qbittorrent.prefs": {
+   "app": "qBittorrent",
+   "title": "Uploading, speed limits and safety"
+  },
+  "qbittorrent.categories": {
+   "app": "qBittorrent",
+   "title": "Folders for TV and movies"
+  },
+  "prowlarr.solver": {
+   "app": "Prowlarr",
+   "title": "Helper for protected websites"
+  },
+  "prowlarr.apps": {
+   "app": "Prowlarr",
+   "title": "Share search sites with Sonarr and Radarr"
+  },
+  "prowlarr.indexers": {
+   "app": "Prowlarr",
+   "title": "Search sites to find downloads"
+  },
+  "prowlarr.auth": {
+   "app": "Prowlarr",
+   "title": "Password for the Prowlarr web page"
+  },
+  "jellyfin.libraries": {
+   "app": "Jellyfin",
+   "title": "Add Movies, TV and Anime libraries"
+  },
+  "jellyfin.links": {
+   "app": "Jellyfin",
+   "title": "Update Jellyfin when something is added"
+  },
+  "jellyfin.encoding": {
+   "app": "Jellyfin",
+   "title": "Use the graphics chip for smoother playback"
+  },
+  "jellyfin.tasks": {
+   "app": "Jellyfin",
+   "title": "Switch off slow background jobs"
+  },
+  "jellyfin.network": {
+   "app": "Jellyfin",
+   "title": "Network settings"
+  },
+  "jellyfin.server": {
+   "app": "Jellyfin",
+   "title": "General server settings"
+  },
+  "jellyfin.library": {
+   "app": "Jellyfin",
+   "title": "How libraries are scanned"
+  },
+  "jellyfin.user": {
+   "app": "Jellyfin",
+   "title": "Subtitle and playback habits for your account"
+  },
+  "livetv.setup": {
+   "app": "Jellyfin",
+   "title": "Live TV and sports channels"
+  },
+  "seerr.defaults": {
+   "app": "Seerr",
+   "title": "Connect Seerr to Sonarr and Radarr"
+  },
+  "seerr.routes": {
+   "app": "Seerr",
+   "title": "Send requests to the right quality choice by language"
+  },
+  "seerr.perms": {
+   "app": "Seerr",
+   "title": "What new people may do"
+  },
+  "bazarr.links": {
+   "app": "Bazarr",
+   "title": "Connect Bazarr to your other apps"
+  },
+  "bazarr.paths": {
+   "app": "Bazarr",
+   "title": "Where Bazarr looks for your files"
+  },
+  "bazarr.languages": {
+   "app": "Bazarr",
+   "title": "Subtitle languages"
+  },
+  "bazarr.providers": {
+   "app": "Bazarr",
+   "title": "Where subtitles come from"
+  },
+  "bazarr.tuning": {
+   "app": "Bazarr",
+   "title": "How Bazarr searches for subtitles"
+  },
+  "notify.setup": {
+   "app": "Notifications",
+   "title": "Messages to your phone or chat app"
+  },
+  "other": {
+   "app": "Other",
+   "title": "Other small settings"
+  }
+ }
+}

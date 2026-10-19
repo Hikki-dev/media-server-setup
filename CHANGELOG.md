@@ -1,5 +1,10 @@
 # Changes
 
+## Demo website
+
+1. New demo website: the real setup page and guide with pretend answers, so anyone can click through every screen without installing anything. Built by tools/build_demo.py into the folder site, ready for Cloudflare (wrangler.jsonc). See docs/Demo website.md.
+2. Fixed: the install progress list now uses the same step names as the server, so the bar moves as each app is set up. A step for Kapowarr was added to it.
+
 ## Drives and comics
 
 1. The folder picker now always lists this computer's own (internal) drive first, on Windows, Mac and Linux, so the media can live on it. Before, a Mac with no external drive showed "No drives found". More Linux places are searched too. If the list cannot be read, the picker now says so. A new test, tools/test_drives.py, covers all three systems.
