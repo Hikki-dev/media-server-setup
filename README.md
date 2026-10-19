@@ -31,48 +31,67 @@ Ask once in Seerr, and the rest happens by itself. The small numbers on the arro
 
 ## See it, one step at a time
 
-Every screen explains itself in plain words. These are the main ones. The full walk through is in [docs/Getting started.md](docs/Getting%20started.md).
+Every screen explains itself in plain words. These are the main ones. Click a picture to see it full size. The full walk through is in [docs/Getting started.md](docs/Getting%20started.md).
 
-<table>
-<tr>
-<td width="50%"><img src="docs/images/step-4-storage.png" alt="Storage screen: choose where downloads and each library are kept, and see which folders share a drive"></td>
-<td width="50%"><img src="docs/images/step-4-folder-picker.png" alt="Folder picker: browse your drives and choose a folder"></td>
-</tr>
-<tr>
-<td><b>Where is everything kept.</b> It shows which folders are on the same drive, so finished downloads are linked instantly instead of copied.</td>
-<td><b>Pick folders you already have.</b> Nothing in them is moved, renamed or deleted.</td>
-</tr>
-<tr>
-<td><img src="docs/images/step-5-what-you-watch.png" alt="What do you watch screen with quick choices for languages and kinds of media"></td>
-<td><img src="docs/images/step-6-live-tv.png" alt="Live TV and sports screen with countries, kinds of channel and a search box"></td>
-</tr>
-<tr>
-<td><b>What you watch.</b> One click chooses the quality rules, search sites and subtitle languages.</td>
-<td><b>Live TV and sports.</b> Optional. Free channels with a TV guide, tested every day.</td>
-</tr>
-<tr>
-<td><img src="docs/images/step-7-profiles.png" alt="Profiles screen with quality and size limits for each language"></td>
-<td><img src="docs/images/step-8-downloads.png" alt="Downloads screen with the minimum number of sources and speed limits"></td>
-</tr>
-<tr>
-<td><b>Profiles.</b> Each language gets its own picture quality and size limits.</td>
-<td><b>Downloads.</b> Sensible defaults, and a finished download is removed so nothing keeps uploading.</td>
-</tr>
-<tr>
-<td><img src="docs/images/step-9-file-sharing.png" alt="File sharing card: a login, and a tick box and read only option for each folder and drive"></td>
-<td><img src="docs/images/step-9-private-https.png" alt="Private HTTPS addresses card explaining how every app gets a safe address with Tailscale"></td>
-</tr>
-<tr>
-<td><b>File sharing.</b> Optional. Show your media and drives on your network, with one login.</td>
-<td><b>Private HTTPS addresses.</b> Optional. Safe addresses for every app, with Tailscale.</td>
-</tr>
-<tr>
-<td colspan="2"><img src="docs/images/step-10-review.png" alt="Review screen listing everything that is about to be set up"></td>
-</tr>
-<tr>
-<td colspan="2"><b>Review.</b> One last look at everything before anything is installed.</td>
-</tr>
-</table>
+### Where is everything kept
+
+<a href="docs/images/step-4-storage.png"><img src="docs/images/step-4-storage.png" alt="Storage screen: choose where downloads and each library are kept, and see which folders share a drive" width="100%"></a>
+
+It shows which folders are on the same drive, so finished downloads are linked instantly instead of copied.
+
+### Pick folders you already have
+
+<a href="docs/images/step-4-folder-picker.png"><img src="docs/images/step-4-folder-picker.png" alt="Folder picker: browse your drives and choose a folder" width="100%"></a>
+
+Browse your drives and choose a folder. Nothing inside it is moved, renamed or deleted.
+
+### What you watch
+
+<a href="docs/images/step-5-what-you-watch.png"><img src="docs/images/step-5-what-you-watch.png" alt="What do you watch screen with quick choices for languages and kinds of media" width="100%"></a>
+
+One click chooses the quality rules, the search sites and the subtitle languages.
+
+### Live TV and sports
+
+<a href="docs/images/step-6-live-tv.png"><img src="docs/images/step-6-live-tv.png" alt="Live TV and sports screen with countries, kinds of channel and a search box" width="100%"></a>
+
+Optional. Free channels with a TV guide, tested every day.
+
+### Profiles
+
+<a href="docs/images/step-7-profiles.png"><img src="docs/images/step-7-profiles.png" alt="Profiles screen with quality and size limits for each language" width="100%"></a>
+
+Each language gets its own picture quality and size limits.
+
+### Downloads
+
+<a href="docs/images/step-8-downloads.png"><img src="docs/images/step-8-downloads.png" alt="Downloads screen with the minimum number of sources and speed limits" width="100%"></a>
+
+Sensible defaults. A finished download is removed, so nothing keeps uploading.
+
+### Apps and accounts
+
+<a href="docs/images/step-9-apps.png"><img src="docs/images/step-9-apps.png" alt="Apps and accounts screen with a tile for every app" width="100%"></a>
+
+Choose what else to install, and the main login.
+
+### File sharing
+
+<a href="docs/images/step-9-file-sharing.png"><img src="docs/images/step-9-file-sharing.png" alt="File sharing card: a login, and a tick box and read only option for each folder and drive" width="100%"></a>
+
+Optional. Shows your media and drives on your network, with one login.
+
+### Private HTTPS addresses
+
+<a href="docs/images/step-9-private-https.png"><img src="docs/images/step-9-private-https.png" alt="Private HTTPS addresses card explaining how every app gets a safe address with Tailscale" width="100%"></a>
+
+Optional. Safe addresses for every app, with Tailscale.
+
+### Review
+
+<a href="docs/images/step-10-review.png"><img src="docs/images/step-10-review.png" alt="Review screen listing everything that is about to be set up" width="100%"></a>
+
+One last look at everything before anything is installed.
 
 ## Before you start
 
@@ -105,13 +124,13 @@ Before anything is touched, the What changes page lists every setting the setup 
 
 The setup page and the guide start in a soft light theme that is easy on the eyes. A button at the bottom of the left side switches to dark mode, and the choice is remembered.
 
-<table>
-<tr>
-<td width="50%"><img src="docs/images/step-1-welcome.png" alt="The welcome screen in light mode"></td>
-<td width="50%"><img src="docs/images/dark-mode-apps.png" alt="The apps screen in dark mode"></td>
-</tr>
-<tr><td><b>Light mode</b>, the default.</td><td><b>Dark mode</b>, one button away.</td></tr>
-</table>
+<a href="docs/images/step-1-welcome.png"><img src="docs/images/step-1-welcome.png" alt="The welcome screen in light mode, the default" width="100%"></a>
+
+Light mode, the default.
+
+<a href="docs/images/dark-mode-apps.png"><img src="docs/images/dark-mode-apps.png" alt="The apps screen in dark mode" width="100%"></a>
+
+Dark mode, one button away.
 
 ## A guide with pictures
 
