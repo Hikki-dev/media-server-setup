@@ -229,3 +229,9 @@ a.link small{color:var(--faint)}
 :root:not([data-theme="dark"]) input[type=range]::-moz-range-track{height:6px;border-radius:9px;background:var(--line2)}
 :root:not([data-theme="dark"]) input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-7px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);box-shadow:0 1px 3px rgba(60,50,30,.35)}
 :root:not([data-theme="dark"]) input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);box-shadow:0 1px 3px rgba(60,50,30,.35)}
+
+/* flags in the country chips: their own small box, with room before the name */
+.chip .flag{display:inline-block;min-width:22px;text-align:center;font-size:16px;line-height:1;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+
+/* cards inside a card (the Live TV choices) get a little room between them */
+.card .card{margin-top:14px}

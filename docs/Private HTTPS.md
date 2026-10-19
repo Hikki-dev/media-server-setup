@@ -35,7 +35,11 @@ python3 wizard/app/tailscale_https.py --apply         creates the missing addres
 python3 wizard/app/tailscale_https.py --apply --homepage /path/to/services.yaml
 ```
 
-It looks at every container that shows a web page on a port of the server, checks that the port really answers as a web page, and gives it an address. Things that are not web pages, such as file sharing and databases, are never touched. The browser helper (FlareSolverr) is left out on purpose, because anyone who can reach it can misuse it.
+It looks at every container that shows a web page on a port of the server. It checks that the port really answers as a web page, and then gives it an address.
+
+Things that are not web pages, such as file sharing and databases, are never touched.
+
+The browser helper (FlareSolverr) is left out on purpose, because anyone who can reach it can misuse it.
 
 Useful options:
 
@@ -70,7 +74,11 @@ The tool only adds addresses. It never resets the ones you have, so you can run 
 */10 * * * * python3 /path/to/tailscale_https.py --apply --homepage /path/to/services.yaml
 ```
 
-It also remembers every address in a small file, so if Tailscale is ever reset, running the tool puts them all back exactly as they were. Do not run `tailscale serve reset` yourself. In a real test it took every address away for a minute, and it also removed the folder share of an update feed. It also removes entries that only you know about, such as a folder shared under a path, and those cannot be rebuilt automatically.
+It also remembers every address in a small file. If Tailscale is ever reset, running the tool puts them all back exactly as they were.
+
+Do not run `tailscale serve reset` yourself. In a real test it took every address away for a minute.
+
+It also removes entries that only you know about, such as a folder shared under a path, and those cannot be rebuilt automatically.
 
 ## Letting friends in
 

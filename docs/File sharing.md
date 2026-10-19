@@ -19,7 +19,13 @@ The script is used like this:
 sudo bash "extras/File sharing/Share folders on this computer.sh" /mnt/Media /mnt/Backup
 ```
 
-Each folder you list becomes one share, named after the folder. Add the word `--read-only` before the folders to stop anyone changing them. Run it again with a new list at any time. It only replaces the part it wrote, and it saves a copy of your old settings first. If you already share things yourself, your own settings are kept and only the new shares are added.
+Each folder you list becomes one share, named after the folder.
+
+Add the word `--read-only` before the folders to stop anyone changing them.
+
+You can run it again with a new list at any time. It only replaces the part it wrote, and it saves a copy of your old settings first.
+
+If you already share things yourself, your own settings are kept and only the new shares are added.
 
 ## Set up your drives properly
 
@@ -143,7 +149,11 @@ You do not need to do anything, this is only so you know.
 
 ### It works with Tailscale but not at home
 
-This was found while building this feature. A Mac could open the share through Tailscale, but at home the connection was cut a few thousandths of a second after it began, while websites on the same computer loaded fine. Recording the traffic showed a reset packet that arrived with a different travel count than the Mac's own packets, so it was sent by a device in between, not by the Mac or the server.
+This was found while building this feature.
+
+A Mac could open the share through Tailscale. At home, the connection was cut a few thousandths of a second after it began, while websites on the same computer loaded fine.
+
+Recording the traffic showed a reset packet that arrived with a different travel count than the Mac's own packets. So it was sent by a device in between, not by the Mac or the server.
 
 Likely causes are a router or access point with intrusion protection, a security filter for older file sharing, or a mesh Wi-Fi setting. Things to try:
 

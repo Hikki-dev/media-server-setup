@@ -28,7 +28,11 @@ Files on the same drive as your downloads are linked, so they use no extra space
 
 ## Downloads
 
-qBittorrent is set so nothing keeps uploading after a download. Finished downloads are removed once the file is in your library. It also finds extra sources so rare titles download faster, and it blocks program files (like .exe) so nothing harmful can come in. Downloads at the same time, speed limits and the login are chosen in the Downloads step.
+qBittorrent is set so nothing keeps uploading after a download. Finished downloads are removed once the file is in your library.
+
+It also finds extra sources so rare titles download faster, and it blocks program files (like .exe) so nothing harmful can come in.
+
+How many downloads run at the same time, the speed limits and the login are chosen in the Downloads step.
 
 ## Quality choices
 
@@ -42,7 +46,11 @@ Quality rules come from a well known community guide, so poor quality and fake r
 
 ## Subtitles
 
-Bazarr is linked to Sonarr, Radarr and Jellyfin. English is always wanted and it keeps searching until it finds one. You can add more languages. It uses free subtitle websites that need no account. Adding free accounts on OpenSubtitles, SubDL or SubSource gives better results. For anime you can also add your own free AniDB client to improve matching. Everything works without it.
+Bazarr is linked to Sonarr, Radarr and Jellyfin. English is always wanted, and it keeps searching until it finds one. You can add more languages.
+
+It uses free subtitle websites that need no account. Adding free accounts on OpenSubtitles, SubDL or SubSource gives better results.
+
+For anime you can also add your own free AniDB client to improve matching. Everything works without it.
 
 ## Jellyfin for every device
 
@@ -58,7 +66,11 @@ After your libraries are made, Jellyfin is tuned so almost any TV, phone, comput
 
 This step is optional. It adds a Live TV section to Jellyfin.
 
-Channels come from free public lists. You choose countries, kinds of channel and languages. You can add free sports channels from anywhere, and live channels on YouTube. For Sri Lanka these are Ada Derana News, TV Derana, News 1st (Sinhala and English), News 1st Tamil, Sirasa, TV1, ITN and Swarnavahini. They only play while they are live, and the TV guide shows the usual news times.
+Channels come from free public lists. You choose countries, kinds of channel and languages. You can add free sports channels from anywhere, and live channels on YouTube.
+
+For Sri Lanka these are Ada Derana News, TV Derana, News 1st (Sinhala and English), News 1st Tamil, Sirasa, TV1, ITN and Swarnavahini.
+
+They only play while they are live, and the TV guide shows the usual news times.
 
 Every channel is tested and broken ones are left out. The list is checked again every day. Channels you pick as local come first and are saved as favourites for everyone.
 

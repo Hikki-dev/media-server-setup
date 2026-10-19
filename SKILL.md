@@ -42,15 +42,33 @@ A page in the browser (run inside Docker) installs the whole server and links ev
 
 ## File sharing (optional)
 
-Offer it on Linux when the person wants to open their media or drives from other computers or phones. In the wizard it is the File sharing tile on the Apps and accounts step. It needs port 445 free on the computer. If the computer already runs Samba, use extras/File sharing/Share folders on this computer.sh instead, which adds to it safely. Never suggest opening port 445 on the router. For use away from home, follow docs/File sharing.md and use Tailscale. If a Mac can connect over Tailscale but not at home, read the last section of that guide before changing anything.
+Offer it on Linux when the person wants to open their media or drives from other computers or phones.
+
+In the wizard it is the File sharing tile on the Apps and accounts step. It needs port 445 free on the computer.
+
+If the computer already runs Samba, use `extras/File sharing/Share folders on this computer.sh` instead. It adds to the existing settings safely.
+
+Never suggest opening port 445 on the router. For use away from home, follow docs/File sharing.md and use Tailscale.
+
+If a Mac can connect over Tailscale but not at home, read the last problem section of that guide before changing anything.
 
 ## Private HTTPS addresses (optional)
 
-Offer it on Linux when Tailscale is installed. It is the Private HTTPS addresses tile on the Apps and accounts step, and tools/start.sh passes Tailscale in when it finds it. The person must press Enable HTTPS once in the Tailscale admin page under DNS. The tool in wizard/app/tailscale_https.py also works alone. It only adds addresses. Never run tailscale serve reset, because that removes entries by hand that cannot be rebuilt. See docs/Private HTTPS.md.
+Offer it on Linux when Tailscale is installed. It is the Private HTTPS addresses tile on the Apps and accounts step, and `tools/start.sh` passes Tailscale in when it finds it.
+
+The person must press Enable HTTPS once in the Tailscale admin page, under DNS.
+
+The tool in `wizard/app/tailscale_https.py` also works alone. It only adds addresses.
+
+Never run `tailscale serve reset`. It removes entries made by hand that cannot be rebuilt. See docs/Private HTTPS.md.
 
 ## Portainer
 
-If the person uses Portainer, read docs/Portainer.md before changing a stack. Updating a stack removes and recreates every container in it. After any update run docker ps -a and start anything left in Created. A loose container with the same name as a stack service is the usual reason an update fails.
+If the person uses Portainer, read docs/Portainer.md before changing a stack.
+
+Updating a stack removes and recreates every container in it. After any update run `docker ps -a` and start anything left in Created.
+
+A loose container with the same name as a stack service is the usual reason an update fails.
 
 ## Apps the person already has
 

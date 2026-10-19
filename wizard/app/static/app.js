@@ -195,6 +195,7 @@ const ntSummary = c => c.notify && c.notify.provider ? NT[c.notify.provider].lab
 
 /* ------------------------------------------------------------ live tv and sports */
 const LT_DEFAULT = () => ({ enabled: false, countries: [], categories: [], extraCategories: ["sports"], languages: [], youtube: [], local: [], fullGuide: false, english: false, custom: { m3u: "", xmltv: "" }, checkStreams: true });
+const flagOf = c => (c && c.flag ? `<span class="flag" aria-hidden="true">${c.flag}</span>` : "");      // the flag is its own item, so the chip spacing applies to it
 async function ltCatalog() { return S.ltcat || (S.ltcat = await api("/api/livetv/catalog")); }
 function ltEditor(box, sel, onChange = () => {}) {
   const st = S.ltui || (S.ltui = { q: "", region: "", pre: "" });
@@ -210,12 +211,12 @@ function ltEditor(box, sel, onChange = () => {}) {
     box.innerHTML = `<div class="setting" style="padding-top:0"><div><div class="t">Add live TV and sports to Jellyfin</div><div class="d">Free channels show up under Live TV in Jellyfin, with a TV guide when one is available.</div></div>${sw(sel.enabled, "lt-on", "Live TV")}</div>
     ${sel.enabled ? `
     <div class="card" style="margin-top:14px"><div class="card-h"><h3>Which countries do you want channels from?</h3><span class="sub">${sel.countries.length} selected</span></div>
-      <div class="chips">${sel.countries.map(k => `<span class="chip on" data-rm="${k}" tabindex="0"><span class="dot"></span>${(byCode[k] || {}).flag || ""} ${esc((byCode[k] || {}).name || k)} &times;</span>`).join("") || '<span class="hint" style="margin:0">Nothing picked yet. Search for a country or choose a region.</span>'}</div>
+      <div class="chips">${sel.countries.map(k => `<span class="chip on" data-rm="${k}" tabindex="0"><span class="dot"></span>${flagOf(byCode[k])}${esc((byCode[k] || {}).name || k)} &times;</span>`).join("") || '<span class="hint" style="margin:0">Nothing picked yet. Search for a country or choose a region.</span>'}</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px"><input class="input" id="lt-q" style="flex:1 1 220px;width:auto" placeholder="Search countries" value="${esc(st.q)}" aria-label="Search countries"><select class="input" id="lt-region" style="flex:1 1 200px;width:auto;max-width:100%" aria-label="Region"><option value="">Every region</option>${cat.regions.map(r => `<option value="${r.code}" ${st.region === r.code ? "selected" : ""}>${esc(r.name)}</option>`).join("")}</select></div>
-      <div class="chips" style="margin-top:12px">${shown.map(c => `<span class="chip" data-add="${c.code}" tabindex="0">${c.flag} ${esc(c.name)}</span>`).join("")}${region && pool.length ? `<span class="chip" data-all="1" tabindex="0">Add all ${pool.length} in ${esc(region.name)}</span>` : ""}</div>
+      <div class="chips" style="margin-top:12px">${shown.map(c => `<span class="chip" data-add="${c.code}" tabindex="0">${flagOf(c)}${esc(c.name)}</span>`).join("")}${region && pool.length ? `<span class="chip" data-all="1" tabindex="0">Add all ${pool.length} in ${esc(region.name)}</span>` : ""}</div>
       <p class="hint">The channels come from free public lists. Only pick countries you really watch. A whole region means thousands of channels.</p></div>
     ${sel.countries.length > 1 ? `<div class="card"><div class="card-h"><h3>Local channels first</h3><span class="sub">${(sel.local || []).length ? "on" : "off"}</span></div>
-      <div class="chips">${sel.countries.map(k => `<span class="chip ${(sel.local || []).includes(k) ? "on" : ""}" data-loc="${k}" tabindex="0">${(sel.local || []).includes(k) ? '<span class="dot"></span>' : ""}${(byCode[k] || {}).flag || ""} ${esc((byCode[k] || {}).name || k)}</span>`).join("")}</div>
+      <div class="chips">${sel.countries.map(k => `<span class="chip ${(sel.local || []).includes(k) ? "on" : ""}" data-loc="${k}" tabindex="0">${(sel.local || []).includes(k) ? '<span class="dot"></span>' : ""}${flagOf(byCode[k])}${esc((byCode[k] || {}).name || k)}</span>`).join("")}</div>
       <p class="hint">If you picked several countries, tick your own here. Its channels come first, are saved as favourites for everyone, and show on the Jellyfin home page. Press Apply again after adding new users.</p></div>` : ""}
     <div class="card"><div class="card-h"><h3>What kind of channels?</h3><span class="sub">${sel.categories.length ? sel.categories.length + " chosen" : "all kinds"}</span></div>
       <div class="chips">${chips(cat.categories, x => sel.categories.includes(x.id), "data-cat", x => esc(x.name))}</div>

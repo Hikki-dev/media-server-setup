@@ -43,7 +43,11 @@ Rules we keep: a connection that already exists is left alone, folders from the 
 
 ## Live TV
 
-livetv.py builds the list from free public lists and tests every channel. The result is a channel list file and TV guide files that Jellyfin reads. bridge.py runs every day to update them. Some channels need help. The tools in extras handle two cases: a channel whose picture is broken, and a YouTube channel whose sound is kept apart from its picture.
+livetv.py builds the list from free public lists and tests every channel. The result is a channel list file and TV guide files that Jellyfin reads.
+
+bridge.py runs every day to update them.
+
+Some channels need help. The tools in the extras folder handle two cases: a channel whose picture is broken, and a YouTube channel whose sound is kept apart from its picture.
 
 ## Adding a new group of settings
 
