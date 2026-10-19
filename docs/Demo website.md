@@ -7,6 +7,8 @@ The website has two parts, both plain static files hosted for free on Cloudflare
 
 Nothing in the demo installs or saves anything. A bar at the top says so, and links to this project on GitHub.
 
+The live site is at https://media-server-setup.makkoacknowledgesstress.workers.dev.
+
 ## What you can do in the demo
 
 1. Go through every setup screen, including the folder picker with pretend drives.
