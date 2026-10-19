@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="520" viewBox="0 0 1500 520" font-family="Arial, Helvetica, sans-serif" role="img" aria-labelledby="t d"><title id="t">The daily channel update</title><desc id="d">Every night the setup collects channel lists, checks each stream, tries blocked channels through the VPN, matches TV guides and writes two files that Jellyfin reads.</desc><defs><marker id="a64748b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#64748b"/></marker><style>.t{font-size:21px;font-weight:700;fill:#0f172a;text-anchor:middle}.s{font-size:15.5px;fill:#475569;text-anchor:middle}.l{font-size:16px;font-weight:700;fill:#334155;text-anchor:middle}.h{font-size:32px;font-weight:700;fill:#0f172a;text-anchor:middle}.n{font-size:19px;font-weight:700;fill:#fff;text-anchor:middle}</style></defs><rect width="1500" height="520" fill="#f8fafc"/><text x="750" y="46" class="h">The daily channel update</text>
+<rect x="30" y="185" width="200" height="130" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<text x="130" y="246" class="t">Collect</text>
+<text x="130" y="272" class="s">free channel lists</text>
+<circle cx="30" cy="185" r="17" fill="#e4682a"/><text x="30" y="191" class="n">1</text>
+<line x1="232" y1="250" x2="278" y2="250" stroke="#64748b" stroke-width="2.6" marker-end="url(#a64748b)"/>
+<rect x="280" y="185" width="200" height="130" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<text x="380" y="246" class="t">Check</text>
+<text x="380" y="272" class="s">does each stream play</text>
+<circle cx="280" cy="185" r="17" fill="#e4682a"/><text x="280" y="191" class="n">2</text>
+<line x1="482" y1="250" x2="528" y2="250" stroke="#64748b" stroke-width="2.6" marker-end="url(#a64748b)"/>
+<rect x="530" y="185" width="200" height="130" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<text x="630" y="246" class="t">Try the VPN</text>
+<text x="630" y="272" class="s">for blocked ones</text>
+<circle cx="530" cy="185" r="17" fill="#e4682a"/><text x="530" y="191" class="n">3</text>
+<line x1="732" y1="250" x2="778" y2="250" stroke="#64748b" stroke-width="2.6" marker-end="url(#a64748b)"/>
+<rect x="780" y="185" width="200" height="130" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<text x="880" y="246" class="t">Match guides</text>
+<text x="880" y="272" class="s">what is on now</text>
+<circle cx="780" cy="185" r="17" fill="#e4682a"/><text x="780" y="191" class="n">4</text>
+<line x1="982" y1="250" x2="1028" y2="250" stroke="#64748b" stroke-width="2.6" marker-end="url(#a64748b)"/>
+<rect x="1030" y="185" width="200" height="130" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<text x="1130" y="246" class="t">Write files</text>
+<text x="1130" y="272" class="s">channels and guide</text>
+<circle cx="1030" cy="185" r="17" fill="#e4682a"/><text x="1030" y="191" class="n">5</text>
+<line x1="1232" y1="250" x2="1278" y2="250" stroke="#64748b" stroke-width="2.6" marker-end="url(#a64748b)"/>
+<rect x="1280" y="185" width="200" height="130" rx="16" fill="#eef6ff" stroke="#7cb7f2" stroke-width="2"/>
+<text x="1380" y="246" class="t">Jellyfin</text>
+<text x="1380" y="272" class="s">refreshes itself</text>
+<circle cx="1280" cy="185" r="17" fill="#e4682a"/><text x="1280" y="191" class="n">6</text>
+<text x="750" y="380" class="s">Runs at night so it never slows down your evening. It runs gently, so playback is not affected.</text>
+<text x="750" y="410" class="s">Guides come from free public sources. Channels with no public guide simply show no programme list.</text>
+<text x="750" y="490" class="s">Logos belong to their projects.</text>
+</svg>

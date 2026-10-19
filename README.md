@@ -100,7 +100,7 @@ Each choice sets the quality rules, the search websites and the subtitle languag
 
 This step is optional. Pick the countries and kinds of channel you want.
 
-The setup builds a channel list with a TV guide and tests it every day. Read more in [Live TV and VPN](docs/Live%20TV%20and%20VPN.md).
+The setup builds a channel list with a TV guide and tests it every day. Read more in [How Live TV works](docs/How%20Live%20TV%20works.md) and [Live TV and VPN](docs/Live%20TV%20and%20VPN.md).
 
 ### Profiles
 
@@ -162,7 +162,15 @@ You choose the countries, the kinds of channel and the languages. It can also ad
 
 NordVPN can be added, so channels that only work in some countries are tried through the UK and the US. Paid sports are not on free lists, so they are not included.
 
-Read more: [Live TV and VPN](docs/Live%20TV%20and%20VPN.md).
+The list is rebuilt every night, so broken channels disappear and new ones appear by themselves.
+
+<a href="docs/images/livetv-daily.svg"><img src="docs/images/livetv-daily.svg" alt="The daily channel update in six steps" width="100%"></a>
+
+Blocked channels reach Jellyfin through the VPN. Everything else plays directly.
+
+<a href="docs/images/livetv-routing.svg"><img src="docs/images/livetv-routing.svg" alt="How a channel reaches Jellyfin, directly, through the UK or US VPN, or from YouTube" width="100%"></a>
+
+Read more: [How Live TV works](docs/How%20Live%20TV%20works.md) and [Live TV and VPN](docs/Live%20TV%20and%20VPN.md).
 
 ### File sharing
 

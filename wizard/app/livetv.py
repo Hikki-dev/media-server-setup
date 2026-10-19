@@ -421,6 +421,28 @@ def _guide_channels(xml):
     return {m.group(1): re.findall(r"<display-name[^>]*>([^<]*)<", m.group(2)) for m in re.finditer(r'<channel id="([^"]*)">(.*?)</channel>', xml, re.S)}
 
 
+LOOSE_ALIAS = {"willow": "willowcricket"}      # channel name in the list -> how the guide spells it
+
+
+def _loose(s):
+    """A forgiving spelling for matching: ignores (Pacific), East/West, HD/SD and 'Television' vs 'TV'."""
+    s = re.sub(r"\([^)]*\)|\[[^\]]*\]", " ", s.lower())
+    s = re.sub(r"\b(east|west|pacific)\b", " ", s).replace("television", "tv")
+    s = _norm(s)
+    s = re.sub(r"(hd|sd)$", "", s)
+    return re.sub(r"(entertainmenttv|musictv)$", "", s)
+
+
+def _loose_pick(entry, gids, counts):
+    """From guide channels that spell the same way, take the one with programmes and the right time zone (West only for West)."""
+    west = "west" in (entry["id"] or "").lower() or "pacific" in entry["name"].lower()
+    live = [g for g in gids if counts.get(g, 0) > 0]
+    side = [g for g in live if bool(re.search(r"pacific|west", g, re.I)) == west]
+    if re.search(r"@[KW][A-Z0-9]{2,6}$", entry["id"] or ""):
+        return None         # a local station (like KCCI): the national network guide would be wrong for it
+    return max(side, key=lambda g: counts.get(g, 0)) if len({_loose(g) for g in side}) == 1 and side else None
+
+
 def _gnorm(gid):
     return _norm(re.sub(r"\.[a-z]{2}\d?$", "", gid.split("@")[0]))
 
@@ -459,10 +481,12 @@ def _match_guides(uniq, cat, errors):
                 continue
             chans = _guide_channels(xml)
             idmap = {_gnorm(g): g for g in chans}
-            namemap = {}
+            namemap, looser = {}, collections.defaultdict(set)
             for g, names in chans.items():
+                looser[_loose(re.sub(r"\.[a-z]{2}\d?$", "", g))].add(g)
                 for n in names:
                     namemap.setdefault(_norm(n), g)
+                    looser[_loose(n)].add(g)
             counts = collections.Counter(re.findall(r'<programme [^>]*channel="([^"]+)"', xml))
             alias = lambda k: k.replace("sportsten", "ten")     # noqa: E731 - Sony Sports Ten N is the rebranded Sony Ten N
             want = {}
@@ -476,6 +500,10 @@ def _match_guides(uniq, cat, errors):
                 # and leave the channel for the next guide file when this one has none
                 cands = {idmap.get(k) or namemap.get(k) for k in keys} - {None}
                 best = max(cands, key=lambda g: counts.get(g, 0), default=None)
+                if not (best and counts.get(best, 0) > 0):      # not spelled the same: try the forgiving spelling
+                    lk = _loose(re.sub(r"\.[a-z]{2}$", "", e["id"].split("@")[0]).replace("_", " "))
+                    lk = LOOSE_ALIAS.get(lk, lk)
+                    best = _loose_pick(e, looser.get(lk) or looser.get(LOOSE_ALIAS.get(_loose(e["name"]), _loose(e["name"]))) or [], counts)
                 if best and counts.get(best, 0) > 0:
                     e["_g"] = (fn, best)
                     want.setdefault(best, []).append(e)
