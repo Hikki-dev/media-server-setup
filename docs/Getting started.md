@@ -30,35 +30,47 @@ The setup checks Docker, your system, the network ports it needs, and whether yo
 
 ![Computer check](images/step-2-computer-check.png)
 
-If a port is busy, the setup picks a free one for you. If you already run some of the apps, the next step lets you keep them, see [What it sets up](What%20it%20sets%20up.md).
+If you already run some of the apps, an extra step called Your apps appears after this one, and every number after it goes up by one. If a port is busy, the setup picks a free one for you. If you already run some of the apps, the next step lets you keep them, see [What it sets up](What%20it%20sets%20up.md).
 
-## Step 4: Where is everything kept?
+## Step 3: Where is everything kept?
 
 Choose one folder for downloads and a folder for each kind of media. You can use one drive or many. Folders you already have are used as they are, and nothing is moved, renamed or deleted.
 
 ![Storage](images/step-4-storage.png)
 
+Press **Browse** to pick a folder you already have. You can make a new folder there too.
+
+![Folder picker](images/step-4-folder-picker.png)
+
 The panel on the right shows how a finished download reaches your library. **Same drive as downloads** means it is linked, which is instant and uses no extra space. **Different drive** means it is copied across and the download is removed.
 
 Not sure how to prepare a drive? See the drive section in [File sharing](File%20sharing.md).
 
-## Step 5: What do you watch?
+## Step 4: What do you watch?
 
 Press a quick choice, or tick things yourself. Each choice changes the quality rules, the search sites and the subtitle languages.
 
 ![What do you watch](images/step-5-what-you-watch.png)
 
-## Steps 6 and 7: Live TV and profiles
+## Step 5: Live TV and sports
 
-Live TV and sports is optional, see [Live TV and VPN](Live%20TV%20and%20VPN.md). Profiles let you choose different quality for different people or kinds of media.
+Optional. Pick the countries and kinds of channel you want, and the setup builds a channel list with a TV guide, tests every channel, and removes broken ones every day. See [Live TV and VPN](Live%20TV%20and%20VPN.md).
 
-## Step 8: How should downloads work?
+![Live TV and sports](images/step-6-live-tv.png)
+
+## Step 6: Profiles
+
+Profiles let you choose different picture quality and size limits for different languages or kinds of media.
+
+![Profiles](images/step-7-profiles.png)
+
+## Step 7: How should downloads work?
 
 The defaults suit most people. The setup always removes a download once it is in your library, so nothing keeps uploading.
 
 ![Downloads](images/step-8-downloads.png)
 
-## Step 9: Apps and accounts
+## Step 8: Apps and accounts
 
 Choose what else to install. The first four are on by default. The other tiles are optional.
 
@@ -81,7 +93,7 @@ The setup page and the guide start in a soft light theme that is easy on the eye
 
 ![Dark mode](images/dark-mode-apps.png)
 
-## Step 10: Review and install
+## Step 9: Review and install
 
 ![Review](images/step-10-review.png)
 

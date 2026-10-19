@@ -2,22 +2,77 @@
 
 One page in your browser that installs a complete home media server and connects every part of it.
 
+<p align="center"><img src="docs/images/step-9-apps.png" alt="The Apps and accounts screen of the setup page, with a tile for every app" width="100%"></p>
+
 You answer a few simple questions. The setup does the rest: it installs the apps, links them together, and tries a real search to prove it works before it says it is done.
 
 ## What you get
 
-| App | What it does for you |
-|---|---|
-| Jellyfin | Where you watch your movies, shows, anime and live TV |
-| Seerr | A page where family and friends ask for something to watch |
-| Sonarr | Finds and downloads TV shows and anime |
-| Radarr | Finds and downloads movies |
-| Prowlarr | Keeps the list of websites that Sonarr and Radarr search |
-| qBittorrent | Does the downloading, and stops uploading when it is done |
-| Bazarr | Finds subtitles, English first |
-| Homepage | One page with a button for every app |
+<table>
+<tr><td width="64"><img src="docs/images/icons/jellyfin.png" alt="Jellyfin logo" width="48"></td><td width="150"><b>Jellyfin</b></td><td>Where you watch your movies, shows, anime and live TV</td></tr>
+<tr><td><img src="docs/images/icons/seerr.png" alt="Seerr logo" width="48"></td><td><b>Seerr</b></td><td>A page where family and friends ask for something to watch</td></tr>
+<tr><td><img src="docs/images/icons/sonarr.png" alt="Sonarr logo" width="48"></td><td><b>Sonarr</b></td><td>Finds and downloads TV shows and anime</td></tr>
+<tr><td><img src="docs/images/icons/radarr.png" alt="Radarr logo" width="48"></td><td><b>Radarr</b></td><td>Finds and downloads movies</td></tr>
+<tr><td><img src="docs/images/icons/prowlarr.png" alt="Prowlarr logo" width="48"></td><td><b>Prowlarr</b></td><td>Keeps the list of websites that Sonarr and Radarr search</td></tr>
+<tr><td><img src="docs/images/icons/qbittorrent.png" alt="qBittorrent logo" width="48"></td><td><b>qBittorrent</b></td><td>Does the downloading, and stops uploading when it is done</td></tr>
+<tr><td><img src="docs/images/icons/bazarr.png" alt="Bazarr logo" width="48"></td><td><b>Bazarr</b></td><td>Finds subtitles, English first</td></tr>
+<tr><td><img src="docs/images/icons/flaresolverr.png" alt="FlareSolverr logo" width="48"></td><td><b>FlareSolverr</b></td><td>Helps the searches get past robot checks on search websites</td></tr>
+<tr><td><img src="docs/images/icons/homepage.png" alt="Homepage logo" width="48"></td><td><b>Homepage</b></td><td>One page with a button for every app</td></tr>
+<tr><td><img src="docs/images/icons/tailscale.png" alt="Tailscale logo" width="48"></td><td><b>Tailscale</b> (optional)</td><td>A private way to reach everything from anywhere, with safe HTTPS addresses</td></tr>
+</table>
 
 It also sets up quality choices for each language you watch, size limits, notifications to your chat app, and optional live TV and sports channels.
+
+## How everything fits together
+
+Ask once in Seerr, and the rest happens by itself. The small numbers on the arrows are the standard ports of each app. Click the picture to see it full size.
+
+<p align="center"><a href="docs/images/how-it-fits.svg"><img src="docs/images/how-it-fits.svg" alt="Diagram: you ask in Seerr, Radarr and Sonarr search through Prowlarr, qBittorrent downloads into your library, Bazarr adds subtitles and Jellyfin plays it" width="100%"></a></p>
+
+## See it, one step at a time
+
+Every screen explains itself in plain words. These are the main ones. The full walk through is in [docs/Getting started.md](docs/Getting%20started.md).
+
+<table>
+<tr>
+<td width="50%"><img src="docs/images/step-4-storage.png" alt="Storage screen: choose where downloads and each library are kept, and see which folders share a drive"></td>
+<td width="50%"><img src="docs/images/step-4-folder-picker.png" alt="Folder picker: browse your drives and choose a folder"></td>
+</tr>
+<tr>
+<td><b>Where is everything kept.</b> It shows which folders are on the same drive, so finished downloads are linked instantly instead of copied.</td>
+<td><b>Pick folders you already have.</b> Nothing in them is moved, renamed or deleted.</td>
+</tr>
+<tr>
+<td><img src="docs/images/step-5-what-you-watch.png" alt="What do you watch screen with quick choices for languages and kinds of media"></td>
+<td><img src="docs/images/step-6-live-tv.png" alt="Live TV and sports screen with countries, kinds of channel and a search box"></td>
+</tr>
+<tr>
+<td><b>What you watch.</b> One click chooses the quality rules, search sites and subtitle languages.</td>
+<td><b>Live TV and sports.</b> Optional. Free channels with a TV guide, tested every day.</td>
+</tr>
+<tr>
+<td><img src="docs/images/step-7-profiles.png" alt="Profiles screen with quality and size limits for each language"></td>
+<td><img src="docs/images/step-8-downloads.png" alt="Downloads screen with the minimum number of sources and speed limits"></td>
+</tr>
+<tr>
+<td><b>Profiles.</b> Each language gets its own picture quality and size limits.</td>
+<td><b>Downloads.</b> Sensible defaults, and a finished download is removed so nothing keeps uploading.</td>
+</tr>
+<tr>
+<td><img src="docs/images/step-9-file-sharing.png" alt="File sharing card: a login, and a tick box and read only option for each folder and drive"></td>
+<td><img src="docs/images/step-9-private-https.png" alt="Private HTTPS addresses card explaining how every app gets a safe address with Tailscale"></td>
+</tr>
+<tr>
+<td><b>File sharing.</b> Optional. Show your media and drives on your network, with one login.</td>
+<td><b>Private HTTPS addresses.</b> Optional. Safe addresses for every app, with Tailscale.</td>
+</tr>
+<tr>
+<td colspan="2"><img src="docs/images/step-10-review.png" alt="Review screen listing everything that is about to be set up"></td>
+</tr>
+<tr>
+<td colspan="2"><b>Review.</b> One last look at everything before anything is installed.</td>
+</tr>
+</table>
 
 ## Before you start
 
@@ -48,7 +103,15 @@ Before anything is touched, the What changes page lists every setting the setup 
 
 ## Light and dark mode
 
-The setup page and the guide start in a soft light theme. A link at the bottom of the left side switches to dark mode, and the choice is remembered.
+The setup page and the guide start in a soft light theme that is easy on the eyes. A button at the bottom of the left side switches to dark mode, and the choice is remembered.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/images/step-1-welcome.png" alt="The welcome screen in light mode"></td>
+<td width="50%"><img src="docs/images/dark-mode-apps.png" alt="The apps screen in dark mode"></td>
+</tr>
+<tr><td><b>Light mode</b>, the default.</td><td><b>Dark mode</b>, one button away.</td></tr>
+</table>
 
 ## A guide with pictures
 
