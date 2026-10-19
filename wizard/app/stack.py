@@ -28,6 +28,9 @@ INTERNAL = {  # port each app listens on inside its container
     "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 3000, "scrutiny": 8080, "regional": 9120, "samba": 445,
 }
 
+# Kapowarr: Hikki-dev's copy first, and the original project's image when the copy cannot be downloaded (for example while its package is private)
+KAPOWARR_IMAGES = ("ghcr.io/hikki-dev/kapowarr:latest", "mrcas/kapowarr:latest")
+
 RUNNING = {"proc": None}
 
 
@@ -49,6 +52,14 @@ def sh(cmd, timeout=900, check=True):
     if check and p.returncode != 0:
         raise RuntimeError((err or out).strip()[-1500:])
     return subprocess.CompletedProcess(cmd, p.returncode, out, err)
+
+
+def pick_kapowarr_image():
+    """The first Kapowarr image Docker can reach. Returns (image, used_fallback)."""
+    for i, image in enumerate(KAPOWARR_IMAGES):
+        if sh(["docker", "manifest", "inspect", image], timeout=60, check=False).returncode == 0:
+            return image, i > 0
+    return KAPOWARR_IMAGES[0], False       # no answer at all (offline?): keep the first choice and let the pull report the real problem
 
 
 def kill_running():
@@ -254,7 +265,7 @@ def compose(cfg):
     volumes = {}
     if s.get("kapowarr"):
         # Hikki-dev's Kapowarr fork (comics only; manga is Kaizoku's job). The downloads drive is mounted at the same path qBittorrent uses, so no path mapping is needed.
-        svc["kapowarr"] = {"image": "ghcr.io/hikki-dev/kapowarr:latest", "restart": "unless-stopped",
+        svc["kapowarr"] = {"image": cfg.get("kapowarrImage") or KAPOWARR_IMAGES[0], "restart": "unless-stopped",
                            "environment": base_env, "ports": [f"{p['kapowarr']}:5656"],
                            "volumes": [f"{hostpath('config/kapowarr')}:/app/db"] + mounts
                            + [f"{extra}/books/comics:/comics"]}

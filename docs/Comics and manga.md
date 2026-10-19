@@ -67,7 +67,7 @@ Mylar is gone. If you switched it on before, running the setup again turns on Ka
 | What you see | Reason | What to do |
 |---|---|---|
 | Kapowarr cannot find any comic | No ComicVine key | Paste the key in Kapowarr, Settings |
-| The Kapowarr image will not download | The package is private | Make it public on GitHub, or sign in with `docker login ghcr.io` on the server |
+| The setup says it used the original Kapowarr | The copy on ghcr.io cannot be downloaded (its package is private) | Nothing breaks. Comics work the same, without the copy's extra fixes. Make the package public to use the copy |
 | A comic site does not open | FlareSolverr is not running | Restart FlareSolverr, then try again |
 | Kaizoku shows an error on first start | Its database was still starting | Wait a minute and refresh |
 | Komga shows nothing | It has not scanned yet | Press Scan library in Komga |

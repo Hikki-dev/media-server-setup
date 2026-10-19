@@ -1583,11 +1583,14 @@ def setup_kapowarr(ctx):
     cv = ((cfg.get("comics") or {}).get("comicvine_key") or "").strip()
     if cv:
         put["comicvine_api_key"] = cv
+    failed = set()
     for name, val in put.items():
         try:
             api.call("PUT", "/settings", {name: val}, params=q)
         except ApiError as e:
-            log(f"  Kapowarr: could not set {name}: {str(e.body)[:120]}")
+            failed.add(name)
+            if not (name == "prowlarr_base_url" and e.status == 400):      # the original Kapowarr has no Prowlarr setting: not an error
+                log(f"  Kapowarr: could not set {name}: {str(e.body)[:120]}")
     have = {r["folder"].rstrip("/") for r in api.get("/rootfolder", params=q).get("result", [])}
     for folder in ("/comics",):
         if folder not in have:
@@ -1602,7 +1605,8 @@ def setup_kapowarr(ctx):
                                                    "username": qb["username"], "password": qb["password"]}, params=q)
         except ApiError as e:
             log(f"  Kapowarr: could not add qBittorrent: {str(e.body)[:120]}")
-    log("Kapowarr ready: comics in /comics, FlareSolverr, Prowlarr and qBittorrent linked"
+    linked = ["qBittorrent"] + [n for n, key in (("FlareSolverr", "flaresolverr_base_url"), ("Prowlarr", "prowlarr_base_url")) if key not in failed]
+    log(f"Kapowarr ready: comics in /comics, linked to {', '.join(linked)}"
         + ("" if cv else ". Paste your free ComicVine key in Kapowarr, Settings, before adding comics"))
 
 

@@ -150,6 +150,10 @@ def install(cfg):
                 cfg["services"]["jellyfin"] = True
                 ctx.cfg["services"]["jellyfin"] = True
         step("Writing your docker-compose file")
+        if cfg["services"].get("kapowarr"):
+            cfg["kapowarrImage"], fallback = S.pick_kapowarr_image()
+            if fallback:
+                log(f"  Kapowarr: Hikki-dev's copy cannot be downloaded right now, so the original Kapowarr ({cfg['kapowarrImage']}) is used. Everything else works the same.")
         S.write_compose(cfg)
         step("Downloading and starting the apps (first time takes a few minutes)")
         S.compose_cmd("up", "-d", "--remove-orphans")
