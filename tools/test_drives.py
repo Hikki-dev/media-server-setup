@@ -3,7 +3,9 @@ On Windows, Mac and Linux the computer's own (internal) drive must always be off
 import pathlib
 import subprocess
 import sys
+import types
 
+sys.modules.setdefault("yaml", types.ModuleType("yaml"))      # stack.py imports it, but the drive list does not use it
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / "wizard" / "app"))
 import stack as S  # noqa: E402
 
