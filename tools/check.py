@@ -42,7 +42,7 @@ for p in list(files(".sh")) + list(files(".command")):
 # 4. Nothing private may be committed
 PATTERNS = [
     (r"\b(?:192\.168|10\.\d{1,3})\.\d{1,3}\.(?!0/)\d{1,3}\b(?!/)", "a private network address"),
-    (r"\b100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.\d{1,3}\.\d{1,3}\b", "a Tailscale address"),
+    (r"\b100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.\d{1,3}\.\d{1,3}\b(?!/)", "a Tailscale address"),
     (r"/Users/[A-Za-z0-9_.]+/", "a personal folder path"),
     (r"[A-Za-z0-9._%+]+@(?:gmail|yahoo|outlook|hotmail|icloud)\.com", "an email address"),
     (r"\bghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9]{24,}|AKIA[0-9A-Z]{16}", "an access token"),
@@ -62,6 +62,11 @@ for p in ROOT.rglob("*"):
         m = re.search(rx, text)
         if m:
             problems.append(f"{p.relative_to(ROOT)} contains {what}: {m.group(0)[:40]}")
+
+# 5. The tests must pass
+r = subprocess.run([sys.executable, str(ROOT / "tools" / "test_sharing.py")], capture_output=True, text=True)
+if r.returncode:
+    problems.append("File sharing tests failed: " + (r.stderr.strip().splitlines() or ["see tools/test_sharing.py"])[-1][:200])
 
 if problems:
     print("Problems found:\n")

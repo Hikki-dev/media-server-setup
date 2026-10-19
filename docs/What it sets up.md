@@ -66,6 +66,10 @@ Paid sports like the Premier League, La Liga and the Champions League are not on
 
 Some channels only work in their own country. With NordVPN you can try them through the UK and the US. See the file Live TV and VPN.
 
+## File sharing
+
+Optional. If you switch it on, a small Samba program shares the folders and drives you pick. Everyone uses one login. See File sharing.md for how to connect and how to set up your drives.
+
 ## Search sites
 
 The setup adds popular free search sites for movies, TV and anime, tests each one, and removes the ones that do not answer. Websites for Tamil and Malayalam titles change address often, so a small helper finds the current address by itself.

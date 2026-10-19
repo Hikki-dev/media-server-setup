@@ -13,11 +13,11 @@ A page in the browser (run inside Docker) installs the whole server and links ev
 |---|---|
 | Start on Windows.bat, Start on Mac.command, Start on Linux.sh | Start the setup, then open http://localhost:7979 |
 | tools/start.sh | The shared start script for Mac and Linux |
-| wizard/app | The program: server.py (the install flow), configure.py (talks to each app), adopt.py and audit.py (apps the person already has, and the list of changes), stack.py (Docker and drives), livetv.py (channel lists), bridge.py (Tamil and Malayalam sources and the daily channel update) |
+| wizard/app | The program: server.py (the install flow), configure.py (talks to each app), adopt.py and audit.py (apps the person already has, and the list of changes), stack.py (Docker and drives), sharing.py (optional file sharing settings), livetv.py (channel lists), bridge.py (Tamil and Malayalam sources and the daily channel update) |
 | wizard/presets/trash.json | The community quality rules |
 | tools/build_trash_presets.py | Rebuilds those rules |
-| docs | What it sets up, Fixing problems, Live TV and VPN |
-| extras | NordVPN and Smoother channels, for people who run their own server |
+| docs | What it sets up, Fixing problems, Live TV and VPN, File sharing |
+| extras | NordVPN, Smoother channels and File sharing, for people who run their own server |
 
 ## Steps
 
@@ -39,6 +39,10 @@ A page in the browser (run inside Docker) installs the whole server and links ev
 4. Live TV and sports (optional): countries, kinds of channel, languages, worldwide sports, live channels on YouTube, and their own provider links. Free lists only hold free channels.
 5. Downloads: minimum number of sources (default 2), how often to look, downloads at once, speed limits, and the qBittorrent login.
 6. Logins: one main login for the apps, and one for qBittorrent. The password boxes have Show and Generate.
+
+## File sharing (optional)
+
+Offer it on Linux when the person wants to open their media or drives from other computers or phones. In the wizard it is the File sharing tile on the Apps and accounts step. It needs port 445 free on the computer. If the computer already runs Samba, use extras/File sharing/Share folders on this computer.sh instead, which adds to it safely. Never suggest opening port 445 on the router. For use away from home, follow docs/File sharing.md and use Tailscale. If a Mac can connect over Tailscale but not at home, read the last section of that guide before changing anything.
 
 ## Apps the person already has
 

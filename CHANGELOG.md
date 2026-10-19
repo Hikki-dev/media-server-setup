@@ -1,5 +1,13 @@
 # Changes
 
+## File sharing
+
+1. New optional step: share your media folder and your other drives on your home network (Samba). One login, no guest access, only home networks and Tailscale may connect.
+2. Works from the setup page on Linux, or with the script in extras/File sharing for a computer that does not run the setup.
+3. New guide, docs/File sharing.md: how to prepare drives (formats, mounting, hard links), how to connect from every device, how to use it away from home with Tailscale, and how to fix common problems.
+4. New test, tools/test_sharing.py, that runs with the other checks.
+5. Fixed: sound missing on some YouTube live channels.
+
 ## First release
 
 1. One page in the browser that installs and links Jellyfin, Seerr, Sonarr, Radarr, Prowlarr, qBittorrent, Bazarr and Homepage.

@@ -46,6 +46,10 @@ You do not have to start again. The setup finds the apps already on your compute
 
 Before anything is touched, the What changes page lists every setting the setup wants to change, next to how it is set today. Each part has a switch to keep yours. Nothing is changed until you say so. Connections you already have, logins, request rules, folder names and search sites you added are kept unless you switch them.
 
+## Share your folders and drives
+
+This part is optional. It makes your media folder and your other drives show up on your home network, so you can open them from Windows, Mac, Linux and phones, and reach them from anywhere with Tailscale. It uses one login, no guest access, and settings chosen for speed and safety. It works on Linux. You can switch it on in the setup page, or use the script in extras/File sharing on a computer that does not run the setup. The guide also explains how to prepare your drives properly. See docs/File sharing.md.
+
 ## Live TV and sports
 
 This part is optional. It adds a Live TV section to Jellyfin from free public channel lists, tests every channel, and removes broken ones every day. You can pick countries, kinds of channel and languages. It can also add live news channels on YouTube. NordVPN can be added so channels that only work in some countries are tried through the UK and the US.
@@ -66,7 +70,8 @@ To report a security problem, read SECURITY.md.
 1. docs/What it sets up.md explains everything the setup does.
 2. docs/Fixing problems.md covers the common problems.
 3. docs/Live TV and VPN.md covers channels and NordVPN.
-4. docs/How it works.md is for people who want to change the code.
+4. docs/File sharing.md covers sharing your folders and drives, setting up drives, and using them away from home.
+5. docs/How it works.md is for people who want to change the code.
 
 ## Contributing
 

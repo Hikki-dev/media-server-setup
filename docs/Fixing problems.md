@@ -77,3 +77,7 @@ Open Docker Desktop, find the app in the list, and open its Logs tab. Ask Claude
 2. My app runs on the host network or behind a VPN container. That works. The setup reaches it through the shared network. Make sure the app listens on every address, and that a firewall lets the apps reach its port.
 3. The last page says needs attention for my own apps. The final checks only report on your own apps. They never change a setting you chose to keep. A link you kept may simply be different from what the setup would have made.
 4. I want to undo a change. The setup never deletes your data. Start it again and switch that part to Keep mine, or set it back in the app. The What changes list shows what was there before.
+
+## Cannot open a shared folder
+
+See File sharing.md. It has a table of the common problems, including a share that works over Tailscale but not on your home network.

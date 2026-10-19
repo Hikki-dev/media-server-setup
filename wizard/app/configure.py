@@ -1667,6 +1667,20 @@ def verify_logins(ctx):
             st, _ = a.call("POST", "/system/account", form={"username": login["username"], "password": login["password"]}, params={"action": "login"}, raw=True)
             return st in (200, 204)
         add("Bazarr", "bazarr", login["username"], login["password"], "Same admin login", bz)
+    if cfg["services"].get("samba") and (cfg.get("samba") or {}).get("shares"):
+        import socket
+        sm, port = cfg["samba"], p.get("samba", 445)
+        s = socket.socket()
+        s.settimeout(3)
+        try:
+            up = s.connect_ex(("host.docker.internal", port)) == 0
+        except OSError:
+            up = False
+        finally:
+            s.close()
+        first = sm["shares"][0]["name"].replace(" ", "%20")
+        out.append({"app": "File sharing", "url": f"smb://{host}{'' if port == 445 else ':' + str(port)}/{first}", "user": sm["user"], "password": sm["password"],
+                    "ok": up, "note": "Open from Windows, Mac or a phone. See the file sharing guide for each device"})
     for key, name in (("homepage", "Homepage"), ("metube", "MeTube"), ("komga", "Komga"), ("mylar3", "Mylar3"), ("scrutiny", "Scrutiny")):
         if cfg["services"].get(key):
             out.append({"app": name, "url": f"http://{host}:{p[key]}", "user": "", "password": "", "ok": True,

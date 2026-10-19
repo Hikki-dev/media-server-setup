@@ -10,6 +10,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import adopt as A
 import configure as C
+import sharing
 import stack as S
 from arrapi import CANCEL, REC, Api, ApiError, Fatal, Recorder
 
@@ -86,6 +87,8 @@ def validate(cfg):
     ports = list(cfg["ports"].values())
     if len(set(ports)) != len(ports):
         errs.append("Two services share the same port.")
+    if cfg.get("services", {}).get("samba"):
+        errs += sharing.check(cfg)
     return errs
 
 
@@ -221,8 +224,12 @@ def summary(st):
     links = [{"name": n, "url": f"http://{host}:{p}"} for n, p in cfg["ports"].items()
              if n in ("homepage", "jellyfin", "seerr", "sonarr", "radarr", "prowlarr", "bazarr", "qbittorrent")
              and (n in ("sonarr", "radarr", "prowlarr", "qbittorrent") or cfg["services"].get(n))]
-    return {"links": links, "indexers": st.get("indexers", {}),
-            "login": cfg["login"]["username"], "qbit": cfg["qbit"]["username"]}
+    out = {"links": links, "indexers": st.get("indexers", {}),
+           "login": cfg["login"]["username"], "qbit": cfg["qbit"]["username"]}
+    if cfg.get("services", {}).get("samba"):
+        out["sharing"] = {"user": cfg["samba"]["user"], "port": cfg["ports"].get("samba", 445),
+                          "shares": sharing.addresses(host, sharing.shares_of(cfg))}
+    return out
 
 
 # ------------------------------------------------------------------ re-tune (after install)
@@ -683,6 +690,18 @@ class H(BaseHTTPRequestHandler):
             if self.path == "/api/mkdir":
                 ids = f"{os.environ.get('HOST_UID', 1000)}:{os.environ.get('HOST_GID', 1000)}"
                 return self.send(200, {"path": S.make_folder(b["parent"], b["name"], ids)})
+            if self.path == "/api/samba/suggest":
+                hos = os.environ.get("HOST_OS", "linux")
+                try:
+                    mounts = S.plan_storage({"storage": b.get("storage") or {}, "hostOs": hos})["mounts"]
+                except (KeyError, TypeError, IndexError):
+                    mounts = []         # the storage answers are not complete yet: offer the drives only
+                drives = S.list_drives(hos, os.environ.get("HOST_HOME", "")).get("drives", [])
+                try:       # the real drives of this computer, so ordinary folders and links are not offered as drives
+                    table = sharing.parse_mounts(S.sh(["docker", "run", "--rm", "--pid=host", S.HELPER_IMAGE, "cat", "/proc/1/mounts"], timeout=60, check=False).stdout)
+                except Exception:  # noqa: BLE001 - without the list, every folder found is offered
+                    table = None
+                return self.send(200, {"shares": sharing.suggest(mounts, drives, table or None), "supported": hos == "linux"})
             if self.path == "/api/plan":
                 return self.send(200, S.plan_storage({**b, "hostOs": os.environ.get("HOST_OS", "linux")}))
             if self.path == "/api/stop":
