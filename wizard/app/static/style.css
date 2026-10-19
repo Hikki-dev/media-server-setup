@@ -235,3 +235,7 @@ a.link small{color:var(--faint)}
 
 /* cards inside a card (the Live TV choices) get a little room between them */
 .card .card{margin-top:14px}
+
+/* phones and small screens: kept last so they win over the rules above */
+@media (max-width:900px){.side{min-width:0;max-width:100%}.steps{max-width:100%;-webkit-overflow-scrolling:touch}.steps li.on span.t{display:inline;white-space:nowrap}.steps li{flex:none}.sidelinks{flex-direction:row;flex-wrap:wrap}.sidelinks>*{flex:1 1 160px}.footnote{margin:0}.sidelink,.sidelinks .sidelink{padding-top:10px;padding-bottom:10px}}
+@media (max-width:520px){h1{font-size:34px!important}h2{font-size:28px!important}.main{padding:22px 16px 44px}.card{padding:18px}.actions{flex-wrap:wrap}.diff{display:block;overflow-x:auto}.setting{flex-wrap:wrap}.seg{flex-wrap:wrap;max-width:100%}pre,.mono,.path{overflow-wrap:anywhere}}

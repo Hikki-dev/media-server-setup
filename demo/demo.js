@@ -167,9 +167,12 @@
     const a = document.createElement("a");
     a.href = "https://github.com/Hikki-dev/media-server-setup"; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Get the real thing on GitHub";
     bar.append(a);
+    const home = document.createElement("a");
+    home.href = "../"; home.textContent = "Back to the overview";
+    bar.append(home);
     document.body.prepend(bar);
     const st = document.createElement("style");
-    st.textContent = ".demo-bar{position:sticky;top:0;z-index:50;background:#2a1a02;color:#fde7bd;text-align:center;font:600 14px/1.4 system-ui,sans-serif;padding:9px 14px}.demo-bar a{color:#ffc266;margin-left:8px}";
+    st.textContent = ".demo-bar{position:sticky;top:0;z-index:50;background:#2a1a02;color:#fde7bd;text-align:center;font:600 14px/1.4 system-ui,sans-serif;padding:9px 14px}.demo-bar a{color:#ffc266;margin-left:12px;white-space:nowrap}";
     document.head.append(st);
   });
 })();

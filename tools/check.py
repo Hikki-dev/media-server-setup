@@ -63,10 +63,10 @@ for p in ROOT.rglob("*"):
         if m:
             problems.append(f"{p.relative_to(ROOT)} contains {what}: {m.group(0)[:40]}")
 
-# 5. The demo website must build
-r = subprocess.run([sys.executable, str(ROOT / "tools" / "build_demo.py")], capture_output=True, text=True)
+# 5. The website must build
+r = subprocess.run([sys.executable, str(ROOT / "tools" / "build_site.py")], capture_output=True, text=True)
 if r.returncode:
-    problems.append("build_demo.py failed: " + (r.stderr.strip().splitlines() or ["see the file"])[-1][:200])
+    problems.append("build_site.py failed: " + (r.stderr.strip().splitlines() or ["see the file"])[-1][:200])
 
 # 6. The tests must pass
 for test in ("test_sharing.py", "test_tailscale_https.py", "test_drives.py"):

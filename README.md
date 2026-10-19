@@ -47,7 +47,7 @@ The full story of one request, step by step, is in [How everything fits](docs/Ho
 
 ## Try it first
 
-You can click through the whole setup page, and read the guide, in a demo that installs nothing. How to host it for free on Cloudflare is in [Demo website](docs/Demo%20website.md).
+The project has a website with the install command, and a demo where you can click through the whole setup page and read the guide without installing anything. It works on phones too. How to host it for free on Cloudflare is in [Demo website](docs/Demo%20website.md).
 
 ## Before you start
 

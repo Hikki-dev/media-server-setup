@@ -74,6 +74,7 @@ function stepItems(active) {
 function shell(active, main, foot = "") {
   $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server Setup</div><ol class="steps">${stepItems(active)}</ol><div class="foot"><div class="sidelinks">${guideLink()}${themeBtn()}</div>${foot ? `<p class="footnote">${esc(foot)}</p>` : ""}</div></aside><main class="main screen">${main}</main></div>`;
   window.scrollTo(0, 0);
+  const cur = document.querySelector(".steps li.on"); if (cur && cur.scrollIntoView) cur.scrollIntoView({ inline: "center", block: "nearest" });      // on a phone the step list scrolls sideways
 }
 const head = (n, title, lead) => `<div><span class="eyebrow">${n}</span><h2 style="font-size:36px">${esc(title)}</h2><p class="lead">${esc(lead)}</p></div>`;
 const stepHead = (n, title, lead) => { const v = VIS(), i = v.findIndex(x => x[0] === S.step); return head(`Step ${i < 0 ? n : i + 1} of ${v.length}`, title, lead); };

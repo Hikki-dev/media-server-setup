@@ -2,8 +2,9 @@
 
 ## Demo website
 
-1. New demo website: the real setup page and guide with pretend answers, so anyone can click through every screen without installing anything. Built by tools/build_demo.py into the folder site, ready for Cloudflare (wrangler.jsonc). See docs/Demo website.md.
-2. Fixed: the install progress list now uses the same step names as the server, so the bar moves as each app is set up. A step for Kapowarr was added to it.
+1. New website, built by tools/build_site.py into the folder site and ready for Cloudflare (wrangler.jsonc). The home page shows the install command with a copy button, what gets installed, and pictures. The demo at /demo/ is the real setup page and guide with pretend answers, so anyone can click through every screen without installing anything. See docs/Demo website.md.
+2. The setup page now fits phones: no sideways scrolling, a step bar that scrolls and shows the current step, and controls that wrap.
+3. Fixed: the install progress list now uses the same step names as the server, so the bar moves as each app is set up. A step for Kapowarr was added to it.
 
 ## Drives and comics
 

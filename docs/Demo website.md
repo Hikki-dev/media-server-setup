@@ -1,6 +1,9 @@
 # Demo website
 
-A demo lets anyone click through the setup page and the guide without installing anything. It is the real page, with the server replaced by pretend answers, so it looks and works the same. It is hosted for free on Cloudflare.
+The website has two parts, both plain static files hosted for free on Cloudflare:
+
+1. **The home page** (`/`). It shows the install command with a copy button, what the setup installs, pictures, and how it goes. It works on phones, tablets and computers.
+2. **The demo** (`/demo/`). It is the real setup page and guide, with the server replaced by pretend answers, so it looks and works the same. The guide is at `/demo/guide`.
 
 Nothing in the demo installs or saves anything. A bar at the top says so, and links to this project on GitHub.
 
@@ -14,10 +17,12 @@ Nothing in the demo installs or saves anything. A bar at the top says so, and li
 ## Build it on your computer
 
 ```bash
-python3 tools/build_demo.py
+python3 tools/build_site.py
 ```
 
 This makes the folder `site`. To look at it, run `python3 -m http.server 8000 --directory site` and open `http://localhost:8000`.
+
+The home page files are in `landing`. Change the install command in `landing/index.html` (and in the README) if the project moves.
 
 The pretend answers are in `demo/demo.js`. The pretend computer details (Docker version, apps found, live TV channels) are in `demo/fixtures`.
 
@@ -27,9 +32,9 @@ The easy way: let Cloudflare build it from GitHub every time you push.
 
 1. Sign in at dash.cloudflare.com and open **Workers & Pages**.
 2. Press **Create**, choose **Import a repository**, and pick `media-server-setup`.
-3. Set the build command to `python3 tools/build_demo.py`.
+3. Set the build command to `python3 tools/build_site.py`.
 4. Set the deploy command to `npx wrangler deploy`. The file `wrangler.jsonc` already says which folder to serve.
-5. Press **Save and deploy**. Cloudflare gives you an address like `media-server-setup-demo.your-name.workers.dev`.
+5. Press **Save and deploy**. Cloudflare gives you an address like `media-server-setup.your-name.workers.dev`.
 
 Every push to the main branch updates the demo by itself.
 
@@ -37,7 +42,7 @@ The other way, from your computer, once:
 
 ```bash
 npx wrangler login
-python3 tools/build_demo.py
+python3 tools/build_site.py
 npx wrangler deploy
 ```
 

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Media Server Setup: your own streaming service, in one line</title>
+<meta name="description" content="Movies, shows, anime, comics and manga that find, download and organise themselves. Install everything with one command on Linux, Mac, Windows or a home server.">
+<meta property="og:title" content="Media Server Setup">
+<meta property="og:description" content="Your own streaming service, set up for you with one line.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23f2a93b%27/%3E%3Cpath d=%27M12 9l11 7-11 7z%27 fill=%27%2314171c%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+<a class="skip" href="#install">Skip to the install command</a>
+
+<header class="top">
+  <a class="brand" href="./" aria-label="Media Server Setup, home"><span class="mark" aria-hidden="true"></span>Media Server Setup</a>
+  <nav aria-label="Main">
+    <a href="demo/">Try the demo</a>
+    <a href="demo/guide">Guide</a>
+    <a class="gh" href="https://github.com/Hikki-dev/media-server-setup" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="install">
+    <div class="hero-copy">
+      <p class="eyebrow">Free and open source &middot; Windows, Mac, Linux, home servers</p>
+      <h1>Your own streaming service. <span>One line to install.</span></h1>
+      <p class="lead">Movies, shows, anime, comics and manga that find, download and organise themselves. You answer a few questions. It sets up every app, links them, and tries a real search to prove it works.</p>
+    </div>
+
+    <div class="slate" role="group" aria-label="Install command">
+      <div class="clapper" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="board">
+        <div class="tabs" role="tablist" aria-label="Your computer">
+          <button role="tab" id="t-unix" aria-selected="true" aria-controls="p-unix">Linux, Mac, server</button>
+          <button role="tab" id="t-win" aria-selected="false" aria-controls="p-win" tabindex="-1">Windows</button>
+        </div>
+
+        <div role="tabpanel" id="p-unix" aria-labelledby="t-unix">
+          <p class="field">Paste this into a terminal</p>
+          <pre class="cmd"><code id="cmd">curl -fsSL https://raw.githubusercontent.com/Hikki-dev/media-server-setup/main/install.sh | bash</code></pre>
+          <div class="row">
+            <button class="copy" id="copy" type="button">Copy command</button>
+            <span class="note" id="copied" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+
+        <div role="tabpanel" id="p-win" aria-labelledby="t-win" hidden>
+          <p class="field">No terminal needed</p>
+          <ol class="steps">
+            <li>Download the project and unzip it.</li>
+            <li>Double click <b>Start on Windows.bat</b>.</li>
+          </ol>
+          <div class="row"><a class="copy" href="https://github.com/Hikki-dev/media-server-setup/archive/refs/heads/main.zip" rel="noopener">Download the zip</a></div>
+        </div>
+
+        <p class="after">Needs Docker. The command checks for it, and shows its download page if it is missing. Then your browser opens the setup page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="look" aria-labelledby="look-h">
+    <div class="head">
+      <h2 id="look-h">See it before you install it</h2>
+      <p>The demo is the real setup page with pretend answers. Click through every screen. Nothing is installed or saved.</p>
+      <p class="btns"><a class="btn primary" href="demo/">Open the demo</a><a class="btn" href="demo/guide">Read the guide</a></p>
+    </div>
+    <div class="shots">
+      <figure class="shot wide"><img src="img/shot-apps.jpg" width="1600" height="1000" alt="The Apps screen in dark mode, with a tile for every app" loading="lazy" decoding="async"><figcaption>Choose what to install, comics and manga included.</figcaption></figure>
+      <figure class="shot"><img src="img/shot-storage.jpg" width="1600" height="1000" alt="The folder picker listing this computer and its other drives" loading="lazy" decoding="async"><figcaption>Pick where it lives. Your own drive is always on the list.</figcaption></figure>
+      <figure class="shot"><img src="img/shot-review.jpg" width="1600" height="1000" alt="The review screen listing every choice before installing" loading="lazy" decoding="async"><figcaption>Check your choices, then install.</figcaption></figure>
+      <figure class="shot phone"><img src="img/shot-phone.jpg" width="780" height="1688" alt="The setup page on a phone" loading="lazy" decoding="async"><figcaption>It fits a phone too, so you can look around from the sofa.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="apps" aria-labelledby="apps-h">
+    <div class="head">
+      <h2 id="apps-h">What it sets up</h2>
+      <p>Each app does one small job. The setup installs the ones you pick and connects them.</p>
+    </div>
+    <ul class="grid">
+      <li><img src="img/icons/jellyfin.png" alt="" width="48" height="48"><div><b>Jellyfin</b><span>Watch movies, shows, anime and live TV on any device</span></div></li>
+      <li><img src="img/icons/seerr.png" alt="" width="48" height="48"><div><b>Seerr</b><span>A page where family and friends ask for something to watch</span></div></li>
+      <li><img src="img/icons/sonarr.png" alt="" width="48" height="48"><div><b>Sonarr</b><span>Finds and downloads TV shows and anime</span></div></li>
+      <li><img src="img/icons/radarr.png" alt="" width="48" height="48"><div><b>Radarr</b><span>Finds and downloads movies</span></div></li>
+      <li><img src="img/icons/prowlarr.png" alt="" width="48" height="48"><div><b>Prowlarr</b><span>Keeps the list of search sites, and tests them</span></div></li>
+      <li><img src="img/icons/qbittorrent.png" alt="" width="48" height="48"><div><b>qBittorrent</b><span>Does the downloading, and stops uploading when it is done</span></div></li>
+      <li><img src="img/icons/bazarr.png" alt="" width="48" height="48"><div><b>Bazarr</b><span>Finds subtitles, English first</span></div></li>
+      <li><img src="img/icons/flaresolverr.png" alt="" width="48" height="48"><div><b>FlareSolverr</b><span>Gets searches past robot checks</span></div></li>
+      <li><img src="img/icons/kapowarr.png" alt="" width="48" height="48"><div><b>Kapowarr</b><span>Finds and downloads comics</span></div></li>
+      <li><img src="img/icons/kaizoku.png" alt="" width="48" height="48"><div><b>Kaizoku</b><span>Follows manga and downloads new chapters</span></div></li>
+      <li><img src="img/icons/homepage.png" alt="" width="48" height="48"><div><b>Homepage</b><span>One page with a button for every app</span></div></li>
+      <li><img src="img/icons/tailscale.png" alt="" width="48" height="48"><div><b>Tailscale</b><span>Optional. Safe HTTPS addresses that work from anywhere</span></div></li>
+    </ul>
+  </section>
+
+  <section class="how" aria-labelledby="how-h">
+    <div class="head"><h2 id="how-h">How it goes</h2></div>
+    <ol class="flow">
+      <li><b>Run the line.</b><span>It checks Docker, downloads the setup, and prints a web address.</span></li>
+      <li><b>Answer a few questions.</b><span>In your browser. What you watch, where files live, which apps to add. About 5 minutes.</span></li>
+      <li><b>It does the rest.</b><span>Installs, links every app, then runs a real search to prove it works. 5 to 15 minutes.</span></li>
+    </ol>
+    <p class="fine">Stopping is always safe, and your media is never touched. Works on a Proxmox LXC and any computer with Docker.</p>
+  </section>
+</main>
+
+<footer>
+  <p><a href="https://github.com/Hikki-dev/media-server-setup" rel="noopener">GitHub</a> &middot; <a href="demo/guide">Guide</a> &middot; <a href="demo/">Demo</a> &middot; <a href="https://github.com/Hikki-dev/media-server-setup/blob/main/LICENSE" rel="noopener">Licence</a></p>
+  <p class="fine">The logos belong to their projects.</p>
+</footer>
+<script src="landing.js"></script>
+</body>
+</html>
