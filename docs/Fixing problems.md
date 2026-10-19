@@ -21,6 +21,16 @@ Those websites change address often. Open Apps and links and press Find the addr
 
 ## Subtitles are not found
 
+## Comics and manga
+
+| What you see | What to do |
+|---|---|
+| Kapowarr finds nothing | Paste your free ComicVine key in Kapowarr, Settings |
+| Kapowarr image will not download | Its package is private. Make it public on GitHub, or run `docker login ghcr.io` on the server |
+| A comic site will not open | Restart FlareSolverr, then try again |
+
+More in Comics and manga.md.
+
 Open Bazarr and check that your library folders are listed. If you added or moved a folder after the setup, start the setup again so they are updated.
 
 ## Live TV: channels missing or not playing

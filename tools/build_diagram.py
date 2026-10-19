@@ -20,6 +20,8 @@ NODES = {
     "prowlarr": (890, 130, "prowlarr", "Prowlarr", "the search sites", 104),
     "flare": (1150, 130, "flaresolverr", "FlareSolverr", "gets past robot checks", 104),
     "bazarr": (1060, 360, "bazarr", "Bazarr", "finds subtitles", 104),
+    "kapowarr": (1230, 570, "kapowarr", "Kapowarr", "comics", 104),
+    "kaizoku": (1330, 360, "kaizoku", "Kaizoku", "manga", 104),
     "library": (950, 570, None, "Your library", "folders on your drives", 0),
 }
 SX, SY = 1.3, 1.2        # spread the apps out so every arrow has room for its port number
@@ -36,6 +38,8 @@ ARROWS = [
     ("prowlarr", "flare", "#e4682a", "8191"),
     ("radarr", "qbit", "#d99a1f", "8080", 0.62), ("sonarr", "qbit", "#2f86d6", "8080"),
     ("qbit", "library", "#5a7fb0", "files"),
+    ("kapowarr", "flare", "#e4682a", "8191", 0.45), ("kapowarr", "library", "#c2410c", "comics", 0.5),
+    ("kaizoku", "library", "#7c3aed", "manga", 0.6),
     ("bazarr", "sonarr", "#14a39a", "8989"), ("bazarr", "library", "#14a39a", "subtitles"),
 ]
 COLOURS = sorted({a[2] for a in ARROWS} | {"#94a3b8"})

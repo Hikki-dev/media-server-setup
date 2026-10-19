@@ -1,5 +1,12 @@
 # Changes
 
+## Comics and manga
+
+1. Mylar3 is replaced by Kapowarr, using Hikki-dev's own version (comics plus MangaDex manga). The setup links it to FlareSolverr, Prowlarr and qBittorrent, adds the comics and manga folders, and uses the main login. Only a free ComicVine key is left for you.
+2. New optional app: Kaizoku, for following manga and downloading new chapters. It comes with its own private database and cache.
+3. Running the setup again turns Kapowarr on for anyone who had Mylar3.
+4. New guide, docs/Comics and manga.md, and new Homepage tiles.
+
 ## Light mode
 
 1. The setup page and the guide now start in a soft light theme with warm paper colours, and a link switches to the original dark theme. The choice is remembered in the browser.

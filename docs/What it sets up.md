@@ -14,7 +14,7 @@
 | Helper for protected websites | Opens search sites that make you prove you are not a robot |
 | Homepage | One page with a button for every app |
 
-You can also add a YouTube downloader, a comic reader, a comic downloader and a disk health checker. If a port is already used on your computer, the setup picks a free one for you.
+You can also add a YouTube downloader, Komga (a comic and manga reader), Kapowarr (comic downloads), Kaizoku (manga downloads) and a disk health checker. If a port is already used on your computer, the setup picks a free one for you.
 
 ## Where your files go
 
@@ -78,6 +78,10 @@ Paid sports like the Premier League, La Liga and the Champions League are not on
 
 Some channels only work in their own country. With NordVPN you can try them through the UK and the US. See the file Live TV and VPN.
 
+## Comics and manga
+
+Optional. Kapowarr (Hikki-dev's version) and Kaizoku save into the `books` folder that Komga reads. Kapowarr is linked to FlareSolverr, Prowlarr and qBittorrent, and gets `/comics` and `/manga` as folders. You only paste a free ComicVine key. See Comics and manga.md.
+
 ## File sharing
 
 Optional. If you switch it on, a small Samba program shares the folders and drives you pick. Everyone uses one login. See File sharing.md for how to connect and how to set up your drives.
@@ -96,7 +100,7 @@ When the install ends, every link between the apps is tested, fixed once if it f
 
 ## Logins
 
-One main login is used for Jellyfin, Seerr, Sonarr, Radarr, Prowlarr and Bazarr. qBittorrent has its own. At the end the setup signs in to every app to prove each login works, and shows them with Show and Copy buttons.
+One main login is used for Jellyfin, Seerr, Sonarr, Radarr, Prowlarr, Bazarr and Kapowarr. qBittorrent has its own. At the end the setup signs in to every app to prove each login works, and shows them with Show and Copy buttons.
 
 ## Already have some of these apps?
 

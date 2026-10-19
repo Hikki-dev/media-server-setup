@@ -1,6 +1,6 @@
 ---
 name: media-server-setup
-description: Sets up a complete home media server with a simple page in the browser, on Windows, Mac or Linux. It installs and links Sonarr, Radarr, Prowlarr, qBittorrent, Bazarr, Jellyfin, Seerr and Homepage, and can add live TV and sports. It also works with apps the person already runs. Use it when someone wants to set up, change, fix or check automatic downloads of movies, shows and anime, subtitles, quality choices for different languages, Jellyfin playback, or live TV.
+description: Sets up a complete home media server with a simple page in the browser, on Windows, Mac or Linux. It installs and links Sonarr, Radarr, Prowlarr, qBittorrent, Bazarr, Jellyfin, Seerr and Homepage, and can add live TV and sports, comics (Kapowarr) and manga (Kaizoku). It also works with apps the person already runs. Use it when someone wants to set up, change, fix or check automatic downloads of movies, shows and anime, subtitles, quality choices for different languages, Jellyfin playback, or live TV.
 ---
 
 # Media server setup
@@ -65,6 +65,7 @@ Never run `tailscale serve reset`. It removes entries made by hand that cannot b
 ## Portainer
 
 If the person uses Portainer, read docs/Portainer.md before changing a stack.
+For comics and manga (Kapowarr, Kaizoku, Komga), read docs/Comics and manga.md. Kapowarr is the person's own fork, ghcr.io/hikki-dev/kapowarr; its package must be public or the server must be signed in to ghcr.io. Mylar was removed.
 
 Updating a stack removes and recreates every container in it. After any update run `docker ps -a` and start anything left in Created.
 

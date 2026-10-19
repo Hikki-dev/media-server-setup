@@ -1555,6 +1555,57 @@ def setup_bazarr(ctx):
         else "Bazarr is running but the Sonarr/Radarr link could not be confirmed")
 
 
+def setup_kapowarr(ctx):
+    """Kapowarr (Hikki-dev's fork): login, FlareSolverr, Prowlarr, qBittorrent, the comics and manga root folders and the ComicVine key.
+
+    Its API takes the key as ?api_key=; a fresh install has no password, and POST /auth then hands the key out.
+    ComicVine needs a personal free key, so without one the person is told where to paste it.
+    """
+    cfg, log = ctx.cfg, ctx.log
+    base = f"http://kapowarr:{INTERNAL['kapowarr']}"
+    login, qb = cfg["login"], cfg["qbit"]
+    anon = Api(base, prefix="/api")
+
+    def key():
+        for body in ({}, {"username": login["username"], "password": login["password"]}):     # a re-run: the login is already set
+            try:
+                k = anon.post("/auth", body).get("result", {}).get("api_key")
+            except ApiError:
+                continue
+            if k:
+                return k
+    k = wait_for(key, 600, 4, "Kapowarr")
+    api = Api(base, prefix="/api")
+    q = {"api_key": k}
+    put = {"flaresolverr_base_url": ctx.host_url("flaresolverr"),
+           "prowlarr_base_url": ctx.host_url("prowlarr"), "prowlarr_api_key": ctx.keys.get("prowlarr", ""),
+           "auth_username": login["username"], "auth_password": login["password"]}
+    cv = ((cfg.get("comics") or {}).get("comicvine_key") or "").strip()
+    if cv:
+        put["comicvine_api_key"] = cv
+    for name, val in put.items():
+        try:
+            api.call("PUT", "/settings", {name: val}, params=q)
+        except ApiError as e:
+            log(f"  Kapowarr: could not set {name}: {str(e.body)[:120]}")
+    have = {r["folder"].rstrip("/") for r in api.get("/rootfolder", params=q).get("result", [])}
+    for folder in ("/comics", "/manga"):
+        if folder not in have:
+            try:
+                api.call("POST", "/rootfolder", {"folder": folder}, params=q)
+            except ApiError as e:
+                log(f"  Kapowarr: could not add folder {folder}: {str(e.body)[:120]}")
+    clients = api.get("/externalclients", params=q).get("result", [])
+    if not any(c.get("client_type") == "qBittorrent" for c in clients) and not ctx.mine("qbittorrent"):
+        try:
+            api.call("POST", "/externalclients", {"client_type": "qBittorrent", "title": "qBittorrent", "base_url": ctx.host_url("qbittorrent"),
+                                                   "username": qb["username"], "password": qb["password"]}, params=q)
+        except ApiError as e:
+            log(f"  Kapowarr: could not add qBittorrent: {str(e.body)[:120]}")
+    log("Kapowarr ready: comics in /comics, manga in /manga, FlareSolverr, Prowlarr and qBittorrent linked"
+        + ("" if cv else ". Paste your free ComicVine key in Kapowarr, Settings, before adding comics"))
+
+
 def setup_homepage(ctx):
     cfg = ctx.cfg
     p = cfg["ports"]
@@ -1586,10 +1637,11 @@ def setup_homepage(ctx):
     arrs.append(entry({"byparr": "Byparr", "trawl": "TRAWL"}.get(cfg.get("solver"), "FlareSolverr"), "flaresolverr", p["flaresolverr"], "Cloudflare solver for indexers"))
     dl.append(entry("qBittorrent", "qbittorrent", p["qbittorrent"], "Downloads (no seeding)",
                     {"type": "qbittorrent", "url": "http://qbittorrent:8080", "username": q["username"], "password": q["password"]}))
-    for k, icon, desc in (("metube", "metube", "YouTube downloader"), ("komga", "komga", "Comics & manga reader"),
-                          ("mylar3", "mylar", "Comic downloads"), ("scrutiny", "scrutiny", "Disk health")):
+    for k, name, icon, desc in (("metube", "MeTube", "metube", "YouTube downloader"), ("komga", "Komga", "komga", "Comics & manga reader"),
+                                ("kapowarr", "Kapowarr", "kapowarr", "Comic downloads"), ("kaizoku", "Kaizoku", "kaizoku", "Manga downloads"),
+                                ("scrutiny", "Scrutiny", "scrutiny", "Disk health")):
         if cfg["services"].get(k):
-            dl.append(entry(k.capitalize(), icon, p[k], desc))
+            dl.append(entry(name, icon, p[k], desc))
     groups = []
     if media: groups.append({"Watch & request": media})
     groups += [{"Automation": arrs}, {"Downloads": dl}]
@@ -1681,10 +1733,15 @@ def verify_logins(ctx):
         first = sm["shares"][0]["name"].replace(" ", "%20")
         out.append({"app": "File sharing", "url": f"smb://{host}{'' if port == 445 else ':' + str(port)}/{first}", "user": sm["user"], "password": sm["password"],
                     "ok": up, "note": "Open from Windows, Mac or a phone. See the file sharing guide for each device"})
-    for key, name in (("homepage", "Homepage"), ("metube", "MeTube"), ("komga", "Komga"), ("mylar3", "Mylar3"), ("scrutiny", "Scrutiny")):
+    if cfg["services"].get("kapowarr"):
+        def kap():
+            a = Api(f"http://kapowarr:{INTERNAL['kapowarr']}", prefix="/api")
+            return a.post("/auth", {"username": login["username"], "password": login["password"]}).get("result", {}).get("api_key")
+        add("Kapowarr", "kapowarr", login["username"], login["password"], "Same admin login", kap)
+    for key, name in (("homepage", "Homepage"), ("metube", "MeTube"), ("komga", "Komga"), ("kaizoku", "Kaizoku"), ("scrutiny", "Scrutiny")):
         if cfg["services"].get(key):
             out.append({"app": name, "url": f"http://{host}:{p[key]}", "user": "", "password": "", "ok": True,
-                        "note": "No login needed" if key != "komga" else "Create the owner account on first visit"})
+                        "note": "Create the owner account on first visit" if key == "komga" else "No login needed"})
     return out
 
 

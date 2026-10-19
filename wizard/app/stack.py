@@ -20,12 +20,12 @@ HELPER_IMAGE = "alpine:3"
 DEFAULT_PORTS = {
     "qbittorrent": 8080, "sonarr": 8989, "radarr": 7878, "prowlarr": 9696, "bazarr": 6767,
     "jellyfin": 8096, "seerr": 5055, "flaresolverr": 8191, "homepage": 3000,
-    "metube": 8081, "komga": 25600, "mylar3": 8090, "scrutiny": 8087, "samba": 445,
+    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 3001, "scrutiny": 8087, "samba": 445,
 }
 INTERNAL = {  # port each app listens on inside its container
     "qbittorrent": 8080, "sonarr": 8989, "radarr": 7878, "prowlarr": 9696, "bazarr": 6767,
     "jellyfin": 8096, "seerr": 5055, "flaresolverr": 8191, "homepage": 3000,
-    "metube": 8081, "komga": 25600, "mylar3": 8090, "scrutiny": 8080, "regional": 9120, "samba": 445,
+    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 3000, "scrutiny": 8080, "regional": 9120, "samba": 445,
 }
 
 RUNNING = {"proc": None}
@@ -251,9 +251,27 @@ def compose(cfg):
         svc["komga"] = {"image": "gotson/komga:latest", "restart": "unless-stopped", "user": f"{uid}:{gid}",
                         "volumes": [f"{hostpath('config/komga')}:/config", f"{extra}/books:/books"],
                         "ports": [f"{p['komga']}:25600"]}
-    if s.get("mylar3"):
-        lsio("mylar3", "lscr.io/linuxserver/mylar3:latest", media=False)
-        svc["mylar3"]["volumes"] += [f"{extra}/books/comics:/comics"]
+    volumes = {}
+    if s.get("kapowarr"):
+        # Hikki-dev's Kapowarr fork (comics + MangaDex). The downloads drive is mounted at the same path qBittorrent uses, so no path mapping is needed.
+        svc["kapowarr"] = {"image": "ghcr.io/hikki-dev/kapowarr:latest", "restart": "unless-stopped",
+                           "environment": base_env, "ports": [f"{p['kapowarr']}:5656"],
+                           "volumes": [f"{hostpath('config/kapowarr')}:/app/db"] + mounts
+                           + [f"{extra}/books/comics:/comics", f"{extra}/books/manga:/manga"]}
+    if s.get("kaizoku"):
+        # Kaizoku (manga) needs its own Postgres and Redis; both stay private to the stack.
+        svc["kaizoku"] = {"image": "ghcr.io/oae/kaizoku:latest", "restart": "unless-stopped",
+                          "environment": base_env + ["DATABASE_URL=postgresql://kaizoku:kaizoku@kaizoku-db:5432/kaizoku", "KAIZOKU_PORT=3000",
+                                                     "REDIS_HOST=kaizoku-redis", "REDIS_PORT=6379"],
+                          "volumes": [f"{extra}/books/manga:/data", f"{hostpath('config/kaizoku')}:/config", f"{hostpath('config/kaizoku/logs')}:/logs"],
+                          "depends_on": {"kaizoku-db": {"condition": "service_healthy"}, "kaizoku-redis": {"condition": "service_started"}},
+                          "ports": [f"{p['kaizoku']}:3000"]}
+        svc["kaizoku-redis"] = {"image": "redis:7-alpine", "restart": "unless-stopped", "volumes": ["kaizoku-redis:/data"]}
+        svc["kaizoku-db"] = {"image": "postgres:16-alpine", "restart": "unless-stopped",
+                             "environment": ["POSTGRES_USER=kaizoku", "POSTGRES_DB=kaizoku", "POSTGRES_PASSWORD=kaizoku"],
+                             "volumes": ["kaizoku-db:/var/lib/postgresql/data"],
+                             "healthcheck": {"test": ["CMD-SHELL", "pg_isready -U kaizoku"], "interval": "5s", "timeout": "5s", "retries": 5}}
+        volumes = {"kaizoku-db": None, "kaizoku-redis": None}
     if s.get("scrutiny"):
         svc["scrutiny"] = {"image": "ghcr.io/analogj/scrutiny:master-omnibus", "restart": "unless-stopped",
                            "cap_add": ["SYS_RAWIO"],
@@ -269,6 +287,7 @@ def compose(cfg):
               "bazarr": hc("curl -s -o /dev/null http://localhost:6767/ || exit 1", 90),
               "jellyfin": hc("curl -sf http://localhost:8096/health >/dev/null || exit 1", 90),
               "seerr": hc("wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1"),
+              "kapowarr": hc("python3 -c \"import urllib.request;urllib.request.urlopen('http://localhost:5656/',timeout=10)\" || exit 1", 90),
               "solver": hc("python3 -c \"import urllib.request;urllib.request.urlopen('http://localhost:8191/',timeout=10)\" 2>/dev/null"
                            " || curl -sf http://localhost:8191/ >/dev/null || curl -sf http://localhost:8191/health >/dev/null || exit 1", 90)}
     if "regional" in svc:
@@ -288,7 +307,10 @@ def compose(cfg):
     mine = (cfg.get("adopt") or {}).get("jellyfin")
     if mine and "regional" in svc and mine.get("configMount"):       # the Live TV files must land in THEIR Jellyfin's config folder
         svc["regional"]["volumes"] = [v for v in svc["regional"]["volumes"] if not v.endswith(":/livetv")] + [f"{mine['configMount']}/livetv:/livetv"]
-    return {"name": PROJECT, "services": svc}
+    out = {"name": PROJECT, "services": svc}
+    if volumes:
+        out["volumes"] = volumes
+    return out
 
 
 def write_vpn_env(cfg):
@@ -439,8 +461,8 @@ def prepare_dirs(cfg):
     wanted += [(l["path"], False) for l in plan["libs"]]
     if cfg["services"].get("metube"):
         wanted.append((plan["mounts"][0]["container"] + "/downloads-youtube", False))
-    if cfg["services"].get("komga") or cfg["services"].get("mylar3"):
-        wanted.append((plan["mounts"][0]["container"] + "/books/comics", False))
+    if any(cfg["services"].get(k) for k in ("komga", "kapowarr", "kaizoku")):
+        wanted += [(plan["mounts"][0]["container"] + f"/books/{d}", False) for d in ("comics", "manga")]
     for m in plan["mounts"]:
         cmds = []
         for c, _ in wanted:
@@ -453,7 +475,7 @@ def prepare_dirs(cfg):
             if r.returncode != 0:
                 raise RuntimeError(f"Cannot create folders in {m['host']}: {(r.stderr or '').strip()[-200:]}")
     for n in ["qbittorrent", "prowlarr", "sonarr", "radarr", "bazarr", "jellyfin", "seerr", "homepage",
-              "komga", "mylar3", "scrutiny", "regional", "samba", "jellyfin/livetv"]:
+              "komga", "kapowarr", "kaizoku", "kaizoku/logs", "scrutiny", "regional", "samba", "jellyfin/livetv"]:
         os.makedirs(f"{STACK}/config/{n}", exist_ok=True)
     sh(["chown", "-R", f"{uid}:{gid}", f"{STACK}/config"], check=False)
     return plan

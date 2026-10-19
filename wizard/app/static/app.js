@@ -49,7 +49,7 @@ const S = {
     settings: { minSeeders: 2, concurrent: 3, dlLimitKB: 0, ulLimitKB: 400, rssMinutes: 30, retryFailed: true, upgrade: false, hardSubs: true },
     qbit: { username: "admin", password: "", vuetorrent: true },
     login: { username: "admin", password: "", email: "" },
-    solver: "flaresolverr", services: { jellyfin: true, seerr: true, bazarr: true, homepage: true, metube: false, komga: false, mylar3: false, scrutiny: false, samba: false, tailscale: false },
+    solver: "flaresolverr", services: { jellyfin: true, seerr: true, bazarr: true, homepage: true, metube: false, komga: false, kapowarr: false, kaizoku: false, scrutiny: false, samba: false, tailscale: false },
     subtitles: {}, ports: {}, samba: null, livetv: null, notify: null, adopt: {}, skipGroups: [],
   },
 };
@@ -60,7 +60,7 @@ const shown = k => k === "mine" ? !!(S.found && S.found.some(a => !a.ours)) : k 
 const VIS = () => WIZ.filter(([k]) => shown(k));
 const KIND = { movies: ["film", "Movies"], tv: ["tv", "TV Shows"], anime: ["spark", "Anime"] };
 const DIRNAME = { movies: "Movies", tv: "TV Shows", anime: "Anime" };
-const SVC = { jellyfin: ["film", "Jellyfin", "Watch your library on any device"], seerr: ["search", "Seerr", "Request page for family and friends"], bazarr: ["globe", "Bazarr", "Finds subtitles automatically"], homepage: ["link", "Homepage", "One dashboard for every app"], metube: ["download", "MeTube", "Download YouTube videos"], komga: ["folder", "Komga", "Comics and manga reader"], mylar3: ["spark", "Mylar3", "Automatic comic downloads"], scrutiny: ["drive", "Scrutiny", "Hard drive health"], samba: ["folder", "File sharing", "Open your media and drives from other computers and phones"], tailscale: ["link", "Private HTTPS addresses", "Open every app from anywhere, safely, with Tailscale"] };
+const SVC = { jellyfin: ["film", "Jellyfin", "Watch your library on any device"], seerr: ["search", "Seerr", "Request page for family and friends"], bazarr: ["globe", "Bazarr", "Finds subtitles automatically"], homepage: ["link", "Homepage", "One dashboard for every app"], metube: ["download", "MeTube", "Download YouTube videos"], komga: ["folder", "Komga", "Comics and manga reader"], kapowarr: ["spark", "Kapowarr", "Automatic comic downloads, with FlareSolverr already linked"], kaizoku: ["folder", "Kaizoku", "Automatic manga downloads"], scrutiny: ["drive", "Scrutiny", "Hard drive health"], samba: ["folder", "File sharing", "Open your media and drives from other computers and phones"], tailscale: ["link", "Private HTTPS addresses", "Open every app from anywhere, safely, with Tailscale"] };
 
 /* ------------------------------------------------------------ shell */
 function stepItems(active) {
@@ -656,6 +656,7 @@ const screens = {
         <div class="grid3" id="svc"></div>
         <div id="smbbox"></div>
         <div id="tsbox"></div>
+        <div id="cvbox"></div>
         <div class="card"><div class="setting"><div><div class="t">Approve requests automatically</div><div class="d">Anyone who signs in to the request page gets their downloads straight away. Turn this off to approve each one yourself.</div></div>${sw(c.autoApprove !== false, "saa", "Approve requests automatically")}</div></div>
         <div class="card"><div class="card-h"><h3>Helper for protected websites</h3><span class="sub" id="hw"></span></div><p class="hint" style="margin:0 0 14px">Many search sites make you prove you are not a robot. This helper opens them in a hidden browser for you. We tested all three on the same sites. Which is best depends on your computer.</p><div class="grid3" id="solvers"></div><div id="solvernote"></div></div>
         <div class="card"><div class="card-h"><h3>Main login</h3><span class="sub">Jellyfin, Seerr, Sonarr, Radarr, Prowlarr</span></div><div class="grid2"><div class="field"><label for="lu">Username</label><input class="input" id="lu" value="${esc(l.username)}" autocomplete="off"></div>${pwField("lp", l.password, "Password")}</div></div>
@@ -688,6 +689,13 @@ const screens = {
       $$("[data-sx]").forEach(b => b.onclick = () => { sm.shares.splice(+b.dataset.sx, 1); drawShare(); });
       $("#smadd").onclick = () => openBrowser("Choose a folder to share", "", p => { if (!p || sm.shares.some(x => x.path === p)) return; const base = p.replace(/\/+$/, "").split("/").pop() || "Share"; let n = base, k = 2; while (sm.shares.some(x => x.name.toLowerCase() === n.toLowerCase())) n = base + " " + k++; sm.shares.push({ name: n, path: p, readOnly: false, kind: "drive" }); drawShare(); });
     }
+    function drawCv() {
+      const box = $("#cvbox"); if (!box) return;
+      box.innerHTML = !sv.kapowarr ? "" : `<div class="card"><div class="card-h"><h3>Kapowarr: ComicVine key</h3><span class="sub">Optional</span></div>
+        <p class="hint" style="margin:0 0 12px">Kapowarr finds comic details on ComicVine, which needs a personal key. Get one free at comicvine.gamespot.com/api, then paste it here. You can also add it later in Kapowarr under Settings.</p>
+        <div class="field"><label for="cvk">ComicVine API key</label><input class="input" id="cvk" value="${esc((S.cfg.comics || {}).comicvine_key || "")}"></div></div>`;
+      const i = $("#cvk"); if (i) i.oninput = () => { S.cfg.comics = { ...(S.cfg.comics || {}), comicvine_key: i.value.trim() }; };
+    }
     function drawTs() {
       const box = $("#tsbox"); if (!box) return;
       const t = S.env.tailscale || {};
@@ -695,7 +703,7 @@ const screens = {
         <p class="hint" style="margin:0 0 12px">Every app gets an address like <span class="mono">https://${esc(t.dns || "your-server.your-network.ts.net")}:18096</span> that works from any of your devices with Tailscale, at home or away, with a proper padlock. Nothing is opened on your router.</p>
         <ol class="hint" style="margin:0;padding-left:20px;line-height:1.8"><li>In the Tailscale admin page, open DNS and press <b>Enable HTTPS</b> once. The setup cannot do this for you.</li><li>Homepage links are changed to these addresses automatically.</li><li>Run the setup again after adding apps, and the new ones get an address too.</li></ol></div>`;
     }
-    const draw = () => { $("#svc").innerHTML = Object.entries(SVC).map(([k, [i, t, d]]) => `<div class="tile ${sv[k] ? "on" : ""}" data-s="${k}" tabindex="0" role="checkbox" aria-checked="${sv[k]}"><span class="check">${ic("check", "s")}</span><div class="ic">${ic(i, "l")}</div><b>${t}</b><small>${d}</small></div>`).join(""); $$("[data-s]").forEach(el => onKey(el, () => { const k = el.dataset.s; if (k === "samba" && S.env.hostOs !== "linux") return toast("File sharing is only offered when this setup runs on Linux. On Windows and Mac, use the sharing built into the system."); if (k === "tailscale" && !sv.tailscale && !(S.env.tailscale && S.env.tailscale.ready)) return toast((S.env.tailscale && S.env.tailscale.problem) || "Tailscale is not ready on this computer."); sv[k] = !sv[k]; draw(); })); drawShare(); drawTs(); };
+    const draw = () => { $("#svc").innerHTML = Object.entries(SVC).map(([k, [i, t, d]]) => `<div class="tile ${sv[k] ? "on" : ""}" data-s="${k}" tabindex="0" role="checkbox" aria-checked="${sv[k]}"><span class="check">${ic("check", "s")}</span><div class="ic">${ic(i, "l")}</div><b>${t}</b><small>${d}</small></div>`).join(""); $$("[data-s]").forEach(el => onKey(el, () => { const k = el.dataset.s; if (k === "samba" && S.env.hostOs !== "linux") return toast("File sharing is only offered when this setup runs on Linux. On Windows and Mac, use the sharing built into the system."); if (k === "tailscale" && !sv.tailscale && !(S.env.tailscale && S.env.tailscale.ready)) return toast((S.env.tailscale && S.env.tailscale.problem) || "Tailscale is not ready on this computer."); sv[k] = !sv[k]; draw(); })); drawShare(); drawTs(); drawCv(); };
     const SOLVERS = { flaresolverr: ["FlareSolverr", "Best for almost everyone", "Opened every site that any option could, including TamilBlasters. Uses about 55 MB when idle and up to 1.6 GB while working. Best when many sites are searched at once."],
       byparr: ["Byparr", "Backup option", "Opened the same sites as FlareSolverr but is heavier (2.3 GB download, about 2 GB at its busiest) and slower when several searches run together. Pick it only if FlareSolverr stops working on a site you need."],
       trawl: ["TRAWL", "Fast on easy sites", "Answers easy sites in 1 to 2 seconds instead of 6 to 15, but failed 1337x and TamilBlasters in testing and keeps about 0.5 to 0.9 GB busy plus a small Redis. For machines with 8 GB+ where you mostly use the easy indexers."] };

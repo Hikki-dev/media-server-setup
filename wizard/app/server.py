@@ -17,7 +17,7 @@ from arrapi import CANCEL, REC, Api, ApiError, Fatal, Recorder
 
 STATIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
-GUIDE_ORDER = ["Getting started", "How everything fits", "What it sets up", "File sharing", "Private HTTPS", "Portainer", "Live TV and VPN", "How Live TV works", "Fixing problems", "How it works"]
+GUIDE_ORDER = ["Getting started", "How everything fits", "What it sets up", "File sharing", "Private HTTPS", "Portainer", "Comics and manga", "Live TV and VPN", "How Live TV works", "Fixing problems", "How it works"]
 
 
 def docs_list():
@@ -69,6 +69,14 @@ def normalize(cfg):
     cfg.setdefault("packs", ["english"])
     cfg["settings"] = {**C.DEFAULT_SETTINGS, **(cfg.get("settings") or {})}
     cfg["regional"] = bool(REGIONAL_PACKS & set(cfg["packs"]))
+    sv = cfg.setdefault("services", {})
+    if sv.pop("mylar3", None):      # Mylar3 was replaced by Kapowarr
+        sv["kapowarr"] = True
+    if "mylar3" in cfg.get("ports", {}):
+        cfg["ports"].setdefault("kapowarr", S.DEFAULT_PORTS["kapowarr"])
+        cfg["ports"].pop("mylar3")
+    for k in ("kapowarr", "kaizoku"):
+        cfg.setdefault("ports", {}).setdefault(k, S.DEFAULT_PORTS[k])
     cfg.setdefault("livetv", None)
     cfg.setdefault("notify", None)
     cfg["profiles"] = C.profiles_of(cfg)
@@ -161,6 +169,12 @@ def install(cfg):
         if cfg["services"].get("bazarr"):
             step("Configuring Bazarr (subtitles)")
             C.setup_bazarr(ctx)
+        if cfg["services"].get("kapowarr"):
+            step("Configuring Kapowarr (comics)")
+            try:
+                C.setup_kapowarr(ctx)
+            except Exception as e:  # noqa: BLE001 - optional extra: report, never fail the whole install
+                log(f"  Kapowarr could not be finished: {str(getattr(e, 'body', e))[:160]}")
         step("Configuring Prowlarr (finding and testing indexers)")
         C.setup_prowlarr(ctx)
         if cfg["services"].get("jellyfin"):
