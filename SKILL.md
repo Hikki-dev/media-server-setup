@@ -12,6 +12,7 @@ A page in the browser (run inside Docker) installs the whole server and links ev
 | Where | What it is |
 |---|---|
 | Start on Windows.bat, Start on Mac.command, Start on Linux.sh | Start the setup, then open http://localhost:7979 |
+| install.sh | One-line installer (curl ... \| bash): downloads the project to ~/media-server-setup and runs tools/start.sh. On a machine with no screen it runs headless and prints the address instead of opening a browser |
 | tools/start.sh | The shared start script for Mac and Linux |
 | wizard/app | The program: server.py (the install flow), configure.py (talks to each app), adopt.py and audit.py (apps the person already has, and the list of changes), stack.py (Docker and drives), sharing.py (optional file sharing settings), tailscale_https.py (private HTTPS addresses), livetv.py (channel lists), bridge.py (Tamil and Malayalam sources and the daily channel update) |
 | wizard/presets/trash.json | The community quality rules |

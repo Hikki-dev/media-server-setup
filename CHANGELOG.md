@@ -1,5 +1,12 @@
 # Changes
 
+## Easier install
+
+1. New one-line installer, install.sh, for Linux, Mac, a Proxmox LXC or any server. It downloads the project and starts the setup.
+2. The start windows are tidier: five numbered steps with a spinner and a tick, clear messages if something fails, and the address to open at the end.
+3. Headless mode: on a machine with no screen (or with --headless) no browser is opened, and the address to use from another computer is shown.
+4. New guide, docs/Installing.md, with a picture of every start window.
+
 ## Comics and manga
 
 1. Mylar3 is replaced by Kapowarr, using Hikki-dev's own version (comics plus MangaDex manga). The setup links it to FlareSolverr, Prowlarr and qBittorrent, adds the comics and manga folders, and uses the main login. Only a free ComicVine key is left for you.

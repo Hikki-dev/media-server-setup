@@ -55,12 +55,24 @@ You need three things:
 
 ## Install
 
-1. Download this project and unzip it, or use the green **Code** button on this page.
-2. Start the file for your computer:
-   * Windows: double click `Start on Windows.bat`
-   * Mac: double click `Start on Mac.command`. The first time, right click it and choose Open.
-   * Linux: open a terminal in this folder and run `bash "Start on Linux.sh"`
-3. Your browser opens at `http://localhost:7979`. Answer the questions and press **Install everything**.
+Pick the way that fits you. They all do the same thing.
+
+| Your computer | Do this |
+|---|---|
+| Windows | Download this project, unzip it, double click `Start on Windows.bat` |
+| Mac | Download this project, unzip it, double click `Start on Mac.command`. The first time, right click it and choose Open |
+| Linux with a screen | Download this project, unzip it, run `bash "Start on Linux.sh"` |
+| A server, a Proxmox LXC or a VPS | Run the one line below. No download, no screen needed |
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Hikki-dev/media-server-setup/main/install.sh | bash
+```
+
+The window shows each step with a spinner and a tick, then a web address. Your browser opens at `http://localhost:7979` by itself, or you open the address on another computer when the machine has no screen. Answer the questions and press **Install everything**.
+
+![The one-line installer](docs/images/install-oneline.png)
+
+Pictures of every start window, and help for a server with no screen, are in [Installing](docs/Installing.md).
 
 The first install takes 5 to 15 minutes. You can stop it at any time, and stopping never touches your media.
 
@@ -237,6 +249,7 @@ To report a security problem, read [SECURITY.md](SECURITY.md).
 
 | If you want to | Read |
 |---|---|
+| Install it on Windows, Mac, Linux or a server | [Installing](docs/Installing.md) |
 | Follow every screen with pictures | [Getting started](docs/Getting%20started.md) |
 | Understand how the apps work together | [How everything fits](docs/How%20everything%20fits.md) |
 | Know exactly what the setup does | [What it sets up](docs/What%20it%20sets%20up.md) |

@@ -12,13 +12,14 @@ On the website, click any picture to open it full size.
 
 ## Start it
 
-Open the start file for your computer. Your browser opens at `http://localhost:7979`.
+Open the start file for your computer. Your browser opens at `http://localhost:7979`. On a server with no screen, run the one-line installer and open the address it shows. All the ways, with pictures, are in Installing.md.
 
 | Computer | File |
 |---|---|
 | Windows | Start on Windows.bat |
 | Mac | Start on Mac.command (the first time, right click it and choose Open) |
 | Linux | Run `bash "Start on Linux.sh"` in this folder |
+| A server or LXC | `curl -fsSL https://raw.githubusercontent.com/Hikki-dev/media-server-setup/main/install.sh \| bash` |
 
 ![Welcome screen](images/step-1-welcome.png)
 
