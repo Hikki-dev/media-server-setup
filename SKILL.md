@@ -48,6 +48,10 @@ Offer it on Linux when the person wants to open their media or drives from other
 
 Offer it on Linux when Tailscale is installed. It is the Private HTTPS addresses tile on the Apps and accounts step, and tools/start.sh passes Tailscale in when it finds it. The person must press Enable HTTPS once in the Tailscale admin page under DNS. The tool in wizard/app/tailscale_https.py also works alone. It only adds addresses. Never run tailscale serve reset, because that removes entries by hand that cannot be rebuilt. See docs/Private HTTPS.md.
 
+## Portainer
+
+If the person uses Portainer, read docs/Portainer.md before changing a stack. Updating a stack removes and recreates every container in it. After any update run docker ps -a and start anything left in Created. A loose container with the same name as a stack service is the usual reason an update fails.
+
 ## Apps the person already has
 
 The page looks for Sonarr, Radarr, Prowlarr, qBittorrent, Bazarr, Jellyfin, Seerr and a helper for protected websites that already run in Docker. In the step Your apps they choose, for each one, to use theirs or install a new one. Any mix works.

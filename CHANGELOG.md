@@ -1,5 +1,11 @@
 # Changes
 
+## Portainer and the diagram
+
+1. New guide page, docs/Portainer.md: keeping the apps in stacks, what an update really does, and the mistakes that leave apps stopped.
+2. The picture of how the apps fit together now uses the real app logos and the standard ports. It is drawn by tools/build_diagram.py.
+3. Private HTTPS: how to keep your own list of ports.
+
 ## Guide and private HTTPS addresses
 
 1. New guide on the website, shown from the setup page. It reads the pages in the docs folder, so the website and GitHub show the same text. It has screenshots of every step and a picture of how the apps work together.

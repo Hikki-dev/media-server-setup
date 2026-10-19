@@ -46,6 +46,22 @@ Useful options:
 | `--loop 600` | Keeps running and checks again every 10 minutes, so new containers get an address by themselves. |
 | `--homepage file` | Changes the links in a Homepage services.yaml. The comments and layout are kept, and a backup copy is saved first. |
 
+## Keep your own list
+
+You can also keep a small script of your own as the main list, so the ports are always the ones you chose. The tool at the end adds anything new. Running it again changes nothing that is already there.
+
+```
+#!/bin/bash
+S="tailscale serve --bg"
+$S --https=18096 http://localhost:8096 >/dev/null    # Jellyfin
+$S --https=18989 http://localhost:8989 >/dev/null    # Sonarr
+$S --https=10081 http://localhost:81   >/dev/null    # Homepage
+# add your own lines here. Never use  tailscale serve reset
+python3 /path/to/tailscale_https.py --apply --homepage /path/to/services.yaml
+```
+
+Run it from a schedule so it is repaired by itself, for example every 10 minutes.
+
 ## It never removes anything
 
 The tool only adds addresses. It never resets the ones you have, so you can run it as often as you like, for example from a schedule:
@@ -54,7 +70,7 @@ The tool only adds addresses. It never resets the ones you have, so you can run 
 */10 * * * * python3 /path/to/tailscale_https.py --apply --homepage /path/to/services.yaml
 ```
 
-It also remembers every address in a small file, so if Tailscale is ever reset, running the tool puts them all back exactly as they were. Do not run `tailscale serve reset` yourself. It also removes entries that only you know about, such as a folder shared under a path, and those cannot be rebuilt automatically.
+It also remembers every address in a small file, so if Tailscale is ever reset, running the tool puts them all back exactly as they were. Do not run `tailscale serve reset` yourself. In a real test it took every address away for a minute, and it also removed the folder share of an update feed. It also removes entries that only you know about, such as a folder shared under a path, and those cannot be rebuilt automatically.
 
 ## Letting friends in
 

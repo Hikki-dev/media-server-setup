@@ -4,6 +4,8 @@ Each app does one small job. The setup connects them, so you only ever ask for s
 
 ![How the apps work together](images/how-it-fits.svg)
 
+The small numbers on the arrows are the standard ports of each app. If one of them is busy on your computer, the setup picks a free one and shows it at the end.
+
 ## The story of one request
 
 1. You open **Seerr** on your phone and ask for a film.

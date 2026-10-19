@@ -80,6 +80,7 @@ To report a security problem, read SECURITY.md.
 3. docs/Live TV and VPN.md covers channels and NordVPN.
 4. docs/File sharing.md covers sharing your folders and drives, setting up drives, and using them away from home.
 5. docs/Private HTTPS.md covers safe addresses for every app with Tailscale.
+   docs/Portainer.md covers keeping the apps in Portainer stacks, and the mistakes that leave apps stopped.
 6. docs/Getting started.md and docs/How everything fits.md are the guide with pictures.
 7. docs/How it works.md is for people who want to change the code.
 
@@ -89,7 +90,7 @@ Fixes and ideas are welcome. Read CONTRIBUTING.md first. It explains how to run 
 
 ## Credits
 
-The quality rules come from the TRaSH Guides. Channel lists come from the iptv org project, and TV guides from EPG Share. Thank you to everyone who keeps these free.
+The app logos in the pictures are from the Dashboard Icons collection and belong to their projects. The quality rules come from the TRaSH Guides. Channel lists come from the iptv org project, and TV guides from EPG Share. Thank you to everyone who keeps these free.
 
 ## Licence
 
