@@ -30,7 +30,7 @@ The small numbers on the arrows are the standard ports of each app. If one of th
 | Bazarr | Finds subtitles in your languages | Rarely |
 | FlareSolverr | Helps the searches get past robot checks | Never, it works quietly |
 | Homepage | One page with a button for every app | Your home page in the browser |
-| Kapowarr (optional) | Finds and downloads comics and manga, and uses FlareSolverr for protected sites | Port 5656 |
+| Kapowarr (optional) | Finds and downloads comics, and uses FlareSolverr for protected sites | Port 5656 |
 | Kaizoku (optional) | Follows manga and downloads new chapters | Port 3001 |
 | Komga (optional) | Reads comics and manga | Port 25600 |
 
@@ -40,7 +40,7 @@ The setup page shows a link to each of them when it finishes. Most days you only
 
 | Extra | What it adds | Guide |
 |---|---|---|
-| Comics and manga | Kapowarr and Kaizoku download, Komga reads | Comics and manga |
+| Comics and manga | Kapowarr downloads comics, Kaizoku downloads manga, Komga reads both | Comics and manga |
 | Live TV and sports | Free live channels with a TV guide inside Jellyfin | Live TV and VPN |
 | File sharing | Your media folder and your drives shown on your home network | File sharing |
 | Private HTTPS addresses | Every app gets a safe address that works from anywhere with Tailscale | Private HTTPS |

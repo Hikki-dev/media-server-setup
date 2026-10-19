@@ -253,11 +253,11 @@ def compose(cfg):
                         "ports": [f"{p['komga']}:25600"]}
     volumes = {}
     if s.get("kapowarr"):
-        # Hikki-dev's Kapowarr fork (comics + MangaDex). The downloads drive is mounted at the same path qBittorrent uses, so no path mapping is needed.
+        # Hikki-dev's Kapowarr fork (comics only; manga is Kaizoku's job). The downloads drive is mounted at the same path qBittorrent uses, so no path mapping is needed.
         svc["kapowarr"] = {"image": "ghcr.io/hikki-dev/kapowarr:latest", "restart": "unless-stopped",
                            "environment": base_env, "ports": [f"{p['kapowarr']}:5656"],
                            "volumes": [f"{hostpath('config/kapowarr')}:/app/db"] + mounts
-                           + [f"{extra}/books/comics:/comics", f"{extra}/books/manga:/manga"]}
+                           + [f"{extra}/books/comics:/comics"]}
     if s.get("kaizoku"):
         # Kaizoku (manga) needs its own Postgres and Redis; both stay private to the stack.
         svc["kaizoku"] = {"image": "ghcr.io/oae/kaizoku:latest", "restart": "unless-stopped",
@@ -415,7 +415,8 @@ def list_drives(host_os, home):
             if r.returncode == 0:
                 cands.append({"name": f"{letter}:", "path": f"{letter}:/"})
     else:
-        for base in ("/mnt", "/media", "/srv"):
+        user = os.path.basename((home or "").rstrip("/"))
+        for base in ("/mnt", "/media", "/srv", "/data", f"/run/media/{user}" if user else "/run/media"):
             r = helper(base, "ls -1 /m", timeout=20)
             if r.returncode == 0:
                 cands += [{"name": n, "path": f"{base}/{n}"} for n in r.stdout.split("\n") if n]
@@ -431,7 +432,11 @@ def list_drives(host_os, home):
     with ThreadPoolExecutor(max_workers=4) as ex:
         drives = list(ex.map(info, cands))
         places = list(ex.map(info, places))
-    return {"drives": [d for d in drives if (d.get("totalBytes") or 0) > 2e9], "places": places}
+    drives = [d for d in drives if (d.get("totalBytes") or 0) > 2e9]
+    if host_os != "win" and places:    # the computer's own (internal) drive: its space is where the home folder lives, and Docker may use it
+        internal = dict(places[0], name="This computer (internal drive)", internal=True)
+        drives.insert(0, internal)
+    return {"drives": drives, "places": places}
 
 
 def make_folder(parent, name, uid):
@@ -461,8 +466,9 @@ def prepare_dirs(cfg):
     wanted += [(l["path"], False) for l in plan["libs"]]
     if cfg["services"].get("metube"):
         wanted.append((plan["mounts"][0]["container"] + "/downloads-youtube", False))
-    if any(cfg["services"].get(k) for k in ("komga", "kapowarr", "kaizoku")):
-        wanted += [(plan["mounts"][0]["container"] + f"/books/{d}", False) for d in ("comics", "manga")]
+    for kind, users in (("comics", ("komga", "kapowarr")), ("manga", ("komga", "kaizoku"))):
+        if any(cfg["services"].get(k) for k in users):
+            wanted.append((plan["mounts"][0]["container"] + f"/books/{kind}", False))
     for m in plan["mounts"]:
         cmds = []
         for c, _ in wanted:

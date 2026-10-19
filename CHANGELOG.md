@@ -1,5 +1,10 @@
 # Changes
 
+## Drives and comics
+
+1. The folder picker now always lists this computer's own (internal) drive, first, so the media can live on it. Before, a Mac with no external drive showed "No drives found". More Linux places are searched too. If the list cannot be read, the picker now says so.
+2. Kapowarr is comics only. Its manga search is switched off by the setup and it no longer gets a manga folder; Kaizoku does manga.
+
 ## Easier install
 
 1. New one-line installer, install.sh, for Linux, Mac, a Proxmox LXC or any server. It downloads the project and starts the setup.
@@ -9,7 +14,7 @@
 
 ## Comics and manga
 
-1. Mylar3 is replaced by Kapowarr, using Hikki-dev's own version (comics plus MangaDex manga). The setup links it to FlareSolverr, Prowlarr and qBittorrent, adds the comics and manga folders, and uses the main login. Only a free ComicVine key is left for you.
+1. Mylar3 is replaced by Kapowarr, using Hikki-dev's own copy. It is for comics only; manga is Kaizoku's job, so Kapowarr's manga search is switched off. The setup links it to FlareSolverr, Prowlarr and qBittorrent, adds the comics folder, and uses the main login. Only a free ComicVine key is left for you.
 2. New optional app: Kaizoku, for following manga and downloading new chapters. It comes with its own private database and cache.
 3. Running the setup again turns Kapowarr on for anyone who had Mylar3.
 4. New guide, docs/Comics and manga.md, and new Homepage tiles.

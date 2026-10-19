@@ -14,7 +14,7 @@
 | Helper for protected websites | Opens search sites that make you prove you are not a robot |
 | Homepage | One page with a button for every app |
 
-You can also add a YouTube downloader, Komga (a comic and manga reader), Kapowarr (comic downloads), Kaizoku (manga downloads) and a disk health checker. If a port is already used on your computer, the setup picks a free one for you.
+You can also add a YouTube downloader, Komga (a comic and manga reader), Kapowarr (comic downloads only), Kaizoku (manga downloads only) and a disk health checker. If a port is already used on your computer, the setup picks a free one for you.
 
 ## Where your files go
 
@@ -80,7 +80,7 @@ Some channels only work in their own country. With NordVPN you can try them thro
 
 ## Comics and manga
 
-Optional. Kapowarr (Hikki-dev's version) and Kaizoku save into the `books` folder that Komga reads. Kapowarr is linked to FlareSolverr, Prowlarr and qBittorrent, and gets `/comics` and `/manga` as folders. You only paste a free ComicVine key. See Comics and manga.md.
+Optional. Kapowarr (Hikki-dev's version) and Kaizoku save into the `books` folder that Komga reads. Kapowarr is linked to FlareSolverr, Prowlarr and qBittorrent, and gets `/comics` as its folder. Kaizoku keeps manga in `/manga`. You only paste a free ComicVine key. See Comics and manga.md.
 
 ## File sharing
 

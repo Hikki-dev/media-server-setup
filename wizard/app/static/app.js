@@ -60,7 +60,7 @@ const shown = k => k === "mine" ? !!(S.found && S.found.some(a => !a.ours)) : k 
 const VIS = () => WIZ.filter(([k]) => shown(k));
 const KIND = { movies: ["film", "Movies"], tv: ["tv", "TV Shows"], anime: ["spark", "Anime"] };
 const DIRNAME = { movies: "Movies", tv: "TV Shows", anime: "Anime" };
-const SVC = { jellyfin: ["film", "Jellyfin", "Watch your library on any device"], seerr: ["search", "Seerr", "Request page for family and friends"], bazarr: ["globe", "Bazarr", "Finds subtitles automatically"], homepage: ["link", "Homepage", "One dashboard for every app"], metube: ["download", "MeTube", "Download YouTube videos"], komga: ["folder", "Komga", "Comics and manga reader"], kapowarr: ["spark", "Kapowarr", "Automatic comic downloads, with FlareSolverr already linked"], kaizoku: ["folder", "Kaizoku", "Automatic manga downloads"], scrutiny: ["drive", "Scrutiny", "Hard drive health"], samba: ["folder", "File sharing", "Open your media and drives from other computers and phones"], tailscale: ["link", "Private HTTPS addresses", "Open every app from anywhere, safely, with Tailscale"] };
+const SVC = { jellyfin: ["film", "Jellyfin", "Watch your library on any device"], seerr: ["search", "Seerr", "Request page for family and friends"], bazarr: ["globe", "Bazarr", "Finds subtitles automatically"], homepage: ["link", "Homepage", "One dashboard for every app"], metube: ["download", "MeTube", "Download YouTube videos"], komga: ["folder", "Komga", "Comics and manga reader"], kapowarr: ["spark", "Kapowarr", "Automatic comic downloads"], kaizoku: ["folder", "Kaizoku", "Automatic manga downloads (manga only)"], scrutiny: ["drive", "Scrutiny", "Hard drive health"], samba: ["folder", "File sharing", "Open your media and drives from other computers and phones"], tailscale: ["link", "Private HTTPS addresses", "Open every app from anywhere, safely, with Tailscale"] };
 
 /* ------------------------------------------------------------ shell */
 function stepItems(active) {
@@ -143,7 +143,7 @@ async function openBrowser(title, start, onPick) {
     ov.innerHTML = `<div class="modal" role="dialog" aria-label="${esc(title)}">
       <div class="modal-h"><div><h3>${esc(title)}</h3><div class="hint" style="margin:2px 0 0">Pick a folder you already have, or make a new one. Nothing inside it is changed.</div></div><button class="btn sm" id="bx" aria-label="Close">${ic("x", "s")}</button></div>
       <div class="crumbs">${cur ? `<span style="cursor:pointer" data-i="-1">Drives</span><span>/</span>${crumbs}` : "<span>Choose a drive</span>"}</div>
-      <div class="modal-body"><div class="qa"><div class="h">Drives</div>${drives.drives.map(d => `<div class="it" data-p="${esc(d.path)}">${ic("drive")}${esc(d.name)}<small>${fmt(d.freeBytes)}</small></div>`).join("") || `<div class="hint" style="padding:6px 10px">No drives found</div>`}
+      <div class="modal-body"><div class="qa"><div class="h">Drives</div>${drives.drives.map(d => `<div class="it" data-p="${esc(d.path)}">${ic("drive")}${esc(d.name)}<small>${fmt(d.freeBytes)}</small></div>`).join("") || `<div class="hint" style="padding:6px 10px">${drives.failed ? "Could not read your drives. Close this and try again." : "No drives found"}</div>`}
         ${drives.places.length ? `<div class="h" style="margin-top:10px">Places</div>${drives.places.map(d => `<div class="it" data-p="${esc(d.path)}">${ic("folder")}${esc(d.name)}</div>`).join("")}` : ""}</div>
         <div class="dirs">${cur ? (cur.dirs.length ? cur.dirs.map(d => `<div class="dir" data-d="${esc(d.name)}">${ic("folder")}${esc(d.name)}<span class="sz">${d.items} items</span></div>`).join("") : `<div class="hint" style="padding:14px">No folders here. Press “New folder” or choose this one.</div>`) : `<div class="hint" style="padding:14px">Pick a drive on the left.</div>`}</div></div>
       <div class="modal-f"><div style="min-width:0"><div class="mono" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${cur ? esc(cur.path) : ""}</div>${cur ? `<div class="hint" style="margin:2px 0 0;color:${cur.writable ? "var(--ok)" : "var(--bad)"}">${cur.writable ? "Writable" : "The apps are not allowed to write here"} &#183; ${fmt(cur.freeBytes)} free &#183; ${cur.items} item${cur.items === 1 ? "" : "s"}</div>` : ""}</div>
@@ -163,7 +163,7 @@ async function openBrowser(title, start, onPick) {
     $("#bu", ov)?.addEventListener("click", () => { if (!cur.writable && !confirm("The apps are not allowed to write in this folder. Use it anyway?")) return; close(); onPick(cur.path); });
   }
   draw();
-  try { drives = await api("/api/drives"); } catch (e) { /* keep empty */ }
+  try { drives = await api("/api/drives"); } catch (e) { drives.failed = true; }
   draw();
   let p = start || S.env.defaultMedia || "";
   for (let k = 0; p && k < 8; k++) { try { await api("/api/browse?path=" + encodeURIComponent(p)); await load(p); return; } catch (e) { const np = p.replace(/[\\/][^\\/]*$/, ""); if (np === p || np.length < 2) break; p = np; } }

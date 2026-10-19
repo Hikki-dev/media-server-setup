@@ -1556,7 +1556,7 @@ def setup_bazarr(ctx):
 
 
 def setup_kapowarr(ctx):
-    """Kapowarr (Hikki-dev's fork): login, FlareSolverr, Prowlarr, qBittorrent, the comics and manga root folders and the ComicVine key.
+    """Kapowarr (Hikki-dev's fork, comics only): login, FlareSolverr, Prowlarr, qBittorrent, the comics root folder and the ComicVine key.
 
     Its API takes the key as ?api_key=; a fresh install has no password, and POST /auth then hands the key out.
     ComicVine needs a personal free key, so without one the person is told where to paste it.
@@ -1579,7 +1579,7 @@ def setup_kapowarr(ctx):
     q = {"api_key": k}
     put = {"flaresolverr_base_url": ctx.host_url("flaresolverr"),
            "prowlarr_base_url": ctx.host_url("prowlarr"), "prowlarr_api_key": ctx.keys.get("prowlarr", ""),
-           "auth_username": login["username"], "auth_password": login["password"]}
+           "mangadex_enabled": False, "auth_username": login["username"], "auth_password": login["password"]}
     cv = ((cfg.get("comics") or {}).get("comicvine_key") or "").strip()
     if cv:
         put["comicvine_api_key"] = cv
@@ -1589,7 +1589,7 @@ def setup_kapowarr(ctx):
         except ApiError as e:
             log(f"  Kapowarr: could not set {name}: {str(e.body)[:120]}")
     have = {r["folder"].rstrip("/") for r in api.get("/rootfolder", params=q).get("result", [])}
-    for folder in ("/comics", "/manga"):
+    for folder in ("/comics",):
         if folder not in have:
             try:
                 api.call("POST", "/rootfolder", {"folder": folder}, params=q)
@@ -1602,7 +1602,7 @@ def setup_kapowarr(ctx):
                                                    "username": qb["username"], "password": qb["password"]}, params=q)
         except ApiError as e:
             log(f"  Kapowarr: could not add qBittorrent: {str(e.body)[:120]}")
-    log("Kapowarr ready: comics in /comics, manga in /manga, FlareSolverr, Prowlarr and qBittorrent linked"
+    log("Kapowarr ready: comics in /comics, FlareSolverr, Prowlarr and qBittorrent linked"
         + ("" if cv else ". Paste your free ComicVine key in Kapowarr, Settings, before adding comics"))
 
 

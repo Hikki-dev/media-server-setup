@@ -23,7 +23,7 @@ Each app does one small job. Together they find, download, tidy and play your mo
 <tr><td><img src="docs/images/icons/qbittorrent.png" alt="qBittorrent logo" width="48"></td><td><b>qBittorrent</b></td><td>Does the downloading, and stops uploading when it is done</td></tr>
 <tr><td><img src="docs/images/icons/bazarr.png" alt="Bazarr logo" width="48"></td><td><b>Bazarr</b></td><td>Finds subtitles, English first</td></tr>
 <tr><td><img src="docs/images/icons/flaresolverr.png" alt="FlareSolverr logo" width="48"></td><td><b>FlareSolverr</b></td><td>Helps the searches get past robot checks on search websites</td></tr>
-<tr><td><img src="docs/images/icons/kapowarr.png" alt="Kapowarr logo" width="48"></td><td><b>Kapowarr</b> (optional)</td><td>Finds and downloads comics, using <a href="https://github.com/Hikki-dev/Kapowarr">my own version</a> that also does manga</td></tr>
+<tr><td><img src="docs/images/icons/kapowarr.png" alt="Kapowarr logo" width="48"></td><td><b>Kapowarr</b> (optional)</td><td>Finds and downloads comics (not manga), using <a href="https://github.com/Hikki-dev/Kapowarr">my own copy</a> with fixes</td></tr>
 <tr><td><img src="docs/images/icons/kaizoku.png" alt="Kaizoku logo" width="48"></td><td><b>Kaizoku</b> (optional)</td><td>Follows manga and downloads new chapters</td></tr>
 <tr><td><img src="docs/images/icons/homepage.png" alt="Homepage logo" width="48"></td><td><b>Homepage</b></td><td>One page with a button for every app</td></tr>
 <tr><td><img src="docs/images/icons/tailscale.png" alt="Tailscale logo" width="48"></td><td><b>Tailscale</b> (optional)</td><td>A private way to reach everything from anywhere, with safe HTTPS addresses</td></tr>
