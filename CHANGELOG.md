@@ -1,5 +1,12 @@
 # Changes
 
+## Guide and private HTTPS addresses
+
+1. New guide on the website, shown from the setup page. It reads the pages in the docs folder, so the website and GitHub show the same text. It has screenshots of every step and a picture of how the apps work together.
+2. New optional tile: private HTTPS addresses with Tailscale for every app, and Homepage links changed to match. The tool also works on its own for any Docker containers, never removes an address, and remembers each one.
+3. The setup image is now built from the top folder, so the guide travels inside it.
+4. File sharing, the standalone script, and tests for both.
+
 ## File sharing
 
 1. New optional step: share your media folder and your other drives on your home network (Samba). One login, no guest access, only home networks and Tailscale may connect.

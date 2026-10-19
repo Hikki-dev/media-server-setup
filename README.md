@@ -46,6 +46,14 @@ You do not have to start again. The setup finds the apps already on your compute
 
 Before anything is touched, the What changes page lists every setting the setup wants to change, next to how it is set today. Each part has a switch to keep yours. Nothing is changed until you say so. Connections you already have, logins, request rules, folder names and search sites you added are kept unless you switch them.
 
+## A guide with pictures
+
+The setup page has a guide at the bottom of the left side: Open the guide. It is the same set of pages as the docs folder, with screenshots and a picture of how the apps work together. Start with docs/Getting started.md.
+
+## Private HTTPS addresses
+
+This part is optional. With Tailscale on the server, every app gets a safe HTTPS address that works from any of your own devices, at home or away, and Homepage links are changed to match. Nothing is opened on your router. It can also be used on its own, for any Docker containers. See docs/Private HTTPS.md.
+
 ## Share your folders and drives
 
 This part is optional. It makes your media folder and your other drives show up on your home network, so you can open them from Windows, Mac, Linux and phones, and reach them from anywhere with Tailscale. It uses one login, no guest access, and settings chosen for speed and safety. It works on Linux. You can switch it on in the setup page, or use the script in extras/File sharing on a computer that does not run the setup. The guide also explains how to prepare your drives properly. See docs/File sharing.md.
@@ -71,7 +79,9 @@ To report a security problem, read SECURITY.md.
 2. docs/Fixing problems.md covers the common problems.
 3. docs/Live TV and VPN.md covers channels and NordVPN.
 4. docs/File sharing.md covers sharing your folders and drives, setting up drives, and using them away from home.
-5. docs/How it works.md is for people who want to change the code.
+5. docs/Private HTTPS.md covers safe addresses for every app with Tailscale.
+6. docs/Getting started.md and docs/How everything fits.md are the guide with pictures.
+7. docs/How it works.md is for people who want to change the code.
 
 ## Contributing
 

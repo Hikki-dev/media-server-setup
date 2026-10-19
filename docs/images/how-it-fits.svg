@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" font-family="Arial, Helvetica, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">How the apps work together</title>
+  <desc id="d">You ask for something in Seerr. Sonarr or Radarr search through Prowlarr, qBittorrent downloads it into your library, Bazarr adds subtitles, and Jellyfin plays it.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#475569"/></marker>
+    <style>
+      .box{fill:#ffffff;stroke:#94a3b8;stroke-width:1.5}
+      .hot{fill:#fff7e6;stroke:#e0a030;stroke-width:2}
+      .net{fill:#eef6ff;stroke:#6aa0e0;stroke-width:1.5}
+      .t{font-size:17px;font-weight:700;fill:#0f172a;text-anchor:middle}
+      .s{font-size:12.5px;fill:#475569;text-anchor:middle}
+      .l{font-size:12px;fill:#334155;text-anchor:middle}
+      .ar{stroke:#475569;stroke-width:1.8;fill:none;marker-end:url(#a)}
+      .dash{stroke:#6aa0e0;stroke-width:1.6;fill:none;stroke-dasharray:6 5}
+    </style>
+  </defs>
+  <rect width="960" height="600" fill="#f8fafc"/>
+  <text x="480" y="34" class="t" style="font-size:22px">How everything fits together</text>
+
+  <!-- you -->
+  <rect class="box" x="30" y="250" width="150" height="86" rx="14"/>
+  <text x="105" y="288" class="t">You</text>
+  <text x="105" y="310" class="s">phone, TV, computer</text>
+
+  <!-- front -->
+  <rect class="hot" x="270" y="86" width="170" height="84" rx="14"/>
+  <text x="355" y="122" class="t">Jellyfin</text><text x="355" y="144" class="s">watch your library</text>
+  <rect class="box" x="270" y="250" width="170" height="86" rx="14"/>
+  <text x="355" y="288" class="t">Seerr</text><text x="355" y="310" class="s">ask for a show or film</text>
+  <rect class="box" x="270" y="440" width="170" height="84" rx="14"/>
+  <text x="355" y="476" class="t">Homepage</text><text x="355" y="498" class="s">one page with every link</text>
+
+  <!-- middle -->
+  <rect class="box" x="540" y="186" width="160" height="80" rx="14"/>
+  <text x="620" y="220" class="t">Sonarr</text><text x="620" y="242" class="s">TV shows and anime</text>
+  <rect class="box" x="540" y="320" width="160" height="80" rx="14"/>
+  <text x="620" y="354" class="t">Radarr</text><text x="620" y="376" class="s">movies</text>
+
+  <!-- right -->
+  <rect class="box" x="790" y="86" width="150" height="76" rx="14"/>
+  <text x="865" y="118" class="t">Prowlarr</text><text x="865" y="140" class="s">the search sites</text>
+  <rect class="box" x="790" y="196" width="150" height="70" rx="14"/>
+  <text x="865" y="226" class="t">FlareSolverr</text><text x="865" y="247" class="s">gets past robot checks</text>
+  <rect class="box" x="790" y="320" width="150" height="80" rx="14"/>
+  <text x="865" y="354" class="t">qBittorrent</text><text x="865" y="376" class="s">does the downloading</text>
+  <rect class="box" x="540" y="440" width="160" height="84" rx="14"/>
+  <text x="620" y="474" class="t">Bazarr</text><text x="620" y="496" class="s">finds subtitles</text>
+  <rect class="net" x="790" y="440" width="150" height="84" rx="14"/>
+  <text x="865" y="474" class="t">Your library</text><text x="865" y="496" class="s">folders on your drives</text>
+
+  <!-- arrows -->
+  <path class="ar" d="M180 280 L268 130"/><text x="196" y="190" class="l">watch</text>
+  <path class="ar" d="M180 293 L268 293"/><text x="224" y="284" class="l">ask</text>
+  <path class="ar" d="M440 280 L538 226"/><text x="486" y="240" class="l">TV</text>
+  <path class="ar" d="M440 310 L538 354"/><text x="486" y="346" class="l">film</text>
+  <path class="ar" d="M700 214 L788 128"/><text x="758" y="164" class="l">search</text>
+  <path class="ar" d="M865 162 L865 194"/>
+  <path class="ar" d="M700 232 L788 354"/><text x="766" y="296" class="l">send</text>
+  <path class="ar" d="M700 360 L788 360"/>
+  <path class="ar" d="M865 400 L865 438"/><text x="920" y="424" class="l">finished</text>
+  <path class="ar" d="M788 482 L702 482"/><text x="748" y="474" class="l">subtitles</text>
+    <path class="ar" d="M865 524 L865 554 L225 554 L225 118 L268 118"/><text x="545" y="546" class="l">Jellyfin plays what is in your library</text>
+  <path class="ar" d="M355 440 L355 338" style="stroke-dasharray:4 4"/>
+
+  <!-- VPN / Tailscale -->
+  <rect class="net" x="30" y="440" width="190" height="84" rx="14"/>
+  <text x="125" y="474" class="t">Tailscale</text><text x="125" y="496" class="s">private way in from anywhere</text>
+  <path class="dash" d="M125 440 L105 338"/>
+  <text x="480" y="586" class="s" style="font-size:13px">Optional: a VPN for live TV channels, file sharing for your drives, private HTTPS addresses.</text>
+</svg>

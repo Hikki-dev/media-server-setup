@@ -64,9 +64,10 @@ for p in ROOT.rglob("*"):
             problems.append(f"{p.relative_to(ROOT)} contains {what}: {m.group(0)[:40]}")
 
 # 5. The tests must pass
-r = subprocess.run([sys.executable, str(ROOT / "tools" / "test_sharing.py")], capture_output=True, text=True)
-if r.returncode:
-    problems.append("File sharing tests failed: " + (r.stderr.strip().splitlines() or ["see tools/test_sharing.py"])[-1][:200])
+for test in ("test_sharing.py", "test_tailscale_https.py"):
+    r = subprocess.run([sys.executable, str(ROOT / "tools" / test)], capture_output=True, text=True)
+    if r.returncode:
+        problems.append(f"{test} failed: " + (r.stderr.strip().splitlines() or ["see the file"])[-1][:200])
 
 if problems:
     print("Problems found:\n")

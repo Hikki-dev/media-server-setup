@@ -40,7 +40,7 @@ const S = {
     settings: { minSeeders: 2, concurrent: 3, dlLimitKB: 0, ulLimitKB: 400, rssMinutes: 30, retryFailed: true, upgrade: false, hardSubs: true },
     qbit: { username: "admin", password: "", vuetorrent: true },
     login: { username: "admin", password: "", email: "" },
-    solver: "flaresolverr", services: { jellyfin: true, seerr: true, bazarr: true, homepage: true, metube: false, komga: false, mylar3: false, scrutiny: false, samba: false },
+    solver: "flaresolverr", services: { jellyfin: true, seerr: true, bazarr: true, homepage: true, metube: false, komga: false, mylar3: false, scrutiny: false, samba: false, tailscale: false },
     subtitles: {}, ports: {}, samba: null, livetv: null, notify: null, adopt: {}, skipGroups: [],
   },
 };
@@ -51,7 +51,7 @@ const shown = k => k === "mine" ? !!(S.found && S.found.some(a => !a.ours)) : k 
 const VIS = () => WIZ.filter(([k]) => shown(k));
 const KIND = { movies: ["film", "Movies"], tv: ["tv", "TV Shows"], anime: ["spark", "Anime"] };
 const DIRNAME = { movies: "Movies", tv: "TV Shows", anime: "Anime" };
-const SVC = { jellyfin: ["film", "Jellyfin", "Watch your library on any device"], seerr: ["search", "Seerr", "Request page for family and friends"], bazarr: ["globe", "Bazarr", "Finds subtitles automatically"], homepage: ["link", "Homepage", "One dashboard for every app"], metube: ["download", "MeTube", "Download YouTube videos"], komga: ["folder", "Komga", "Comics and manga reader"], mylar3: ["spark", "Mylar3", "Automatic comic downloads"], scrutiny: ["drive", "Scrutiny", "Hard drive health"], samba: ["folder", "File sharing", "Open your media and drives from other computers and phones"] };
+const SVC = { jellyfin: ["film", "Jellyfin", "Watch your library on any device"], seerr: ["search", "Seerr", "Request page for family and friends"], bazarr: ["globe", "Bazarr", "Finds subtitles automatically"], homepage: ["link", "Homepage", "One dashboard for every app"], metube: ["download", "MeTube", "Download YouTube videos"], komga: ["folder", "Komga", "Comics and manga reader"], mylar3: ["spark", "Mylar3", "Automatic comic downloads"], scrutiny: ["drive", "Scrutiny", "Hard drive health"], samba: ["folder", "File sharing", "Open your media and drives from other computers and phones"], tailscale: ["link", "Private HTTPS addresses", "Open every app from anywhere, safely, with Tailscale"] };
 
 /* ------------------------------------------------------------ shell */
 function stepItems(active) {
@@ -63,7 +63,7 @@ function stepItems(active) {
   }).join("");
 }
 function shell(active, main, foot = "") {
-  $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server Setup</div><ol class="steps">${stepItems(active)}</ol><div class="foot">${esc(foot)}</div></aside><main class="main screen">${main}</main></div>`;
+  $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server Setup</div><ol class="steps">${stepItems(active)}</ol><div class="foot"><a href="/guide" target="_blank" rel="noopener" style="color:var(--faint)">Open the guide</a><br>${esc(foot)}</div></aside><main class="main screen">${main}</main></div>`;
   window.scrollTo(0, 0);
 }
 const head = (n, title, lead) => `<div><span class="eyebrow">${n}</span><h2 style="font-size:36px">${esc(title)}</h2><p class="lead">${esc(lead)}</p></div>`;
@@ -645,6 +645,7 @@ const screens = {
       <div class="cols"><div class="grow">
         <div class="grid3" id="svc"></div>
         <div id="smbbox"></div>
+        <div id="tsbox"></div>
         <div class="card"><div class="setting"><div><div class="t">Approve requests automatically</div><div class="d">Anyone who signs in to the request page gets their downloads straight away. Turn this off to approve each one yourself.</div></div>${sw(c.autoApprove !== false, "saa", "Approve requests automatically")}</div></div>
         <div class="card"><div class="card-h"><h3>Helper for protected websites</h3><span class="sub" id="hw"></span></div><p class="hint" style="margin:0 0 14px">Many search sites make you prove you are not a robot. This helper opens them in a hidden browser for you. We tested all three on the same sites. Which is best depends on your computer.</p><div class="grid3" id="solvers"></div><div id="solvernote"></div></div>
         <div class="card"><div class="card-h"><h3>Main login</h3><span class="sub">Jellyfin, Seerr, Sonarr, Radarr, Prowlarr</span></div><div class="grid2"><div class="field"><label for="lu">Username</label><input class="input" id="lu" value="${esc(l.username)}" autocomplete="off"></div>${pwField("lp", l.password, "Password")}</div></div>
@@ -677,7 +678,14 @@ const screens = {
       $$("[data-sx]").forEach(b => b.onclick = () => { sm.shares.splice(+b.dataset.sx, 1); drawShare(); });
       $("#smadd").onclick = () => openBrowser("Choose a folder to share", "", p => { if (!p || sm.shares.some(x => x.path === p)) return; const base = p.replace(/\/+$/, "").split("/").pop() || "Share"; let n = base, k = 2; while (sm.shares.some(x => x.name.toLowerCase() === n.toLowerCase())) n = base + " " + k++; sm.shares.push({ name: n, path: p, readOnly: false, kind: "drive" }); drawShare(); });
     }
-    const draw = () => { $("#svc").innerHTML = Object.entries(SVC).map(([k, [i, t, d]]) => `<div class="tile ${sv[k] ? "on" : ""}" data-s="${k}" tabindex="0" role="checkbox" aria-checked="${sv[k]}"><span class="check">${ic("check", "s")}</span><div class="ic">${ic(i, "l")}</div><b>${t}</b><small>${d}</small></div>`).join(""); $$("[data-s]").forEach(el => onKey(el, () => { const k = el.dataset.s; if (k === "samba" && S.env.hostOs !== "linux") return toast("File sharing is only offered when this setup runs on Linux. On Windows and Mac, use the sharing built into the system."); sv[k] = !sv[k]; draw(); })); drawShare(); };
+    function drawTs() {
+      const box = $("#tsbox"); if (!box) return;
+      const t = S.env.tailscale || {};
+      box.innerHTML = !sv.tailscale ? "" : `<div class="card"><div class="card-h"><h3>Private HTTPS addresses</h3><span class="sub">Optional</span></div>
+        <p class="hint" style="margin:0 0 12px">Every app gets an address like <span class="mono">https://${esc(t.dns || "your-server.your-network.ts.net")}:18096</span> that works from any of your devices with Tailscale, at home or away, with a proper padlock. Nothing is opened on your router.</p>
+        <ol class="hint" style="margin:0;padding-left:20px;line-height:1.8"><li>In the Tailscale admin page, open DNS and press <b>Enable HTTPS</b> once. The setup cannot do this for you.</li><li>Homepage links are changed to these addresses automatically.</li><li>Run the setup again after adding apps, and the new ones get an address too.</li></ol></div>`;
+    }
+    const draw = () => { $("#svc").innerHTML = Object.entries(SVC).map(([k, [i, t, d]]) => `<div class="tile ${sv[k] ? "on" : ""}" data-s="${k}" tabindex="0" role="checkbox" aria-checked="${sv[k]}"><span class="check">${ic("check", "s")}</span><div class="ic">${ic(i, "l")}</div><b>${t}</b><small>${d}</small></div>`).join(""); $$("[data-s]").forEach(el => onKey(el, () => { const k = el.dataset.s; if (k === "samba" && S.env.hostOs !== "linux") return toast("File sharing is only offered when this setup runs on Linux. On Windows and Mac, use the sharing built into the system."); if (k === "tailscale" && !sv.tailscale && !(S.env.tailscale && S.env.tailscale.ready)) return toast((S.env.tailscale && S.env.tailscale.problem) || "Tailscale is not ready on this computer."); sv[k] = !sv[k]; draw(); })); drawShare(); drawTs(); };
     const SOLVERS = { flaresolverr: ["FlareSolverr", "Best for almost everyone", "Opened every site that any option could, including TamilBlasters. Uses about 55 MB when idle and up to 1.6 GB while working. Best when many sites are searched at once."],
       byparr: ["Byparr", "Backup option", "Opened the same sites as FlareSolverr but is heavier (2.3 GB download, about 2 GB at its busiest) and slower when several searches run together. Pick it only if FlareSolverr stops working on a site you need."],
       trawl: ["TRAWL", "Fast on easy sites", "Answers easy sites in 1 to 2 seconds instead of 6 to 15, but failed 1337x and TamilBlasters in testing and keeps about 0.5 to 0.9 GB busy plus a small Redis. For machines with 8 GB+ where you mostly use the easy indexers."] };
@@ -724,6 +732,7 @@ const screens = {
         ${row("Watching", esc([c.kinds.includes("tv") ? "TV" : "", c.kinds.includes("movies") ? "Movies" : "", c.packs.includes("anime") ? "Anime (" + (c.animeAudio === "dub" ? "English voices" : "English subs") + ")" : ""].filter(Boolean).join(", ")))}
         ${row("Languages", esc(c.packs.filter(k => k !== "anime").map(k => P[k]).join(", ") || "-"))}
         ${row("Notifications", esc(ntSummary(c)))}
+        ${c.services.tailscale ? row("Private HTTPS addresses", "Tailscale, for every app") : ""}
         ${c.services.samba && c.samba ? row("File sharing", esc((c.samba.shares || []).filter(x => x.on !== false).map(x => x.name).join(", ") || "none")) : ""}
         ${row("Live TV and sports", esc(ltSummary(c)))}
         ${row("Profiles", esc(c.profiles.map(p => `${p.name} (TV ${qlab(p.resTv || p.res)}, movies ${qlab(p.resMv || p.res)})`).join("; ")))}
@@ -821,7 +830,7 @@ function summaryRows() {
 /* ------------------------------------------------------------ dashboard */
 const NAV = [["find", "search", "Find a title"], ["storage", "folder", "Storage"], ["profiles", "sliders", "Profiles"], ["livetv", "tv", "Live TV"], ["notify", "info", "Notifications"], ["dl", "download", "Downloads"], ["langs", "globe", "Languages"], ["links", "link", "Apps and links"]];
 function dshell(main) {
-  $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server</div><ol class="steps">${NAV.map(([k, i, l]) => `<li class="${S.tab === k ? "on" : ""}" data-t="${k}" style="cursor:pointer"><span class="n">${ic(i, "s")}</span><span class="t">${l}</span></li>`).join("")}</ol><div class="foot"><a href="/?setup=1" style="color:var(--faint)">Start the setup again</a></div></aside><main class="main screen">${main}</main></div>`;
+  $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server</div><ol class="steps">${NAV.map(([k, i, l]) => `<li class="${S.tab === k ? "on" : ""}" data-t="${k}" style="cursor:pointer"><span class="n">${ic(i, "s")}</span><span class="t">${l}</span></li>`).join("")}</ol><div class="foot"><a href="/guide" target="_blank" rel="noopener" style="color:var(--faint)">Open the guide</a><br><a href="/?setup=1" style="color:var(--faint)">Start the setup again</a></div></aside><main class="main screen">${main}</main></div>`;
   $$("[data-t]").forEach(el => el.onclick = () => { S.tab = el.dataset.t; dash(); });
 }
 function dash() { tabs[S.tab](); }

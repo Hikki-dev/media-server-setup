@@ -1563,7 +1563,7 @@ def setup_homepage(ctx):
     host = cfg.get("hostAddress") or "localhost"
 
     def entry(name, icon, port, desc, widget=None):
-        e = {"icon": icon, "href": f"http://{host}:{port}", "description": desc}
+        e = {"icon": icon, "href": (cfg.get("tailscaleUrls") or {}).get(port) or (cfg.get("tailscaleUrls") or {}).get(str(port)) or f"http://{host}:{port}", "description": desc}
         if widget:
             e["widget"] = widget
         return {name: e}

@@ -70,6 +70,10 @@ Some channels only work in their own country. With NordVPN you can try them thro
 
 Optional. If you switch it on, a small Samba program shares the folders and drives you pick. Everyone uses one login. See File sharing.md for how to connect and how to set up your drives.
 
+## Private HTTPS addresses
+
+Optional. With Tailscale on the server, each app gets a safe address that works from your own devices anywhere. See Private HTTPS.md.
+
 ## Search sites
 
 The setup adds popular free search sites for movies, TV and anime, tests each one, and removes the ones that do not answer. Websites for Tamil and Malayalam titles change address often, so a small helper finds the current address by itself.

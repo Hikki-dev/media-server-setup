@@ -13,10 +13,10 @@ A page in the browser (run inside Docker) installs the whole server and links ev
 |---|---|
 | Start on Windows.bat, Start on Mac.command, Start on Linux.sh | Start the setup, then open http://localhost:7979 |
 | tools/start.sh | The shared start script for Mac and Linux |
-| wizard/app | The program: server.py (the install flow), configure.py (talks to each app), adopt.py and audit.py (apps the person already has, and the list of changes), stack.py (Docker and drives), sharing.py (optional file sharing settings), livetv.py (channel lists), bridge.py (Tamil and Malayalam sources and the daily channel update) |
+| wizard/app | The program: server.py (the install flow), configure.py (talks to each app), adopt.py and audit.py (apps the person already has, and the list of changes), stack.py (Docker and drives), sharing.py (optional file sharing settings), tailscale_https.py (private HTTPS addresses), livetv.py (channel lists), bridge.py (Tamil and Malayalam sources and the daily channel update) |
 | wizard/presets/trash.json | The community quality rules |
 | tools/build_trash_presets.py | Rebuilds those rules |
-| docs | What it sets up, Fixing problems, Live TV and VPN, File sharing |
+| docs | Getting started, How everything fits, What it sets up, File sharing, Private HTTPS, Live TV and VPN, Fixing problems. The setup page shows them as a guide |
 | extras | NordVPN, Smoother channels and File sharing, for people who run their own server |
 
 ## Steps
@@ -43,6 +43,10 @@ A page in the browser (run inside Docker) installs the whole server and links ev
 ## File sharing (optional)
 
 Offer it on Linux when the person wants to open their media or drives from other computers or phones. In the wizard it is the File sharing tile on the Apps and accounts step. It needs port 445 free on the computer. If the computer already runs Samba, use extras/File sharing/Share folders on this computer.sh instead, which adds to it safely. Never suggest opening port 445 on the router. For use away from home, follow docs/File sharing.md and use Tailscale. If a Mac can connect over Tailscale but not at home, read the last section of that guide before changing anything.
+
+## Private HTTPS addresses (optional)
+
+Offer it on Linux when Tailscale is installed. It is the Private HTTPS addresses tile on the Apps and accounts step, and tools/start.sh passes Tailscale in when it finds it. The person must press Enable HTTPS once in the Tailscale admin page under DNS. The tool in wizard/app/tailscale_https.py also works alone. It only adds addresses. Never run tailscale serve reset, because that removes entries by hand that cannot be rebuilt. See docs/Private HTTPS.md.
 
 ## Apps the person already has
 

@@ -20,13 +20,15 @@ MEDIA="${ARR_MEDIA_DIR:-$HOME/ArrMedia}"
 mkdir -p "$STACK" || die "Could not create $STACK"
 
 say "Getting the setup ready. The first time it downloads about 100 MB."
-docker build -q -t arr-wizard ./wizard >/dev/null || die "Could not get the setup ready. Check your internet."
+docker build -q -t arr-wizard -f wizard/Dockerfile . >/dev/null || die "Could not get the setup ready. Check your internet."
 docker rm -f arr-wizard >/dev/null 2>&1
 
 ADDR=$(hostname -I 2>/dev/null | awk '{print $1}')
+# when Tailscale runs on this computer, let the setup reach it so it can make private HTTPS addresses for the apps
+TS=""; [ -S /var/run/tailscale/tailscaled.sock ] && TS="-v /var/run/tailscale:/var/run/tailscale -e HOST_TAILSCALE=1"
 docker run -d --name arr-wizard --restart unless-stopped -p 7979:7979 \
   -v /var/run/docker.sock:/var/run/docker.sock -v "$STACK":/stack \
-  --add-host host.docker.internal:host-gateway \
+  --add-host host.docker.internal:host-gateway $TS \
   -e HOST_STACK_DIR="$STACK" -e HOST_OS="$OS" -e HOST_UID="$(id -u)" -e HOST_GID="$(id -g)" \
   -e HOST_DEFAULT_MEDIA="$MEDIA" -e HOST_HOME="$HOME" -e HOST_ADDRESS="${ADDR:-localhost}" \
   arr-wizard >/dev/null || die "Could not start the setup. Is another program using port 7979?"

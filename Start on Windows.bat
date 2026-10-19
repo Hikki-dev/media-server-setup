@@ -33,7 +33,7 @@ set "STACKF=%STACK:\=/%"
 set "MEDIAF=%MEDIA:\=/%"
 set "HOMEF=%USERPROFILE:\=/%"
 echo  Getting the setup ready. The first time it downloads about 100 MB.
-docker build -q -t arr-wizard wizard >nul
+docker build -q -t arr-wizard -f wizard\Dockerfile . >nul
 if errorlevel 1 ( echo  Could not get the setup ready. Check your internet. & pause & exit /b 1 )
 docker rm -f arr-wizard >nul 2>nul
 docker run -d --name arr-wizard --restart unless-stopped -p 7979:7979 -v /var/run/docker.sock:/var/run/docker.sock -v "%STACK%":/stack -e HOST_STACK_DIR="%STACKF%" -e HOST_OS=win -e HOST_UID=1000 -e HOST_GID=1000 -e HOST_DEFAULT_MEDIA="%MEDIAF%" -e HOST_HOME="%HOMEF%" -e HOST_ADDRESS=localhost arr-wizard >nul

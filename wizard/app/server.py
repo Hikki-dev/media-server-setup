@@ -12,9 +12,22 @@ import adopt as A
 import configure as C
 import sharing
 import stack as S
+import tailscale_https as TS
 from arrapi import CANCEL, REC, Api, ApiError, Fatal, Recorder
 
 STATIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
+GUIDE_ORDER = ["Getting started", "How everything fits", "What it sets up", "File sharing", "Private HTTPS", "Live TV and VPN", "Fixing problems", "How it works"]
+
+
+def docs_list():
+    """The guide pages shown on the website, in reading order: [{"name", "file"}]."""
+    try:
+        files = [f[:-3] for f in os.listdir(DOCS) if f.endswith(".md")]
+    except OSError:
+        return []
+    files.sort(key=lambda n: (GUIDE_ORDER.index(n) if n in GUIDE_ORDER else 99, n))
+    return [{"name": n, "file": n + ".md"} for n in files]
 STATE_FILE = f"{S.STACK}/arr-wizard-state.json"
 LOCK = threading.Lock()
 JOB = {"running": False, "events": [], "done": False, "error": None, "result": None}
@@ -92,6 +105,21 @@ def validate(cfg):
     return errs
 
 
+def private_addresses(cfg):
+    """Create a Tailscale HTTPS address for every app of this stack. Returns {app port on this computer: address}."""
+    import argparse
+    names = [n for n in S.sh(["docker", "ps", "--filter", f"label=com.docker.compose.project={S.PROJECT}", "--format", "{{.Names}}"],
+                             check=False).stdout.split() if n]
+    args = argparse.Namespace(apply=True, homepage=None, loop=None, skip=["regional"], extra=None, json=None, only=names,
+                              from_container=True, state=f"{S.STACK}/tailscale-https.json")
+    res = TS.run(args)
+    if res.get("problem"):
+        log("Private HTTPS addresses: " + res["problem"], "warn")
+    made = {i["port"]: i["url"] for i in res.get("items", []) if i.get("url") and i["state"] in ("have", "added")}
+    log(f"Private HTTPS addresses ready for {len(made)} apps")
+    return made
+
+
 def install(cfg):
     ctx = C.Ctx(cfg, log)
     CANCEL.clear()
@@ -121,6 +149,10 @@ def install(cfg):
         if mine:
             A.connect(mine)
             REC["r"] = Recorder("apply", skip=A.apply_skips(cfg.get("skipGroups")))      # settings the person kept are left alone
+        if cfg["services"].get("tailscale"):
+            step("Making private HTTPS addresses with Tailscale")
+            cfg["tailscaleUrls"] = private_addresses(cfg)
+            ctx.cfg["tailscaleUrls"] = cfg["tailscaleUrls"]
         step("Configuring qBittorrent (no seeding)")
         C.setup_qbittorrent(ctx)
         step("Configuring Sonarr and Radarr")
@@ -221,7 +253,8 @@ def libs_movie_root(ctx):
 def summary(st):
     cfg = st["cfg"]
     host = cfg.get("hostAddress") or "localhost"
-    links = [{"name": n, "url": f"http://{host}:{p}"} for n, p in cfg["ports"].items()
+    ts = {int(k): v for k, v in (cfg.get("tailscaleUrls") or {}).items()}
+    links = [{"name": n, "url": ts.get(p) or f"http://{host}:{p}"} for n, p in cfg["ports"].items()
              if n in ("homepage", "jellyfin", "seerr", "sonarr", "radarr", "prowlarr", "bazarr", "qbittorrent")
              and (n in ("sonarr", "radarr", "prowlarr", "qbittorrent") or cfg["services"].get(n))]
     out = {"links": links, "indexers": st.get("indexers", {}),
@@ -497,6 +530,14 @@ def port_free(port):
         s.close()
 
 
+def tailscale_info():
+    """Whether private HTTPS addresses can be made: Tailscale must be reachable from here and signed in."""
+    if os.environ.get("HOST_TAILSCALE") != "1":
+        return {"ready": False, "problem": "The setup was not started with access to Tailscale. Install Tailscale on this computer, then start the setup again."}
+    dns, problem = TS.tailscale_state()
+    return {"ready": not problem, "dns": dns, "problem": problem}
+
+
 def env_info():
     docker_ok = True
     try:
@@ -516,11 +557,11 @@ def env_info():
             "defaultMedia": os.environ.get("HOST_DEFAULT_MEDIA", ""),
             "ports": {k: {"port": p, "free": f} for k, (p, f) in ports.items()},
             "packs": C.PACKS,
-            "hostAddress": os.environ.get("HOST_ADDRESS", "")}
+            "hostAddress": os.environ.get("HOST_ADDRESS", ""), "tailscale": tailscale_info()}
 
 
 MIME = {".html": "text/html", ".css": "text/css", ".js": "application/javascript", ".svg": "image/svg+xml",
-        ".png": "image/png"}
+        ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".md": "text/markdown; charset=utf-8"}
 
 
 class H(BaseHTTPRequestHandler):
@@ -619,6 +660,16 @@ class H(BaseHTTPRequestHandler):
                 return self.send(200, r)
             if u.path == "/api/diagnose":
                 return self.send(200, diagnose(q["kind"][0], int(q["id"][0])))
+            if u.path == "/guide":
+                u = urllib.parse.urlparse("/guide.html")
+            if u.path == "/api/docs":
+                return self.send(200, docs_list())
+            if u.path.startswith("/docs/"):
+                rel = urllib.parse.unquote(u.path[len("/docs/"):])
+                fp = os.path.normpath(os.path.join(DOCS, rel))
+                if not fp.startswith(DOCS + os.sep) or not os.path.isfile(fp):
+                    return self.send(404, {"error": "No such page."})
+                return self.send(200, open(fp, "rb").read(), MIME.get(os.path.splitext(fp)[1].lower(), "application/octet-stream"))
             path = "/index.html" if u.path == "/" else u.path
             fp = os.path.normpath(os.path.join(STATIC, path.lstrip("/")))
             if not fp.startswith(STATIC) or not os.path.isfile(fp):
