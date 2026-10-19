@@ -136,9 +136,9 @@ A finished download is always removed from the downloader, so nothing keeps uplo
 
 <a href="docs/images/step-9-apps.png"><img src="docs/images/step-9-apps.png" alt="Apps and accounts screen with a tile for every app" width="100%"></a>
 
-Choose what else to install, and the main login that Jellyfin, Seerr, Sonarr, Radarr and Prowlarr share.
+Choose what else to install, and the main login that Jellyfin, Seerr, Sonarr, Radarr, Prowlarr, Bazarr and Kapowarr share.
 
-The optional extras, file sharing and private HTTPS addresses, are tiles here too.
+The optional extras are tiles here too: Komga (reader), Kapowarr (comics), Kaizoku (manga), file sharing and private HTTPS addresses.
 
 ### File sharing
 
