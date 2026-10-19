@@ -81,7 +81,7 @@
     if (sv.bazarr) credentials.push(cred("Bazarr", "bazarr", "Same admin login"));
     if (sv.kapowarr) credentials.push(cred("Kapowarr", "kapowarr", "Same admin login"));
     if (sv.komga) credentials.push({ app: "Komga", url: `http://media-server.local:${p.komga || 25600}`, user: "", password: "", ok: true, note: "Create the owner account on first visit" });
-    if (sv.kaizoku) credentials.push({ app: "Kaizoku", url: `http://media-server.local:${p.kaizoku || 3001}`, user: "", password: "", ok: true, note: "No login needed" });
+    if (sv.kaizoku) credentials.push({ app: "Kaizoku", url: `http://media-server.local:${p.kaizoku || 9833}`, user: "", password: "", ok: true, note: "Add your manga sources on first visit" });
     const integrations = [["Sonarr to qBittorrent", "Download client connected"], ["Radarr to qBittorrent", "Download client connected"], ["Prowlarr to Sonarr and Radarr", "Both apps are fed by Prowlarr"],
       ["Prowlarr to FlareSolverr", "Protected search sites open"], sv.bazarr && ["Bazarr to Sonarr and Radarr", "Subtitles follow new downloads"],
       sv.jellyfin && ["Jellyfin libraries", "Movies, TV Shows and Anime found"], sv.kapowarr && ["Kapowarr to FlareSolverr, Prowlarr and qBittorrent", "All three connected"]]
@@ -89,7 +89,7 @@
     return { links, indexers: { working: ["1337x", "Nyaa", "EZTV", "YTS", "The Pirate Bay"], not_available: [] }, login: user, qbit: "qbit",
              smoke: { ok: true, msg: STEPS[14][1] }, credentials, integrations };
   }
-  const DEFAULT_PORTS = { qbittorrent: 8080, sonarr: 8989, radarr: 7878, prowlarr: 9696, bazarr: 6767, jellyfin: 8096, seerr: 5055, flaresolverr: 8191, homepage: 3000, metube: 8081, komga: 25600, kapowarr: 5656, kaizoku: 3001, scrutiny: 8087 };
+  const DEFAULT_PORTS = { qbittorrent: 8080, sonarr: 8989, radarr: 7878, prowlarr: 9696, bazarr: 6767, jellyfin: 8096, seerr: 5055, flaresolverr: 8191, homepage: 3000, metube: 8081, komga: 25600, kapowarr: 5656, kaizoku: 9833, scrutiny: 8087 };
   function events(since) {
     const age = Date.now() - JOB.start;
     const all = [];

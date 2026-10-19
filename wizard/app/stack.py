@@ -20,12 +20,12 @@ HELPER_IMAGE = "alpine:3"
 DEFAULT_PORTS = {
     "qbittorrent": 8080, "sonarr": 8989, "radarr": 7878, "prowlarr": 9696, "bazarr": 6767,
     "jellyfin": 8096, "seerr": 5055, "flaresolverr": 8191, "homepage": 3000,
-    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 3001, "scrutiny": 8087, "samba": 445,
+    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 9833, "scrutiny": 8087, "samba": 445,
 }
 INTERNAL = {  # port each app listens on inside its container
     "qbittorrent": 8080, "sonarr": 8989, "radarr": 7878, "prowlarr": 9696, "bazarr": 6767,
     "jellyfin": 8096, "seerr": 5055, "flaresolverr": 8191, "homepage": 3000,
-    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 3000, "scrutiny": 8080, "regional": 9120, "samba": 445,
+    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 9833, "scrutiny": 8080, "regional": 9120, "samba": 445,
 }
 
 # Kapowarr: Hikki-dev's copy first, and the original project's image when the copy cannot be downloaded (for example while its package is private)
@@ -262,7 +262,6 @@ def compose(cfg):
         svc["komga"] = {"image": "gotson/komga:latest", "restart": "unless-stopped", "user": f"{uid}:{gid}",
                         "volumes": [f"{hostpath('config/komga')}:/config", f"{extra}/books:/books"],
                         "ports": [f"{p['komga']}:25600"]}
-    volumes = {}
     if s.get("kapowarr"):
         # Hikki-dev's Kapowarr fork (comics only; manga is Kaizoku's job). The downloads drive is mounted at the same path qBittorrent uses, so no path mapping is needed.
         svc["kapowarr"] = {"image": cfg.get("kapowarrImage") or KAPOWARR_IMAGES[0], "restart": "unless-stopped",
@@ -270,19 +269,11 @@ def compose(cfg):
                            "volumes": [f"{hostpath('config/kapowarr')}:/app/db"] + mounts
                            + [f"{extra}/books/comics:/comics"]}
     if s.get("kaizoku"):
-        # Kaizoku (manga) needs its own Postgres and Redis; both stay private to the stack.
-        svc["kaizoku"] = {"image": "ghcr.io/oae/kaizoku:latest", "restart": "unless-stopped",
-                          "environment": base_env + ["DATABASE_URL=postgresql://kaizoku:kaizoku@kaizoku-db:5432/kaizoku", "KAIZOKU_PORT=3000",
-                                                     "REDIS_HOST=kaizoku-redis", "REDIS_PORT=6379"],
-                          "volumes": [f"{extra}/books/manga:/data", f"{hostpath('config/kaizoku')}:/config", f"{hostpath('config/kaizoku/logs')}:/logs"],
-                          "depends_on": {"kaizoku-db": {"condition": "service_healthy"}, "kaizoku-redis": {"condition": "service_started"}},
-                          "ports": [f"{p['kaizoku']}:3000"]}
-        svc["kaizoku-redis"] = {"image": "redis:7-alpine", "restart": "unless-stopped", "volumes": ["kaizoku-redis:/data"]}
-        svc["kaizoku-db"] = {"image": "postgres:16-alpine", "restart": "unless-stopped",
-                             "environment": ["POSTGRES_USER=kaizoku", "POSTGRES_DB=kaizoku", "POSTGRES_PASSWORD=kaizoku"],
-                             "volumes": ["kaizoku-db:/var/lib/postgresql/data"],
-                             "healthcheck": {"test": ["CMD-SHELL", "pg_isready -U kaizoku"], "interval": "5s", "timeout": "5s", "retries": 5}}
-        volumes = {"kaizoku-db": None, "kaizoku-redis": None}
+        # Kaizoku.NET (maxpiva): manga downloads with Mihon sources. One container, no database.
+        svc["kaizoku"] = {"image": "maxpiva/kaizoku-net:2.0", "restart": "unless-stopped",
+                          "environment": [f"UID={uid}", f"PGID={gid}", "UMASK=022", f"TZ={tz}"],
+                          "volumes": [f"{hostpath('config/kaizoku')}:/config", f"{extra}/books/manga:/series"],
+                          "ports": [f"{p['kaizoku']}:9833"]}
     if s.get("scrutiny"):
         svc["scrutiny"] = {"image": "ghcr.io/analogj/scrutiny:master-omnibus", "restart": "unless-stopped",
                            "cap_add": ["SYS_RAWIO"],
@@ -318,10 +309,7 @@ def compose(cfg):
     mine = (cfg.get("adopt") or {}).get("jellyfin")
     if mine and "regional" in svc and mine.get("configMount"):       # the Live TV files must land in THEIR Jellyfin's config folder
         svc["regional"]["volumes"] = [v for v in svc["regional"]["volumes"] if not v.endswith(":/livetv")] + [f"{mine['configMount']}/livetv:/livetv"]
-    out = {"name": PROJECT, "services": svc}
-    if volumes:
-        out["volumes"] = volumes
-    return out
+    return {"name": PROJECT, "services": svc}
 
 
 def write_vpn_env(cfg):
@@ -497,7 +485,7 @@ def prepare_dirs(cfg):
             if r.returncode != 0:
                 raise RuntimeError(f"Cannot create folders in {m['host']}: {(r.stderr or '').strip()[-200:]}")
     for n in ["qbittorrent", "prowlarr", "sonarr", "radarr", "bazarr", "jellyfin", "seerr", "homepage",
-              "komga", "kapowarr", "kaizoku", "kaizoku/logs", "scrutiny", "regional", "samba", "jellyfin/livetv"]:
+              "komga", "kapowarr", "kaizoku", "scrutiny", "regional", "samba", "jellyfin/livetv"]:
         os.makedirs(f"{STACK}/config/{n}", exist_ok=True)
     sh(["chown", "-R", f"{uid}:{gid}", f"{STACK}/config"], check=False)
     return plan

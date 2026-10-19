@@ -31,7 +31,7 @@ The small numbers on the arrows are the standard ports of each app. If one of th
 | FlareSolverr | Helps the searches get past robot checks | Never, it works quietly |
 | Homepage | One page with a button for every app | Your home page in the browser |
 | Kapowarr (optional) | Finds and downloads comics, and uses FlareSolverr for protected sites | Port 5656 |
-| Kaizoku (optional) | Follows manga and downloads new chapters | Port 3001 |
+| Kaizoku (optional) | Follows manga and downloads new chapters | Port 9833 |
 | Komga (optional) | Reads comics and manga | Port 25600 |
 
 The setup page shows a link to each of them when it finishes. Most days you only open Jellyfin and Seerr.

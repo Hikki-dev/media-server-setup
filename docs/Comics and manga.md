@@ -9,7 +9,7 @@ This is optional. Switch on **Kapowarr** for comics and **Kaizoku** for manga on
 | App | What it does for you | Where you open it |
 |---|---|---|
 | Kapowarr | Finds and downloads **comics** and keeps them tidy. It does not do manga | Port 5656 |
-| Kaizoku | Follows **manga** series and downloads new chapters by itself | Port 3001 |
+| Kaizoku | Follows **manga** series and downloads new chapters by itself | Port 9833 |
 | FlareSolverr | Helps Kapowarr open comic websites that check for robots | Never, it works quietly |
 | Komga | The reader. Open it on any device to read what was downloaded | Port 25600 |
 
@@ -39,13 +39,11 @@ Then add a volume (a comic series), choose the root folder, and press **Search M
 
 ## Kaizoku
 
-Kaizoku follows a manga series and downloads each new chapter. It runs with its own small database and cache, both private to your stack.
+The setup uses Kaizoku.NET ([maxpiva/kaizoku-net](https://hub.docker.com/r/maxpiva/kaizoku-net)). It follows manga series and downloads each new chapter, using the same sources as the Mihon app. It is one container and needs no database.
 
-1. Open Kaizoku, press **Search**, and type a manga name.
-2. Pick the source and add it. Chapters download into `books/manga`.
+1. Open Kaizoku on port 9833 and add a manga source the first time.
+2. Search for a manga and add it. Chapters download into `books/manga`.
 3. Komga picks them up on its next scan.
-
-The Kaizoku project is archived. It still works, but it will not get updates.
 
 ## Where the files go
 

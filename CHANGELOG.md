@@ -23,7 +23,7 @@
 ## Comics and manga
 
 1. Mylar3 is replaced by Kapowarr, using Hikki-dev's own copy. It is for comics only; manga is Kaizoku's job, so the manga code was removed from the copy. The setup links it to FlareSolverr, Prowlarr and qBittorrent, adds the comics folder, and uses the main login. Only a free ComicVine key is left for you.
-2. New optional app: Kaizoku, for following manga and downloading new chapters. It comes with its own private database and cache.
+2. New optional app: Kaizoku (Kaizoku.NET), for following manga and downloading new chapters. One container, no database, on port 9833.
 3. Running the setup again turns Kapowarr on for anyone who had Mylar3.
 4. New guide, docs/Comics and manga.md, and new Homepage tiles.
 

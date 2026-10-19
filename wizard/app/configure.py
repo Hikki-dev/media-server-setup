@@ -1745,7 +1745,7 @@ def verify_logins(ctx):
     for key, name in (("homepage", "Homepage"), ("metube", "MeTube"), ("komga", "Komga"), ("kaizoku", "Kaizoku"), ("scrutiny", "Scrutiny")):
         if cfg["services"].get(key):
             out.append({"app": name, "url": f"http://{host}:{p[key]}", "user": "", "password": "", "ok": True,
-                        "note": "Create the owner account on first visit" if key == "komga" else "No login needed"})
+                        "note": "Create the owner account on first visit" if key == "komga" else "Add your manga sources on first visit" if key == "kaizoku" else "No login needed"})
     return out
 
 
