@@ -2,8 +2,10 @@
 
 ## Drives and comics
 
-1. The folder picker now always lists this computer's own (internal) drive, first, so the media can live on it. Before, a Mac with no external drive showed "No drives found". More Linux places are searched too. If the list cannot be read, the picker now says so.
-2. Kapowarr is comics only. The manga code was removed from Hikki-dev's copy and it no longer gets a manga folder; Kaizoku does manga.
+1. The folder picker now always lists this computer's own (internal) drive first, on Windows, Mac and Linux, so the media can live on it. Before, a Mac with no external drive showed "No drives found". More Linux places are searched too. If the list cannot be read, the picker now says so. A new test, tools/test_drives.py, covers all three systems.
+2. Every screenshot in the guide was taken again at 3200 pixels wide, with the new Kapowarr and Kaizoku tiles and the drive list.
+3. start.sh can show another address or home folder with ARR_ADDRESS and ARR_HOME, which is how clean screenshots are made.
+4. Kapowarr is comics only. The manga code was removed from Hikki-dev's copy and it no longer gets a manga folder; Kaizoku does manga.
 
 ## Easier install
 

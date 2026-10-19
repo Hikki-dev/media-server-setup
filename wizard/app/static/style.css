@@ -153,7 +153,7 @@ input[type=range]{width:100%;accent-color:var(--accent);height:32px}
 .qa .h{font:600 11.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:8px 10px 6px}
 .qa .it{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;color:var(--mute);font-weight:550}
 .qa .it:hover{background:var(--panel2)}.qa .it.on{background:var(--accent-soft);color:var(--accent-text2)}
-.qa .it small{margin-left:auto;color:var(--faint);font-size:12px}
+.qa .it small{margin-left:auto;color:var(--faint);font-size:12px;white-space:nowrap}
 
 /* install */
 .prog{height:8px;border-radius:9px;background:var(--line);overflow:hidden}

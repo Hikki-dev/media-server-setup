@@ -41,6 +41,8 @@ Choose one folder for downloads and a folder for each kind of media. You can use
 
 Press **Browse** to pick a folder you already have. You can make a new folder there too.
 
+The list on the left always starts with **This computer**. That is the internal drive of the computer you are using (Windows, Mac or Linux), so you can keep everything on it when you have no other drive. Any other drive you plug in is listed below it, and **Home** is under Places.
+
 ![Folder picker](images/step-4-folder-picker.png)
 
 The panel on the right shows how a finished download reaches your library. **Same drive as downloads** means it is linked, which is instant and uses no extra space. **Different drive** means it is copied across and the download is removed.
@@ -77,6 +79,8 @@ Choose what else to install. The first four are on by default. The other tiles a
 
 ![Apps and accounts](images/step-9-apps.png)
 
+Kapowarr (comics) and Kaizoku (manga) are optional. When Kapowarr is on, a card asks for a free ComicVine key. See [Comics and manga](Comics%20and%20manga.md).
+
 Two of the optional tiles have their own cards underneath:
 
 ![File sharing card](images/step-9-file-sharing.png)
@@ -86,7 +90,7 @@ Two of the optional tiles have their own cards underneath:
 1. **File sharing** shows your media and drives on your home network. Each folder or drive has a tick box and a read only option. See [File sharing](File%20sharing.md).
 2. **Private HTTPS addresses** gives every app a safe address that works from anywhere with Tailscale. See [Private HTTPS](Private%20HTTPS.md).
 
-You also choose the main login here. It is used by Jellyfin, Seerr, Sonarr, Radarr and Prowlarr.
+You also choose the main login here. It is used by Jellyfin, Seerr, Sonarr, Radarr, Prowlarr, Bazarr and Kapowarr.
 
 ## Light and dark mode
 

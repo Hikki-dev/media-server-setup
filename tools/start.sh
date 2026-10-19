@@ -67,7 +67,8 @@ step "Getting the setup ready (first time: about 100 MB)" docker build -q -t arr
   || fail "Could not get the setup ready." "Check your internet connection, then try again."
 
 # ---- 3. Start --------------------------------------------------------------
-ADDR=$(hostname -I 2>/dev/null | awk '{print $1}')
+ADDR="${ARR_ADDRESS:-}"      # set ARR_ADDRESS to show a different address (for example a fixed IP or a name)
+[ -z "$ADDR" ] && ADDR=$(hostname -I 2>/dev/null | awk '{print $1}')
 [ -z "$ADDR" ] && [ "$OS" = mac ] && ADDR=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null)
 # when Tailscale runs on this computer, let the setup reach it so it can make private HTTPS addresses for the apps
 TS=(); [ -S /var/run/tailscale/tailscaled.sock ] && TS=(-v /var/run/tailscale:/var/run/tailscale -e HOST_TAILSCALE=1)
@@ -77,7 +78,7 @@ start_wizard() {
     -v /var/run/docker.sock:/var/run/docker.sock -v "$STACK":/stack \
     --add-host host.docker.internal:host-gateway "${TS[@]}" \
     -e HOST_STACK_DIR="$STACK" -e HOST_OS="$OS" -e HOST_UID="$(id -u)" -e HOST_GID="$(id -g)" \
-    -e HOST_DEFAULT_MEDIA="$MEDIA" -e HOST_HOME="$HOME" -e HOST_ADDRESS="${ADDR:-localhost}" \
+    -e HOST_DEFAULT_MEDIA="$MEDIA" -e HOST_HOME="${ARR_HOME:-$HOME}" -e HOST_ADDRESS="${ADDR:-localhost}" \
     arr-wizard
 }
 step "Starting the setup" start_wizard \

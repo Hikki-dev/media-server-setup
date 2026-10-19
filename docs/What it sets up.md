@@ -18,6 +18,8 @@ You can also add a YouTube downloader, Komga (a comic and manga reader), Kapowar
 
 ## Where your files go
 
+The folder picker always offers **This computer**, the internal drive of your Windows, Mac or Linux computer, first. Other drives you plug in are listed after it.
+
 You can use one drive or many. The setup shows how much space each folder has, and it never moves or renames files you already have.
 
 One drive: you choose one folder, and the setup makes the other folders inside it.

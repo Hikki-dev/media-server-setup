@@ -2,6 +2,8 @@
 
 This is optional. Switch on **Kapowarr** for comics and **Kaizoku** for manga on the Apps step. Each one has its own job, and both save into folders that Komga (the reader) can open.
 
+![The Apps step with Kapowarr and Kaizoku switched on](images/step-9-apps.png)
+
 ## What each app does
 
 | App | What it does for you | Where you open it |

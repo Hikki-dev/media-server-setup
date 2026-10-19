@@ -433,9 +433,14 @@ def list_drives(host_os, home):
         drives = list(ex.map(info, cands))
         places = list(ex.map(info, places))
     drives = [d for d in drives if (d.get("totalBytes") or 0) > 2e9]
-    if host_os != "win" and places:    # the computer's own (internal) drive: its space is where the home folder lives, and Docker may use it
-        internal = dict(places[0], name="This computer (internal drive)", internal=True)
-        drives.insert(0, internal)
+    # The computer's own (internal) drive comes first on every system, so media can live on it when there is no other drive.
+    if host_os == "win":
+        c = next((d for d in drives if d["path"] == "C:/"), None)
+        if c:
+            drives.remove(c)
+            drives.insert(0, dict(c, name="C: (this computer)", internal=True))
+    if not any(d.get("internal") for d in drives) and places:       # Mac and Linux: its space is where the home folder lives
+        drives.insert(0, dict(places[0], name="This computer", internal=True))
     return {"drives": drives, "places": places}
 
 
