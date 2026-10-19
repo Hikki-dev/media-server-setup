@@ -27,11 +27,11 @@ It only touches that folder. Your media is never touched. Run it again any time 
 
 ## What you see while it starts
 
-The window shows five steps. A spinner turns while a step is working, and a tick appears when it is done.
+On Mac and Linux the window shows five steps. A spinner turns while a step is working, and a tick appears when it is done.
 
 ![Starting on a Mac or Linux](images/install-terminal-mac.png)
 
-On Windows the same steps appear in the black window:
+On Windows the same steps appear in the black window, as four lines that end in OK:
 
 ![Starting on Windows](images/install-terminal-windows.png)
 
