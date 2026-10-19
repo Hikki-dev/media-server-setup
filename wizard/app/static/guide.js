@@ -64,7 +64,11 @@ async function main() {
   try { list = await (await fetch("/api/docs")).json(); } catch (e) { /* shown below */ }
   if (!list.length) { $("#doc").innerHTML = "<h1>Guide</h1><p>The guide pages could not be found. They are in the docs folder of the project.</p>"; return; }
   $("#nav").innerHTML = `<div class="brand" style="margin-bottom:18px"><span class="mark" style="margin-right:10px">?</span>Guide</div>` +
-    list.map(d => `<a href="#${encodeURIComponent(d.name)}" data-n="${esc(d.name)}">${esc(d.name)}</a>`).join("") + `<a class="back" href="/">Back to the setup</a>`;
+    list.map(d => `<a href="#${encodeURIComponent(d.name)}" data-n="${esc(d.name)}">${esc(d.name)}</a>`).join("") + `<a class="back" href="/">Back to the setup</a><button class="themebtn" type="button" data-theme-toggle></button>`;
+  const dark = () => document.documentElement.dataset.theme === "dark";
+  const label = () => { document.querySelector("[data-theme-toggle]").textContent = dark() ? "Switch to light mode" : "Switch to dark mode"; };
+  label();
+  document.querySelector("[data-theme-toggle]").onclick = () => { const t = dark() ? "light" : "dark"; document.documentElement.dataset.theme = t; try { localStorage.setItem("mss-theme", t); } catch (e) { /* not saved */ } label(); };
   const show = async () => {
     const name = decodeURIComponent(location.hash.slice(1)) || list[0].name;
     const d = list.find(x => x.name === name) || list[0];

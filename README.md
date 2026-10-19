@@ -46,9 +46,15 @@ You do not have to start again. The setup finds the apps already on your compute
 
 Before anything is touched, the What changes page lists every setting the setup wants to change, next to how it is set today. Each part has a switch to keep yours. Nothing is changed until you say so. Connections you already have, logins, request rules, folder names and search sites you added are kept unless you switch them.
 
+## Light and dark mode
+
+The setup page and the guide start in a soft light theme. A link at the bottom of the left side switches to dark mode, and the choice is remembered.
+
 ## A guide with pictures
 
 The setup page has a guide at the bottom of the left side: Open the guide. It is the same set of pages as the docs folder, with screenshots and a picture of how the apps work together. Start with docs/Getting started.md.
+
+![The guide inside the setup page](docs/images/guide-page.png)
 
 ## Private HTTPS addresses
 

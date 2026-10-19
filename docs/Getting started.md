@@ -18,7 +18,7 @@ Open the start file for your computer. Your browser opens at `http://localhost:7
 | Mac | Start on Mac.command (the first time, right click it and choose Open) |
 | Linux | Run `bash "Start on Linux.sh"` in this folder |
 
-![Welcome screen](images/step-1-welcome.jpg)
+![Welcome screen](images/step-1-welcome.png)
 
 Press **Start setup**. Nothing is installed until the very last screen.
 
@@ -26,7 +26,7 @@ Press **Start setup**. Nothing is installed until the very last screen.
 
 The setup checks Docker, your system, the network ports it needs, and whether you already run some of the apps.
 
-![Computer check](images/step-2-computer-check.jpg)
+![Computer check](images/step-2-computer-check.png)
 
 If a port is busy, the setup picks a free one for you. If you already run some of the apps, the next step lets you keep them, see [What it sets up](What%20it%20sets%20up.md).
 
@@ -34,7 +34,7 @@ If a port is busy, the setup picks a free one for you. If you already run some o
 
 Choose one folder for downloads and a folder for each kind of media. You can use one drive or many. Folders you already have are used as they are, and nothing is moved, renamed or deleted.
 
-![Storage](images/step-4-storage.jpg)
+![Storage](images/step-4-storage.png)
 
 The panel on the right shows how a finished download reaches your library. **Same drive as downloads** means it is linked, which is instant and uses no extra space. **Different drive** means it is copied across and the download is removed.
 
@@ -44,7 +44,7 @@ Not sure how to prepare a drive? See the drive section in [File sharing](File%20
 
 Press a quick choice, or tick things yourself. Each choice changes the quality rules, the search sites and the subtitle languages.
 
-![What do you watch](images/step-5-what-you-watch.jpg)
+![What do you watch](images/step-5-what-you-watch.png)
 
 ## Steps 6 and 7: Live TV and profiles
 
@@ -54,26 +54,34 @@ Live TV and sports is optional, see [Live TV and VPN](Live%20TV%20and%20VPN.md).
 
 The defaults suit most people. The setup always removes a download once it is in your library, so nothing keeps uploading.
 
-![Downloads](images/step-8-downloads.jpg)
+![Downloads](images/step-8-downloads.png)
 
 ## Step 9: Apps and accounts
 
 Choose what else to install. The first four are on by default. The other tiles are optional.
 
-![Apps and accounts](images/step-9-apps.jpg)
+![Apps and accounts](images/step-9-apps.png)
 
 Two of the optional tiles have their own cards underneath:
 
-![File sharing and private HTTPS](images/step-9-sharing-and-https.jpg)
+![File sharing card](images/step-9-file-sharing.png)
+
+![Private HTTPS card](images/step-9-private-https.png)
 
 1. **File sharing** shows your media and drives on your home network. Each folder or drive has a tick box and a read only option. See [File sharing](File%20sharing.md).
 2. **Private HTTPS addresses** gives every app a safe address that works from anywhere with Tailscale. See [Private HTTPS](Private%20HTTPS.md).
 
 You also choose the main login here. It is used by Jellyfin, Seerr, Sonarr, Radarr and Prowlarr.
 
+## Light and dark mode
+
+The setup page and the guide start in a soft light theme that is easy on the eyes. Press **Switch to dark mode** at the bottom of the left side to change it. Your choice is remembered in that browser.
+
+![Dark mode](images/dark-mode-apps.png)
+
 ## Step 10: Review and install
 
-![Review](images/step-10-review.jpg)
+![Review](images/step-10-review.png)
 
 Press **Install everything**. The first time takes 5 to 15 minutes. You can stop at any time, and stopping never touches your media.
 

@@ -1,5 +1,10 @@
 # Changes
 
+## Light mode
+
+1. The setup page and the guide now start in a soft light theme with warm paper colours, and a link switches to the original dark theme. The choice is remembered in the browser.
+2. All screenshots in the docs were taken again at 1600 pixels wide, so small text can be read. The diagram has bigger text and logos.
+
 ## Portainer and the diagram
 
 1. New guide page, docs/Portainer.md: keeping the apps in stacks, what an update really does, and the mistakes that leave apps stopped.
