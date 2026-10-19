@@ -15,9 +15,12 @@
   .guide nav a{display:block;padding:9px 12px;border-radius:10px;color:var(--mute);text-decoration:none;font-weight:500;margin:2px 0}
   .guide nav a:hover{background:var(--panel);color:var(--text)}
   .guide nav a.on{background:var(--panel);color:var(--text);box-shadow:inset 3px 0 0 var(--accent)}
-  .guide nav .back{color:var(--accent-text);margin:18px 0 0}
-  .guide nav .themebtn{display:block;margin:14px 12px 0}
-  .guide main{flex:1;min-width:0;padding:48px 56px 96px;max-width:900px}
+  .guide nav .back,.guide nav .sidelink{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);font-weight:600;margin:18px 0 0}
+  .guide nav .back svg.i{color:var(--accent-text);width:19px;height:19px}
+  .guide nav .sidelink{margin:10px 0 0}
+  .guide nav .back:hover{border-color:var(--accent);background:var(--panel2)}
+  .guide main{flex:1;min-width:0;padding:48px 56px 96px;max-width:1160px}
+  .doc p,.doc li,.doc blockquote{max-width:80ch}
   .doc h1{font:600 38px/1.15 var(--display,var(--sans));margin:0 0 18px}
   .doc h2{font:600 24px/1.25 var(--display,var(--sans));margin:44px 0 12px;padding-top:8px;border-top:1px solid var(--line)}
   .doc h3{font:600 18px/1.3 var(--sans);margin:28px 0 8px}
@@ -30,6 +33,8 @@
   .doc table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px}
   .doc th,.doc td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
   .doc th{background:var(--panel);color:var(--mute);font-weight:600}
+  .doc a.pic{display:block}
+  .doc a.pic img{cursor:zoom-in}
   .doc img{max-width:100%;border:1px solid var(--line);border-radius:12px;margin:12px 0;display:block}
   .doc blockquote{margin:16px 0;padding:10px 16px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0}
   .doc hr{border:0;border-top:1px solid var(--line);margin:32px 0}

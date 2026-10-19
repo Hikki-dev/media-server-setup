@@ -215,10 +215,13 @@ a.link small{color:var(--faint)}
 .card-h .sub.mono{font-size:12px}
 .diff{table-layout:fixed}.diff td:first-child,.diff th:first-child{width:30%}
 
-/* light and dark switch */
-.themebtn{background:none;border:0;padding:0;cursor:pointer;color:var(--faint);font:inherit;text-decoration:underline;text-underline-offset:3px}
-.themebtn:hover{color:var(--text)}
-.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+/* links at the bottom of the left side: an icon and a clear label */
+.sidelinks{display:flex;flex-direction:column;gap:8px}
+.sidelink{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);font:600 14px var(--sans);text-decoration:none;cursor:pointer;text-align:left;transition:.15s}
+.sidelink svg.i{color:var(--accent-text);width:19px;height:19px}
+.sidelink:hover{border-color:var(--accent);background:var(--panel2)}
+.sidelink:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.footnote{margin:12px 2px 0;font-size:13px;color:var(--faint)}
 
 /* sliders in the light theme: a soft track and an amber knob (the dark theme keeps the browser look it always had) */
 :root:not([data-theme="dark"]) input[type=range]{-webkit-appearance:none;appearance:none;background:transparent}

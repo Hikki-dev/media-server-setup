@@ -7,7 +7,7 @@ function inline(t, base) {
   const codes = [];
   t = t.replace(/`([^`]+)`/g, (_, c) => { codes.push(c); return `\u0000${codes.length - 1}\u0000`; });
   t = esc(t);
-  t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => `<img alt="${alt}" src="${imgSrc(src, base)}" loading="lazy">`);
+  t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => `<a class="pic" href="${imgSrc(src, base)}" target="_blank" rel="noopener" title="Open the picture full size"><img alt="${alt}" src="${imgSrc(src, base)}" loading="lazy"></a>`);
   t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
     let h = href.replace(/&amp;/g, "&");
     if (!/^(https?:|mailto:|#|\/|[A-Za-z0-9_.% -]+(\.md)?(#.*)?$)/i.test(h)) h = "#";      // only normal links: never a script address
@@ -54,7 +54,8 @@ function markdown(md, base) {
     if (!l.trim()) { i++; continue; }
     const buf = [];
     while (i < lines.length && lines[i].trim() && !/^(#{1,4}\s|```|\||>|\s*([*-]|\d+\.)\s+)/.test(lines[i])) buf.push(lines[i++]);
-    out.push(`<p>${inline(buf.join(" "), base)}</p>`);
+    const only = buf.length === 1 && /^!\[[^\]]*\]\([^)]+\)$/.test(buf[0].trim());      // a picture on its own line gets the full width
+    out.push(only ? `<div class="fig">${inline(buf[0].trim(), base)}</div>` : `<p>${inline(buf.join(" "), base)}</p>`);
   }
   return out.join("\n");
 }
@@ -64,9 +65,12 @@ async function main() {
   try { list = await (await fetch("/api/docs")).json(); } catch (e) { /* shown below */ }
   if (!list.length) { $("#doc").innerHTML = "<h1>Guide</h1><p>The guide pages could not be found. They are in the docs folder of the project.</p>"; return; }
   $("#nav").innerHTML = `<div class="brand" style="margin-bottom:18px"><span class="mark" style="margin-right:10px">?</span>Guide</div>` +
-    list.map(d => `<a href="#${encodeURIComponent(d.name)}" data-n="${esc(d.name)}">${esc(d.name)}</a>`).join("") + `<a class="back" href="/">Back to the setup</a><button class="themebtn" type="button" data-theme-toggle></button>`;
+    list.map(d => `<a href="#${encodeURIComponent(d.name)}" data-n="${esc(d.name)}">${esc(d.name)}</a>`).join("") + `<a class="back" href="/">Back to the setup</a><button class="sidelink" type="button" data-theme-toggle></button>`;
   const dark = () => document.documentElement.dataset.theme === "dark";
-  const label = () => { document.querySelector("[data-theme-toggle]").textContent = dark() ? "Switch to light mode" : "Switch to dark mode"; };
+  const svg = p => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+  const SUN = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', MOON = '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>';
+  const label = () => { document.querySelector("[data-theme-toggle]").innerHTML = dark() ? svg(SUN) + "<span>Switch to light mode</span>" : svg(MOON) + "<span>Switch to dark mode</span>"; };
+  document.querySelector(".back").innerHTML = svg('<path d="M19 12H5M11 6l-6 6 6 6"/>') + "<span>Back to the setup</span>";
   label();
   document.querySelector("[data-theme-toggle]").onclick = () => { const t = dark() ? "light" : "dark"; document.documentElement.dataset.theme = t; try { localStorage.setItem("mss-theme", t); } catch (e) { /* not saved */ } label(); };
   const show = async () => {

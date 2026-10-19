@@ -12,9 +12,10 @@ const api = async (path, body) => {
 const toast = (m, top) => { const t = document.createElement("div"); t.className = "toast" + (top ? " top" : ""); t.textContent = m; document.body.append(t); setTimeout(() => t.remove(), 3600); return t; };
 /* light is the default; the choice is remembered in this browser */
 const THEME = { get: () => (document.documentElement.dataset.theme === "dark" ? "dark" : "light"), set(t) { document.documentElement.dataset.theme = t; try { localStorage.setItem("mss-theme", t); } catch (e) { /* not saved */ } } };
-const themeLabel = () => (THEME.get() === "dark" ? "Switch to light mode" : "Switch to dark mode");
-const themeBtn = () => `<button class="themebtn" type="button" data-theme-toggle>${themeLabel()}</button>`;
-document.addEventListener("click", e => { if (!e.target.closest("[data-theme-toggle]")) return; THEME.set(THEME.get() === "dark" ? "light" : "dark"); document.querySelectorAll("[data-theme-toggle]").forEach(b => { b.textContent = themeLabel(); }); });
+const themeInner = () => (THEME.get() === "dark" ? `${ic("sun")}<span>Switch to light mode</span>` : `${ic("moon")}<span>Switch to dark mode</span>`);
+const themeBtn = () => `<button class="sidelink" type="button" data-theme-toggle>${themeInner()}</button>`;
+const guideLink = () => `<a class="sidelink" href="/guide" target="_blank" rel="noopener">${ic("book")}<span>Open the guide</span></a>`;
+document.addEventListener("click", e => { if (!e.target.closest("[data-theme-toggle]")) return; THEME.set(THEME.get() === "dark" ? "light" : "dark"); document.querySelectorAll("[data-theme-toggle]").forEach(b => { b.innerHTML = themeInner(); }); });
 
 const ICON = {
   film: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 12h18M3 16h4M17 8h4M17 16h4"/>',
@@ -31,6 +32,9 @@ const ICON = {
   stop: '<rect x="6" y="6" width="12" height="12" rx="2"/>',
   globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
   sliders: '<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/>',
+  book: '<path d="M12 6c-2-1.5-5-2-8-2v14c3 0 6 .5 8 2 2-1.5 5-2 8-2V4c-3 0-6 .5-8 2z"/><path d="M12 6v14"/>',
+  moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
 };
 const ic = (n, c = "") => `<svg class="i ${c}" viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
 const fmt = b => b == null ? "" : b >= 1e12 ? (b / 1e12).toFixed(1) + " TB" : b >= 1e9 ? Math.round(b / 1e9) + " GB" : Math.round(b / 1e6) + " MB";
@@ -68,7 +72,7 @@ function stepItems(active) {
   }).join("");
 }
 function shell(active, main, foot = "") {
-  $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server Setup</div><ol class="steps">${stepItems(active)}</ol><div class="foot"><a href="/guide" target="_blank" rel="noopener" style="color:var(--faint)">Open the guide</a><br>${themeBtn()}<br>${esc(foot)}</div></aside><main class="main screen">${main}</main></div>`;
+  $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server Setup</div><ol class="steps">${stepItems(active)}</ol><div class="foot"><div class="sidelinks">${guideLink()}${themeBtn()}</div>${foot ? `<p class="footnote">${esc(foot)}</p>` : ""}</div></aside><main class="main screen">${main}</main></div>`;
   window.scrollTo(0, 0);
 }
 const head = (n, title, lead) => `<div><span class="eyebrow">${n}</span><h2 style="font-size:36px">${esc(title)}</h2><p class="lead">${esc(lead)}</p></div>`;
@@ -835,7 +839,7 @@ function summaryRows() {
 /* ------------------------------------------------------------ dashboard */
 const NAV = [["find", "search", "Find a title"], ["storage", "folder", "Storage"], ["profiles", "sliders", "Profiles"], ["livetv", "tv", "Live TV"], ["notify", "info", "Notifications"], ["dl", "download", "Downloads"], ["langs", "globe", "Languages"], ["links", "link", "Apps and links"]];
 function dshell(main) {
-  $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server</div><ol class="steps">${NAV.map(([k, i, l]) => `<li class="${S.tab === k ? "on" : ""}" data-t="${k}" style="cursor:pointer"><span class="n">${ic(i, "s")}</span><span class="t">${l}</span></li>`).join("")}</ol><div class="foot"><a href="/guide" target="_blank" rel="noopener" style="color:var(--faint)">Open the guide</a><br>${themeBtn()}<br><a href="/?setup=1" style="color:var(--faint)">Start the setup again</a></div></aside><main class="main screen">${main}</main></div>`;
+  $("#app").innerHTML = `<div class="app"><aside class="side"><div class="brand"><span class="mark">${ic("play")}</span>Media Server</div><ol class="steps">${NAV.map(([k, i, l]) => `<li class="${S.tab === k ? "on" : ""}" data-t="${k}" style="cursor:pointer"><span class="n">${ic(i, "s")}</span><span class="t">${l}</span></li>`).join("")}</ol><div class="foot"><div class="sidelinks">${guideLink()}${themeBtn()}</div><p class="footnote"><a href="/?setup=1" style="color:var(--faint)">Start the setup again</a></p></div></aside><main class="main screen">${main}</main></div>`;
   $$("[data-t]").forEach(el => el.onclick = () => { S.tab = el.dataset.t; dash(); });
 }
 function dash() { tabs[S.tab](); }

@@ -2,6 +2,8 @@
 
 This page walks through the setup, one screen at a time. The same pages are in the guide on the website: open the setup and press **Open the guide** at the bottom of the left side.
 
+On the website, click any picture to open it full size.
+
 ## Before you start
 
 1. A computer that can run Docker. Windows and Mac need Docker Desktop. Linux needs Docker Engine.
