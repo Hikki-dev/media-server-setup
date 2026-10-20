@@ -97,3 +97,4 @@ h2{margin:0 0 12px;font:600 clamp(22px,4vw,34px)/1.15 var(--display);letter-spac
 footer{max-width:1240px;margin:0 auto;padding:36px var(--gutter) 56px;border-top:1px solid var(--line);color:var(--mute)}
 footer p{margin:0 0 6px}
 footer a{font-weight:600;text-underline-offset:3px}
+footer .legal{max-width:46em;margin:14px 0 8px}

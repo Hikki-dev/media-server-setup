@@ -28,6 +28,7 @@ You do not need to know how any of the apps work. Everything is explained in pla
 * [After the install](#after-the-install): light and dark mode, Portainer, Claude Code
 * [Your privacy and safety](#your-privacy-and-safety)
 * [Help and more reading](#help-and-more-reading)
+* [Legal and responsibility](#legal-and-responsibility)
 
 ## What you get
 
@@ -229,6 +230,14 @@ To report a security problem, read [SECURITY.md](SECURITY.md).
 | Keep the apps in Portainer | [Portainer](docs/Portainer.md) |
 | Change the code | [How it works](docs/How%20it%20works.md) and [Contributing](CONTRIBUTING.md) |
 | See what changed in each version | [Changes](CHANGELOG.md) |
+
+## Legal and responsibility
+
+* This project hosts no media. It is a setup tool: it installs and connects other free programs on your own computer.
+* Use it only for content you have the right to, such as your own files, public domain and openly licensed works, and anything the law and the owner allow where you live.
+* You are responsible for what you download, share and watch. Check the rules where you live.
+* The apps it installs are separate projects with their own licences. The people who make this project do not encourage breaking the law, and are not responsible for how it is used.
+* It is provided as it is, under the MIT licence, with no promises.
 
 ## Contributing
 
