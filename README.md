@@ -227,6 +227,7 @@ To report a security problem, read [SECURITY.md](SECURITY.md).
 |---|---|
 | Install it on Windows, Mac, Linux or a server | [Installing](docs/Installing.md) |
 | Use a Proxmox LXC, Raspberry Pi, Synology or Unraid | [Other hardware](docs/Other%20hardware.md) |
+| Tune a home server | [Best settings](docs/Best%20settings.md) |
 | Find a quick answer | [Questions and answers](docs/FAQ.md) |
 | Follow every screen with pictures | [Getting started](docs/Getting%20started.md) |
 | Understand how the apps work together | [How everything fits](docs/How%20everything%20fits.md) |

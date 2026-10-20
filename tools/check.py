@@ -69,7 +69,7 @@ if r.returncode:
     problems.append("build_site.py failed: " + (r.stderr.strip().splitlines() or ["see the file"])[-1][:200])
 
 # 6. The tests must pass
-for test in ("test_sharing.py", "test_tailscale_https.py", "test_drives.py", "test_kapowarr_image.py"):
+for test in ("test_sharing.py", "test_tailscale_https.py", "test_drives.py", "test_kapowarr_image.py", "test_compose.py"):
     r = subprocess.run([sys.executable, str(ROOT / "tools" / test)], capture_output=True, text=True)
     if r.returncode:
         problems.append(f"{test} failed: " + (r.stderr.strip().splitlines() or ["see the file"])[-1][:200])

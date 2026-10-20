@@ -35,6 +35,8 @@ lxc.cgroup2.devices.allow: c 10:200 rwm
 lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
 ```
 
+**More settings.** The values the maintainer runs for cores, memory, swap, graphics, drive mounts and kernel are in [Best settings](Best%20settings.md).
+
 **Good habits**
 1. Take regular Proxmox backups of the container, and keep the `ArrStack` folder in them. It holds every app's settings.
 2. Watch the free space on the drive that holds the container. A full drive stops the apps.

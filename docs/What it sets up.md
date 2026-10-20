@@ -16,6 +16,10 @@
 
 You can also add a YouTube downloader, Komga (a comic and manga reader), Kapowarr (comic downloads only), Kaizoku (manga downloads only) and a disk health checker. If a port is already used on your computer, the setup picks a free one for you.
 
+## Apps that look after themselves
+
+Every app restarts by itself if it stops answering, and comes back after a reboot. Each app's log is limited to three files of 50 MB. Settings you can tune on top of this are in Best settings.md.
+
 ## Where your files go
 
 The folder picker always offers **This computer**, the internal drive of your Windows, Mac or Linux computer, first. Other drives you plug in are listed after it.

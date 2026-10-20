@@ -1,5 +1,11 @@
 # Changes
 
+## Best settings
+
+1. Every app's log is now limited to three files of 50 MB, so a noisy app cannot fill a drive.
+2. New guide, docs/Best settings.md: container, drive, kernel, Docker, SSH and backup settings taken from a Proxmox host and LXC in daily use.
+3. docs/Other hardware.md and docs/FAQ.md, a demo GIF and a social preview picture, badges, and the original Kapowarr on ARM machines.
+
 ## Demo website
 
 1. New website, built by tools/build_site.py into the folder site and ready for Cloudflare (wrangler.jsonc). The home page shows the install command with a copy button, what gets installed, and pictures. The demo at /demo/ is the real setup page and guide with pretend answers, so anyone can click through every screen without installing anything. See docs/Demo website.md.

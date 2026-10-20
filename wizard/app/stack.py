@@ -313,6 +313,8 @@ def compose(cfg):
     mine = (cfg.get("adopt") or {}).get("jellyfin")
     if mine and "regional" in svc and mine.get("configMount"):       # the Live TV files must land in THEIR Jellyfin's config folder
         svc["regional"]["volumes"] = [v for v in svc["regional"]["volumes"] if not v.endswith(":/livetv")] + [f"{mine['configMount']}/livetv:/livetv"]
+    for conf in svc.values():     # a chatty app can fill a disk with its own log: keep three files of 50 MB per app
+        conf.setdefault("logging", {"driver": "json-file", "options": {"max-size": "50m", "max-file": "3"}})
     return {"name": PROJECT, "services": svc}
 
 
