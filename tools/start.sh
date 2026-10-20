@@ -3,6 +3,7 @@
 # Usage: start.sh [mac|linux] [--headless]
 #   --headless (or ARR_HEADLESS=1): do not open a browser; print the address to open from another computer.
 #   On Linux with no screen (an LXC, a VPS, a server) this is chosen for you.
+#   Settings you can put in front of the command: ARR_STACK_DIR, ARR_MEDIA_DIR, ARR_UID, ARR_GID (who owns the files), ARR_ADDRESS, ARR_HOME.
 OS="linux"; HEADLESS="${ARR_HEADLESS:-}"
 for a in "$@"; do case "$a" in mac|linux) OS="$a" ;; --headless) HEADLESS=1 ;; esac; done
 [ "$OS" = linux ] && [ -z "$HEADLESS" ] && [ -z "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ] && HEADLESS=1
@@ -77,7 +78,7 @@ start_wizard() {
   docker run -d --name arr-wizard --restart unless-stopped -p 7979:7979 \
     -v /var/run/docker.sock:/var/run/docker.sock -v "$STACK":/stack \
     --add-host host.docker.internal:host-gateway "${TS[@]}" \
-    -e HOST_STACK_DIR="$STACK" -e HOST_OS="$OS" -e HOST_UID="$(id -u)" -e HOST_GID="$(id -g)" \
+    -e HOST_STACK_DIR="$STACK" -e HOST_OS="$OS" -e HOST_UID="${ARR_UID:-$(id -u)}" -e HOST_GID="${ARR_GID:-$(id -g)}" \
     -e HOST_DEFAULT_MEDIA="$MEDIA" -e HOST_HOME="${ARR_HOME:-$HOME}" -e HOST_ADDRESS="${ADDR:-localhost}" \
     arr-wizard
 }

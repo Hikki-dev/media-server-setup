@@ -17,7 +17,7 @@ from arrapi import CANCEL, REC, Api, ApiError, Fatal, Recorder
 
 STATIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
-GUIDE_ORDER = ["Installing", "Getting started", "How everything fits", "What it sets up", "File sharing", "Private HTTPS", "Portainer", "Comics and manga", "Live TV and VPN", "How Live TV works", "Fixing problems", "How it works", "Demo website"]
+GUIDE_ORDER = ["Installing", "Other hardware", "Getting started", "How everything fits", "What it sets up", "File sharing", "Private HTTPS", "Portainer", "Comics and manga", "Live TV and VPN", "How Live TV works", "Fixing problems", "FAQ", "How it works", "Demo website"]
 
 
 def docs_list():

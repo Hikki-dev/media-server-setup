@@ -1,8 +1,15 @@
 # Media Server Setup
 
+[![Checks](https://github.com/Hikki-dev/media-server-setup/actions/workflows/checks.yml/badge.svg)](https://github.com/Hikki-dev/media-server-setup/actions/workflows/checks.yml)
+[![Licence: MIT](https://img.shields.io/github/license/Hikki-dev/media-server-setup)](LICENSE)
+[![Live demo](https://img.shields.io/badge/live-demo-f2a93b)](https://media-server-setup.makkoacknowledgesstress.workers.dev/demo/)
+[![Website](https://img.shields.io/badge/website-install%20command-14171c)](https://media-server-setup.makkoacknowledgesstress.workers.dev)
+
 One page in your browser that installs a complete home media server, and connects every part of it for you.
 
-<p align="center"><img src="docs/images/step-1-welcome.png" alt="The first screen of the setup page, in your browser" width="100%"></p>
+<p align="center"><img src="docs/images/demo.gif" alt="A 30 second tour of the setup page: the checks, choosing a drive, choosing apps, reviewing and a finished install" width="100%"></p>
+
+<p align="center"><sub>A 30 second tour of the setup page. <a href="https://media-server-setup.makkoacknowledgesstress.workers.dev/demo/">Try it yourself</a>, nothing is installed.</sub></p>
 
 You answer a few simple questions. The setup installs the apps, links them together, and then tries a real search to prove that everything works.
 
@@ -14,7 +21,7 @@ You do not need to know how any of the apps work. Everything is explained in pla
 * [How everything fits together](#how-everything-fits-together): one request, from asking to watching
 * [Try it first](#try-it-first): the website and a demo that installs nothing
 * [Before you start](#before-you-start): what your computer needs
-* [Install](#install): Windows, Mac, Linux or a server
+* [Install](#install): Windows, Mac, Linux or a server (also [other hardware](docs/Other%20hardware.md))
 * [The setup, step by step](#the-setup-step-by-step)
   * [1. Welcome](#1-welcome)
   * [2. Computer check](#2-computer-check)
@@ -96,7 +103,7 @@ The window shows each step with a spinner and a tick, then a web address. Your b
 
 ![The one-line installer](docs/images/install-oneline.png)
 
-Pictures of every start window, and help for a server with no screen, are in [Installing](docs/Installing.md).
+Pictures of every start window, and help for a server with no screen, are in [Installing](docs/Installing.md). A Proxmox LXC, a Raspberry Pi, a Synology and Unraid are covered in [Other hardware](docs/Other%20hardware.md).
 
 The first install takes 5 to 15 minutes. You can stop it at any time, and stopping never touches your media. What each screen asks is explained in [the setup, step by step](#the-setup-step-by-step).
 
@@ -219,6 +226,8 @@ To report a security problem, read [SECURITY.md](SECURITY.md).
 | If you want to | Read |
 |---|---|
 | Install it on Windows, Mac, Linux or a server | [Installing](docs/Installing.md) |
+| Use a Proxmox LXC, Raspberry Pi, Synology or Unraid | [Other hardware](docs/Other%20hardware.md) |
+| Find a quick answer | [Questions and answers](docs/FAQ.md) |
 | Follow every screen with pictures | [Getting started](docs/Getting%20started.md) |
 | Understand how the apps work together | [How everything fits](docs/How%20everything%20fits.md) |
 | Know exactly what the setup does | [What it sets up](docs/What%20it%20sets%20up.md) |

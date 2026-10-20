@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+/* The picture shown when the project is shared (1280 x 640). Rendered by: python3 tools/build_social_preview.py */
+*{box-sizing:border-box;margin:0}
+body{width:1280px;height:640px;background:#e9edf3;font-family:"Hanken Grotesk",sans-serif;color:#0d1b2a;display:flex;align-items:center;padding:0 72px;gap:56px;overflow:hidden}
+.copy{flex:1.05}
+.brand{display:flex;align-items:center;gap:12px;font:600 22px "Unbounded";margin-bottom:34px}
+.mark{width:40px;height:40px;border-radius:11px;background:#f2a93b;position:relative}
+.mark::after{content:"";position:absolute;left:15px;top:11px;border-left:16px solid #14171c;border-top:9px solid transparent;border-bottom:9px solid transparent}
+h1{font:800 56px/1.1 "Unbounded";letter-spacing:-.03em}
+h1 span{display:block;color:#8a5200}
+p{margin-top:26px;font:500 25px/1.45 "Hanken Grotesk";color:#4a5a6d;max-width:560px}
+.slate{width:520px;transform:rotate(-2deg);filter:drop-shadow(0 24px 30px rgba(13,27,42,.3))}
+.clapper{display:flex;height:48px;overflow:hidden;border-radius:14px 14px 0 0;background:#14171c;transform-origin:0 100%;transform:rotate(-5deg) translateY(3px)}
+.clapper i{flex:1;transform:skewX(-32deg);background:#f4f1e8;margin:0 -2px}.clapper i:nth-child(even){background:#0b0d11}
+.board{background:#14171c;color:#f4f1e8;border-radius:0 0 16px 16px;padding:30px;border-top:4px solid #f4f1e8}
+.label{font:700 15px "Hanken Grotesk";letter-spacing:.1em;text-transform:uppercase;color:#f2a93b;margin-bottom:14px}
+code{display:block;background:#0b0d11;border:1px solid rgba(244,241,232,.14);border-radius:12px;padding:22px;font:500 21px/1.6 "JetBrains Mono",monospace;word-break:break-all}
+.apps{margin-top:22px;font:600 17px "Hanken Grotesk";color:rgba(244,241,232,.7)}
+</style>
+<div class="copy">
+  <div class="brand"><span class="mark"></span>Media Server Setup</div>
+  <h1>Your own streaming service.<span>One line to install.</span></h1>
+  <p>Movies, shows, anime, comics and manga that find, download and organise themselves.</p>
+</div>
+<div class="slate">
+  <div class="clapper"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="board">
+    <div class="label">Paste this into a terminal</div>
+    <code>curl -fsSL https://raw.githubusercontent.com/Hikki-dev/media-server-setup/main/install.sh | bash</code>
+    <div class="apps">Jellyfin &middot; Sonarr &middot; Radarr &middot; Prowlarr &middot; Kapowarr &middot; Kaizoku &middot; and more</div>
+  </div>
+</div>

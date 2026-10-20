@@ -56,7 +56,11 @@ def sh(cmd, timeout=900, check=True):
 
 def pick_kapowarr_image():
     """The first Kapowarr image Docker can reach. Returns (image, used_fallback)."""
+    arch = (sh(["docker", "info", "--format", "{{.Architecture}}"], timeout=30, check=False).stdout or "").strip()
+    arm = arch in ("aarch64", "arm64") or arch.startswith("armv")
     for i, image in enumerate(KAPOWARR_IMAGES):
+        if i == 0 and arm:          # Hikki-dev's copy is built for Intel/AMD only; a Raspberry Pi or other ARM machine uses the original
+            continue
         if sh(["docker", "manifest", "inspect", image], timeout=60, check=False).returncode == 0:
             return image, i > 0
     return KAPOWARR_IMAGES[0], False       # no answer at all (offline?): keep the first choice and let the pull report the real problem
