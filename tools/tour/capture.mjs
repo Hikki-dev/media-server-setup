@@ -169,7 +169,7 @@ for (const k of ["komga", "kapowarr", "kaizoku"]) {
   const el = await hover({ css: "#cvk" });
   await shot("apps-hover-key", { targets: { field: { css: "#cvk" }, card: { text: "ComicVine key", tag: ".card", max: 400 } } });
   await el.click({ delay: 60 });
-  await page.keyboard.type("7c1e5b0a9f2d84c36e5a1b7d90f4c2a8e3d61b05", { delay: 0 });
+  await page.keyboard.type("demo-key-not-real", { delay: 0 });          // clearly pretend: never a real key
   await sleep(400);
   await shot("apps-key-pasted", { targets: { field: { css: "#cvk" } } });
 }
