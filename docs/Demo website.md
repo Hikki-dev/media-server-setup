@@ -9,6 +9,19 @@ Nothing in the demo installs or saves anything. A bar at the top says so, and li
 
 The live site is at https://media-server-setup.makkoacknowledgesstress.workers.dev.
 
+## The tour video
+
+The home page has a 90 second video of the setup page: a pointer that moves like a hand, zooms only where there is something to look at, and short captions. It is made from the demo, so it can be made again whenever the setup page changes:
+
+```bash
+python3 tools/build_site.py && (cd site && python3 -m http.server 8765) &
+cd tools/tour && npm install && cd ../..
+node tools/tour/capture.mjs tour-work
+python3 tools/tour/compose.py tour-work landing/media/tour.mp4
+```
+
+The steps are in `tools/tour/README.md`. The README picture is a shorter highlight cut from the same video.
+
 ## What you can do in the demo
 
 1. Go through every setup screen, including the folder picker with pretend drives.

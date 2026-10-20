@@ -1,5 +1,10 @@
 # Changes
 
+## Tour video
+
+1. New 90 second tour video on the home page, in 1080p: a real pointer that moves like a hand, camera zooms that only happen where there is something to see, and short captions. A highlight of it is the picture at the top of the README.
+2. The video is made from the demo by two scripts in tools/tour, so it can be made again whenever the setup page changes.
+
 ## Best settings
 
 1. Every app's log is now limited to three files of 50 MB, so a noisy app cannot fill a drive.

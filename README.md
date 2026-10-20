@@ -7,9 +7,9 @@
 
 One page in your browser that installs a complete home media server, and connects every part of it for you.
 
-<p align="center"><img src="docs/images/demo.gif" alt="A 30 second tour of the setup page: the checks, choosing a drive, choosing apps, reviewing and a finished install" width="100%"></p>
+<p align="center"><img src="docs/images/demo.gif" alt="Highlights of the setup page: choosing a drive, choosing apps including comics and manga, and the install" width="100%"></p>
 
-<p align="center"><sub>A 30 second tour of the setup page. <a href="https://media-server-setup.makkoacknowledgesstress.workers.dev/demo/">Try it yourself</a>, nothing is installed.</sub></p>
+<p align="center"><sub>A short highlight of the setup page. <b><a href="https://media-server-setup.makkoacknowledgesstress.workers.dev/#tour">Watch the full 90 second tour</a></b>, or <a href="https://media-server-setup.makkoacknowledgesstress.workers.dev/demo/">try it yourself</a>. Nothing is installed.</sub></p>
 
 You answer a few simple questions. The setup installs the apps, links them together, and then tries a real search to prove that everything works.
 

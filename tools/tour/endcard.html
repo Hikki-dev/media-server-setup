@@ -1,0 +1,23 @@
+<!doctype html>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<style>
+/* The last picture of the tour video (1920 x 1080). Rendered by Chrome, see tools/tour/README.md */
+*{box-sizing:border-box;margin:0}
+body{width:1920px;height:1080px;background:#e9edf3;font-family:"Hanken Grotesk",sans-serif;color:#0d1b2a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:48px}
+.brand{display:flex;align-items:center;gap:18px;font:600 38px "Unbounded"}
+.mark{width:62px;height:62px;border-radius:17px;background:#f2a93b;position:relative}
+.mark::after{content:"";position:absolute;left:24px;top:17px;border-left:24px solid #14171c;border-top:14px solid transparent;border-bottom:14px solid transparent}
+h1{font:800 76px/1.1 "Unbounded";letter-spacing:-.03em;text-align:center}h1 span{color:#8a5200}
+.slate{width:1180px;filter:drop-shadow(0 30px 40px rgba(13,27,42,.28))}
+.clapper{display:flex;height:60px;overflow:hidden;border-radius:18px 18px 0 0;background:#14171c;transform-origin:0 100%;transform:rotate(-2.2deg)}
+.clapper i{flex:1;transform:skewX(-32deg);background:#f4f1e8;margin:0 -3px}.clapper i:nth-child(even){background:#0b0d11}
+.board{background:#14171c;color:#f4f1e8;border-radius:0 0 20px 20px;padding:36px 44px 40px;border-top:5px solid #f4f1e8}
+code{display:block;background:#0b0d11;border:1px solid rgba(244,241,232,.14);border-radius:14px;padding:26px 30px;font:500 31px/1.5 "JetBrains Mono",monospace;word-break:break-all}
+.url{font:600 30px "Hanken Grotesk";color:#4a5a6d}
+</style>
+<div class="brand"><span class="mark"></span>Media Server Setup</div>
+<h1>One line to install. <span>Then you are done.</span></h1>
+<div class="slate"><div class="clapper"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="board"><code>curl -fsSL https://raw.githubusercontent.com/Hikki-dev/media-server-setup/main/install.sh | bash</code></div></div>
+<div class="url">Try it in your browser: media-server-setup.makkoacknowledgesstress.workers.dev</div>
