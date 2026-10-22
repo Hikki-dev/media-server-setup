@@ -15,7 +15,7 @@ This is optional. Switch on **Kapowarr** for comics and **Kaizoku** for manga on
 
 ## Kapowarr
 
-The setup uses a personal copy of Kapowarr, [Hikki-dev/Kapowarr](https://github.com/Hikki-dev/Kapowarr), in place of Mylar. It is the original Kapowarr plus these fixes:
+The setup uses a personal build of [Kapowarr](https://github.com/Casvt/Kapowarr) (the fork with the fixes is not public), in place of Mylar. It is the original Kapowarr plus these fixes:
 
 1. New releases found every 15 minutes from the GetComics feed and from Prowlarr.
 2. A **Search All** that no longer freezes or stops when one title fails.
