@@ -10,6 +10,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import adopt as A
 import configure as C
+import monitoring as M
 import sharing
 import stack as S
 import tailscale_https as TS
@@ -75,7 +76,7 @@ def normalize(cfg):
     if "mylar3" in cfg.get("ports", {}):
         cfg["ports"].setdefault("kapowarr", S.DEFAULT_PORTS["kapowarr"])
         cfg["ports"].pop("mylar3")
-    for k in ("kapowarr", "kaizoku"):
+    for k in ("kapowarr", "kaizoku", "beszel"):
         cfg.setdefault("ports", {}).setdefault(k, S.DEFAULT_PORTS[k])
     cfg.setdefault("livetv", None)
     cfg.setdefault("notify", None)
@@ -149,6 +150,9 @@ def install(cfg):
             if "jellyfin" in mine:
                 cfg["services"]["jellyfin"] = True
                 ctx.cfg["services"]["jellyfin"] = True
+        if cfg["services"].get("beszel"):
+            cfg["hardware"] = M.detect(S.sh, cfg.get("hostOs"))
+            cfg["beszelKey"] = M.ensure_key(S.STACK, S.sh)
         step("Writing your docker-compose file")
         if cfg["services"].get("kapowarr"):
             cfg["kapowarrImage"], fallback = S.pick_kapowarr_image()
@@ -211,6 +215,12 @@ def install(cfg):
         step("Testing a real search")
         smoke = smoke_test(ctx)
         log(smoke["msg"])
+        if cfg["services"].get("beszel"):
+            step("Setting up health monitoring")
+            try:
+                ctx.beszel_system = M.configure(f"http://beszel:{M.HUB_PORT}", cfg, cfg.get("hardware") or {}, log)
+            except Exception as e:  # noqa: BLE001 - optional extra: report, never fail the whole install
+                log(f"  Monitoring could not be finished: {str(getattr(e, 'body', e))[:160]}. The monitor still runs; add this server in it by hand.")
         if cfg["services"].get("homepage"):
             step("Building your Homepage dashboard")
             C.setup_homepage(ctx)

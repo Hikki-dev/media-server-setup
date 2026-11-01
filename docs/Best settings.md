@@ -9,6 +9,8 @@ These come from a Proxmox host and an LXC that run this stack every day: an Inte
 3. Jellyfin uses your graphics chip for video when it finds one, after testing that it works.
 4. qBittorrent stops uploading when a download is done, and finished downloads are removed.
 
+If your server runs hot, or you want to know before a drive fills, read [Monitoring and temperatures](Monitoring%20and%20temperatures.md).
+
 ## Proxmox container settings
 
 | Setting | A good value | Why |

@@ -1,5 +1,13 @@
 # Changes
 
+## Monitoring
+
+1. New optional app, Beszel: processor, memory, drives and temperature, with a tile on Homepage. The setup adds this server to it and creates the alerts, so nothing is connected by hand.
+2. It follows the hardware: memory and core caps by machine size, one watch per media drive on Linux, and a temperature alert 8 degrees under the chip's own limit, only if the machine reports a temperature.
+3. Alerts only ring for real trouble: a number must stay bad for 10 minutes.
+4. New extras/Monitoring/thermal-guard.sh: lowers CPU power and speed when it runs hot, with its levels worked out from the chip's own limit. Includes an installer.
+5. New guide, docs/Monitoring and temperatures.md, with a cooling checklist. tools/test_monitoring.py covers it.
+
 ## Tour video
 
 1. New 90 second tour video on the home page, in 1080p: a real pointer that moves like a hand, camera zooms that only happen where there is something to see, and short captions. A highlight of it is the picture at the top of the README.

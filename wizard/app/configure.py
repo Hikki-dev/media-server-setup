@@ -1646,6 +1646,11 @@ def setup_homepage(ctx):
                                 ("scrutiny", "Scrutiny", "scrutiny", "Disk health")):
         if cfg["services"].get(k):
             dl.append(entry(name, icon, p[k], desc))
+    if cfg["services"].get("beszel"):
+        import monitoring
+        dl.append(entry("Beszel", "beszel", p["beszel"], "Server health, temperatures and alerts",
+                        {"type": "beszel", "url": f"http://beszel:{monitoring.HUB_PORT}", "username": monitoring.ADMIN_EMAIL,
+                         "password": monitoring.password_for(cfg), "version": 2, "systemId": getattr(ctx, "beszel_system", "")}))
     groups = []
     if media: groups.append({"Watch & request": media})
     groups += [{"Automation": arrs}, {"Downloads": dl}]
@@ -1742,10 +1747,13 @@ def verify_logins(ctx):
             a = Api(f"http://kapowarr:{INTERNAL['kapowarr']}", prefix="/api")
             return a.post("/auth", {"username": login["username"], "password": login["password"]}).get("result", {}).get("api_key")
         add("Kapowarr", "kapowarr", login["username"], login["password"], "Same admin login", kap)
-    for key, name in (("homepage", "Homepage"), ("metube", "MeTube"), ("komga", "Komga"), ("kaizoku", "Kaizoku"), ("scrutiny", "Scrutiny")):
+    for key, name in (("homepage", "Homepage"), ("metube", "MeTube"), ("komga", "Komga"), ("kaizoku", "Kaizoku"), ("scrutiny", "Scrutiny"), ("beszel", "Beszel")):
         if cfg["services"].get(key):
-            out.append({"app": name, "url": f"http://{host}:{p[key]}", "user": "", "password": "", "ok": True,
-                        "note": "Create the owner account on first visit" if key == "komga" else "Add your manga sources on first visit" if key == "kaizoku" else "No login needed"})
+            import monitoring
+            bz = key == "beszel"
+            out.append({"app": name, "url": f"http://{host}:{p[key]}", "user": monitoring.ADMIN_EMAIL if bz else "",
+                        "password": monitoring.password_for(cfg) if bz else "", "ok": True,
+                        "note": "Create the owner account on first visit" if key == "komga" else "Your server's health. Alerts only fire for real trouble" if bz else "Add your manga sources on first visit" if key == "kaizoku" else "No login needed"})
     return out
 
 

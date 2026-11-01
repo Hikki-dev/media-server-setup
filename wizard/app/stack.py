@@ -11,6 +11,7 @@ import yaml
 
 from arrapi import CANCEL, Fatal
 import sharing
+import monitoring
 
 STACK = "/stack"                      # host stack folder, mounted into this container
 HOST_STACK = os.environ.get("HOST_STACK_DIR", "/stack").replace("\\", "/")
@@ -20,12 +21,12 @@ HELPER_IMAGE = "alpine:3"
 DEFAULT_PORTS = {
     "qbittorrent": 8080, "sonarr": 8989, "radarr": 7878, "prowlarr": 9696, "bazarr": 6767,
     "jellyfin": 8096, "seerr": 5055, "flaresolverr": 8191, "homepage": 3000,
-    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 9833, "scrutiny": 8087, "samba": 445,
+    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 9833, "scrutiny": 8087, "beszel": 8091, "samba": 445,
 }
 INTERNAL = {  # port each app listens on inside its container
     "qbittorrent": 8080, "sonarr": 8989, "radarr": 7878, "prowlarr": 9696, "bazarr": 6767,
     "jellyfin": 8096, "seerr": 5055, "flaresolverr": 8191, "homepage": 3000,
-    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 9833, "scrutiny": 8080, "regional": 9120, "samba": 445,
+    "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 9833, "scrutiny": 8080, "beszel": 8090, "regional": 9120, "samba": 445,
 }
 
 # Kapowarr: Hikki-dev's copy first, and the original project's image when the copy cannot be downloaded (for example while its package is private)
@@ -283,6 +284,8 @@ def compose(cfg):
                            "cap_add": ["SYS_RAWIO"],
                            "volumes": [f"{hostpath('config/scrutiny')}:/opt/scrutiny/config"],
                            "ports": [f"{p['scrutiny']}:8080"]}
+    if s.get("beszel"):
+        svc.update(monitoring.services(cfg, plan["mounts"], cfg.get("hardware") or {}, hostpath, p["beszel"], tz, cfg.get("beszelKey", "")))
     if s.get("samba") and cfg.get("hostOs") in (None, "linux"):
         svc["samba"] = sharing.service(cfg, p.get("samba", 445), HOST_STACK)
     # healthchecks + automatic restart of anything that hangs (the pattern a long-running home server uses)
@@ -491,7 +494,7 @@ def prepare_dirs(cfg):
             if r.returncode != 0:
                 raise RuntimeError(f"Cannot create folders in {m['host']}: {(r.stderr or '').strip()[-200:]}")
     for n in ["qbittorrent", "prowlarr", "sonarr", "radarr", "bazarr", "jellyfin", "seerr", "homepage",
-              "komga", "kapowarr", "kaizoku", "scrutiny", "regional", "samba", "jellyfin/livetv"]:
+              "komga", "kapowarr", "kaizoku", "scrutiny", "beszel/hub_data", "beszel/socket", "regional", "samba", "jellyfin/livetv"]:
         os.makedirs(f"{STACK}/config/{n}", exist_ok=True)
     sh(["chown", "-R", f"{uid}:{gid}", f"{STACK}/config"], check=False)
     return plan

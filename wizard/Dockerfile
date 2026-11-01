@@ -1,5 +1,5 @@
 FROM python:3.12-alpine
-RUN apk add --no-cache docker-cli docker-cli-compose tailscale && pip install --no-cache-dir pyyaml yt-dlp
+RUN apk add --no-cache docker-cli docker-cli-compose tailscale openssh-keygen && pip install --no-cache-dir pyyaml yt-dlp
 WORKDIR /app
 COPY wizard/app/ /app/
 COPY wizard/presets/ /app/presets/

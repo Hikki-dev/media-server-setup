@@ -49,7 +49,7 @@ const S = {
     settings: { minSeeders: 2, concurrent: 3, dlLimitKB: 0, ulLimitKB: 400, rssMinutes: 30, retryFailed: true, upgrade: false, hardSubs: true },
     qbit: { username: "admin", password: "", vuetorrent: true },
     login: { username: "admin", password: "", email: "" },
-    solver: "flaresolverr", services: { jellyfin: true, seerr: true, bazarr: true, homepage: true, metube: false, komga: false, kapowarr: false, kaizoku: false, scrutiny: false, samba: false, tailscale: false },
+    solver: "flaresolverr", services: { jellyfin: true, seerr: true, bazarr: true, homepage: true, metube: false, komga: false, kapowarr: false, kaizoku: false, scrutiny: false, beszel: false, samba: false, tailscale: false },
     subtitles: {}, ports: {}, samba: null, livetv: null, notify: null, adopt: {}, skipGroups: [],
   },
 };
@@ -60,7 +60,7 @@ const shown = k => k === "mine" ? !!(S.found && S.found.some(a => !a.ours)) : k 
 const VIS = () => WIZ.filter(([k]) => shown(k));
 const KIND = { movies: ["film", "Movies"], tv: ["tv", "TV Shows"], anime: ["spark", "Anime"] };
 const DIRNAME = { movies: "Movies", tv: "TV Shows", anime: "Anime" };
-const SVC = { jellyfin: ["film", "Jellyfin", "Watch your library on any device"], seerr: ["search", "Seerr", "Request page for family and friends"], bazarr: ["globe", "Bazarr", "Finds subtitles automatically"], homepage: ["link", "Homepage", "One dashboard for every app"], metube: ["download", "MeTube", "Download YouTube videos"], komga: ["folder", "Komga", "Comics and manga reader"], kapowarr: ["spark", "Kapowarr", "Automatic comic downloads"], kaizoku: ["folder", "Kaizoku", "Automatic manga downloads (manga only)"], scrutiny: ["drive", "Scrutiny", "Hard drive health"], samba: ["folder", "File sharing", "Open your media and drives from other computers and phones"], tailscale: ["link", "Private HTTPS addresses", "Open every app from anywhere, safely, with Tailscale"] };
+const SVC = { jellyfin: ["film", "Jellyfin", "Watch your library on any device"], seerr: ["search", "Seerr", "Request page for family and friends"], bazarr: ["globe", "Bazarr", "Finds subtitles automatically"], homepage: ["link", "Homepage", "One dashboard for every app"], metube: ["download", "MeTube", "Download YouTube videos"], komga: ["folder", "Komga", "Comics and manga reader"], kapowarr: ["spark", "Kapowarr", "Automatic comic downloads"], kaizoku: ["folder", "Kaizoku", "Automatic manga downloads (manga only)"], scrutiny: ["drive", "Scrutiny", "Hard drive health"], beszel: ["drive", "Beszel", "Server health: CPU, memory, drives and temperatures, with alerts only for real trouble"], samba: ["folder", "File sharing", "Open your media and drives from other computers and phones"], tailscale: ["link", "Private HTTPS addresses", "Open every app from anywhere, safely, with Tailscale"] };
 
 /* ------------------------------------------------------------ shell */
 function stepItems(active) {

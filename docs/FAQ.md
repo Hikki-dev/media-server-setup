@@ -38,7 +38,7 @@ Yes. The **Your apps** step finds them. For each one you choose to keep yours or
 
 ### Which ports do the apps use?
 
-The standard ones: Jellyfin 8096, Seerr 5055, Sonarr 8989, Radarr 7878, Prowlarr 9696, qBittorrent 8080, Bazarr 6767, Homepage 3000, Kapowarr 5656, Komga 25600 and Kaizoku 9833. If a port is already used on your computer, the setup picks a free one for you and shows it at the end.
+The standard ones: Jellyfin 8096, Seerr 5055, Sonarr 8989, Radarr 7878, Prowlarr 9696, qBittorrent 8080, Bazarr 6767, Homepage 3000, Kapowarr 5656, Komga 25600 and Kaizoku 9833 and Beszel 8091. If a port is already used on your computer, the setup picks a free one for you and shows it at the end.
 
 ## Using it
 

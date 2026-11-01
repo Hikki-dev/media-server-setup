@@ -52,6 +52,7 @@ Each app does one small job. Together they find, download, tidy and play your mo
 <tr><td><img src="docs/images/icons/flaresolverr.png" alt="FlareSolverr logo" width="48"></td><td><b>FlareSolverr</b></td><td>Helps the searches get past robot checks on search websites</td></tr>
 <tr><td><img src="docs/images/icons/kapowarr.png" alt="Kapowarr logo" width="48"></td><td><b>Kapowarr</b> (optional)</td><td>Finds and downloads comics (not manga), using <a href="https://github.com/Hikki-dev/Kapowarr">my own copy</a> with fixes</td></tr>
 <tr><td><img src="docs/images/icons/kaizoku.png" alt="Kaizoku logo" width="48"></td><td><b>Kaizoku</b> (optional)</td><td>Follows manga and downloads new chapters</td></tr>
+<tr><td><img src="docs/images/icons/beszel.png" alt="Beszel logo" width="48"></td><td><b>Beszel</b> (optional)</td><td>Watches processor, memory, drives and temperature, and pings you only for real trouble</td></tr>
 <tr><td><img src="docs/images/icons/homepage.png" alt="Homepage logo" width="48"></td><td><b>Homepage</b></td><td>One page with a button for every app</td></tr>
 <tr><td><img src="docs/images/icons/tailscale.png" alt="Tailscale logo" width="48"></td><td><b>Tailscale</b> (optional)</td><td>A private way to reach everything from anywhere, with safe HTTPS addresses</td></tr>
 </table>
@@ -228,6 +229,7 @@ To report a security problem, read [SECURITY.md](SECURITY.md).
 | Install it on Windows, Mac, Linux or a server | [Installing](docs/Installing.md) |
 | Use a Proxmox LXC, Raspberry Pi, Synology or Unraid | [Other hardware](docs/Other%20hardware.md) |
 | Tune a home server | [Best settings](docs/Best%20settings.md) |
+| Watch temperatures and get alerts | [Monitoring and temperatures](docs/Monitoring%20and%20temperatures.md) |
 | Find a quick answer | [Questions and answers](docs/FAQ.md) |
 | Follow every screen with pictures | [Getting started](docs/Getting%20started.md) |
 | Understand how the apps work together | [How everything fits](docs/How%20everything%20fits.md) |
