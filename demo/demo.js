@@ -89,7 +89,7 @@
     return { links, indexers: { working: ["1337x", "Nyaa", "EZTV", "YTS", "The Pirate Bay"], not_available: [] }, login: user, qbit: "qbit",
              smoke: { ok: true, msg: STEPS[14][1] }, credentials, integrations };
   }
-  const DEFAULT_PORTS = { qbittorrent: 8080, sonarr: 8989, radarr: 7878, prowlarr: 9696, bazarr: 6767, jellyfin: 8096, seerr: 5055, flaresolverr: 8191, homepage: 3000, metube: 8081, komga: 25600, kapowarr: 5656, kaizoku: 9833, scrutiny: 8087 };
+  const DEFAULT_PORTS = { qbittorrent: 8080, sonarr: 8989, radarr: 7878, prowlarr: 9696, bazarr: 6767, jellyfin: 8096, seerr: 5055, flaresolverr: 8191, homepage: 3000, metube: 8081, komga: 25600, kapowarr: 5656, kaizoku: 9833, scrutiny: 8087, beszel: 8091 };
   function events(since) {
     const age = Date.now() - JOB.start;
     const all = [];
