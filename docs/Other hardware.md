@@ -50,7 +50,7 @@ lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
 4. Run the one-line installer from [Installing](Installing.md).
 
 What to expect:
-1. Every app the setup installs has a 64-bit ARM version. The original Kapowarr is used automatically on ARM, because the maintainer's copy is built for Intel and AMD only.
+1. Every app the setup installs has a 64-bit ARM version, including the maintainer's copies of Kapowarr and Kaizoku.
 2. A Pi cannot convert video well. Choose clients that play your files as they are (most TVs, phones and streaming sticks do), and Jellyfin will not need to convert anything.
 3. The helper for protected websites runs a hidden browser, which is heavy for 4 GB. Keep it to FlareSolverr, and switch off apps you do not need on the Apps step.
 

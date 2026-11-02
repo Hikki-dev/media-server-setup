@@ -71,7 +71,7 @@ def pick_image(images, intel_only_first=False):
 
 
 def pick_kapowarr_image():
-    return pick_image(KAPOWARR_IMAGES, intel_only_first=True)
+    return pick_image(KAPOWARR_IMAGES)       # the copy is built for Intel/AMD and ARM
 
 
 def pick_kaizoku_image():

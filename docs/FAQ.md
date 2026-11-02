@@ -79,7 +79,7 @@ Not built in yet. A VPN is only offered for Live TV channels that work in one co
 
 ### Why did the setup say it used the original Kapowarr?
 
-The maintainer's own copy of Kapowarr is on GitHub's package list, and it cannot be downloaded on some machines, such as a Raspberry Pi (it is built for Intel and AMD only) or while its package is private. The setup then uses the original Kapowarr. Comics work the same, without the copy's extra fixes. See [Comics and manga](Comics%20and%20manga.md).
+The maintainer's own copies of Kapowarr and Kaizoku are on GitHub's package list. If one cannot be downloaded (for example while its package is private), the setup uses the original app instead. Comics work the same, without the copy's extra fixes. See [Comics and manga](Comics%20and%20manga.md).
 
 ## Problems
 

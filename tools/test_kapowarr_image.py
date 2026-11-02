@@ -24,7 +24,7 @@ assert S.pick_kapowarr_image() == (S.KAPOWARR_IMAGES[1], True), "the original is
 docker_can_reach()
 assert S.pick_kapowarr_image() == (S.KAPOWARR_IMAGES[0], False), "offline: keep the first choice"
 docker_can_reach(*S.KAPOWARR_IMAGES, arch="aarch64")
-assert S.pick_kapowarr_image() == (S.KAPOWARR_IMAGES[1], True), "an ARM machine skips the copy, which is built for Intel/AMD only"
+assert S.pick_kapowarr_image() == (S.KAPOWARR_IMAGES[0], False), "the copy is built for ARM too, so an ARM machine uses it"
 docker_can_reach(*S.KAIZOKU_IMAGES)
 assert S.pick_kaizoku_image() == (S.KAIZOKU_IMAGES[0], False), "the Kaizoku copy is used when it can be downloaded"
 docker_can_reach(S.KAIZOKU_IMAGES[1])

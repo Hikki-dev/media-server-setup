@@ -1,5 +1,9 @@
 # Changes
 
+## Kapowarr copy
+
+1. The Kapowarr copy is now a smaller image (170 MB) built for Intel/AMD and ARM, with a health check, so a Raspberry Pi uses it too. It is tested on every change, and the Tasks page shows "15 minutes" instead of "0 hours".
+
 ## Kaizoku, now Rensaiō
 
 1. The manga app is now [Hikki-dev's copy of Rensaiō](https://github.com/Hikki-dev/Rensaio), the maintained successor of the archived Kaizoku. It reads your folder before adding a series, downloads each chapter from one site, moves to the next working site when one fails, and skips a site that is down. If the copy cannot be downloaded, the original Rensaiō is used.
