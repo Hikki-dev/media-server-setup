@@ -8,6 +8,11 @@
 4. New extras/Monitoring/thermal-guard.sh: lowers CPU power and speed when it runs hot, with its levels worked out from the chip's own limit. Includes an installer.
 5. New guide, docs/Monitoring and temperatures.md, with a cooling checklist. tools/test_monitoring.py covers it.
 
+## Dashboard and subtitles
+
+1. The Homepage dashboard is much richer: a glass look on a dark gradient, server CPU, memory, uptime and disk at the top, a search box and a clock, and live CPU and memory on every app tile (read-only Docker access).
+2. docs/Best settings.md explains how to make subtitles show up and stay in time, what to expect from Jellyfin on a TV, and why Nginx Proxy Manager is not needed at home.
+
 ## Tour video
 
 1. New 90 second tour video on the home page, in 1080p: a real pointer that moves like a hand, camera zooms that only happen where there is something to see, and short captions. A highlight of it is the picture at the top of the README.

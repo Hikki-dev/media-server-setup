@@ -1610,6 +1610,19 @@ def setup_kapowarr(ctx):
         + ("" if cv else ". Paste your free ComicVine key in Kapowarr, Settings, before adding comics"))
 
 
+HOMEPAGE_CSS = """html { background: #0a1020; }
+body, #__next, #page_wrapper { background: transparent !important; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; background:
+  radial-gradient(1100px 650px at 8% -8%, rgba(56,189,248,.17), transparent 60%),
+  radial-gradient(900px 600px at 96% 4%, rgba(167,139,250,.15), transparent 58%),
+  radial-gradient(1000px 700px at 50% 112%, rgba(20,184,166,.13), transparent 60%),
+  linear-gradient(180deg, #0a1020 0%, #0d1528 50%, #09101d 100%); }
+.service > div { background: rgba(255,255,255,.045) !important; border: 1px solid rgba(255,255,255,.075); border-radius: 14px;
+  backdrop-filter: blur(14px) saturate(125%); box-shadow: 0 8px 24px rgba(0,0,0,.28); transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+.service > div:hover { transform: translateY(-2px); border-color: rgba(125,211,252,.38); background: rgba(255,255,255,.075) !important; }
+"""
+
+
 def setup_homepage(ctx):
     cfg = ctx.cfg
     p = cfg["ports"]
@@ -1618,7 +1631,7 @@ def setup_homepage(ctx):
     host = cfg.get("hostAddress") or "localhost"
 
     def entry(name, icon, port, desc, widget=None):
-        e = {"icon": icon, "href": (cfg.get("tailscaleUrls") or {}).get(port) or (cfg.get("tailscaleUrls") or {}).get(str(port)) or f"http://{host}:{port}", "description": desc}
+        e = {"server": "local", "container": f"{PROJECT}-{ {'jellyseerr': 'seerr'}.get(icon, icon) }-1", "showStats": True, "icon": icon, "href": (cfg.get("tailscaleUrls") or {}).get(port) or (cfg.get("tailscaleUrls") or {}).get(str(port)) or f"http://{host}:{port}", "description": desc}
         if widget:
             e["widget"] = widget
         return {name: e}
@@ -1639,6 +1652,8 @@ def setup_homepage(ctx):
     if cfg["services"].get("bazarr"):
         arrs.append(entry("Bazarr", "bazarr", p["bazarr"], "Subtitles"))
     arrs.append(entry({"byparr": "Byparr", "trawl": "TRAWL"}.get(cfg.get("solver"), "FlareSolverr"), "flaresolverr", p["flaresolverr"], "Cloudflare solver for indexers"))
+    if cfg.get("solver", "flaresolverr") != "flaresolverr":
+        next(iter(arrs[-1].values()))["container"] = f"{PROJECT}-solver-1"
     dl.append(entry("qBittorrent", "qbittorrent", p["qbittorrent"], "Downloads (no seeding)",
                     {"type": "qbittorrent", "url": "http://qbittorrent:8080", "username": q["username"], "password": q["password"]}))
     for k, name, icon, desc in (("metube", "MeTube", "metube", "YouTube downloader"), ("komga", "Komga", "komga", "Comics & manga reader"),
@@ -1656,13 +1671,20 @@ def setup_homepage(ctx):
     groups += [{"Automation": arrs}, {"Downloads": dl}]
     import yaml
     yaml.safe_dump(groups, open(f"{d}/services.yaml", "w"), sort_keys=False)
-    yaml.safe_dump({"title": "My Media Server", "theme": "dark", "color": "slate", "headerStyle": "boxed",
-                    "layout": {"Watch & request": {"style": "row", "columns": 2}, "Automation": {"style": "row", "columns": 4},
-                               "Downloads": {"style": "row", "columns": 3}}}, open(f"{d}/settings.yaml", "w"), sort_keys=False)
-    yaml.safe_dump([{"resources": {"cpu": True, "memory": True, "disk": "/"}}], open(f"{d}/widgets.yaml", "w"))
+    ico = {"Watch & request": "mdi-play-circle", "Automation": "mdi-cog-sync", "Downloads": "mdi-download"}
+    yaml.safe_dump({"title": "My Media Server", "theme": "dark", "color": "slate", "headerStyle": "clean", "cardBlur": "md",
+                    "statusStyle": "dot", "hideVersion": True, "useEqualHeights": True, "maxGroupColumns": 4,
+                    "layout": {"Watch & request": {"style": "row", "columns": 2, "icon": ico["Watch & request"]},
+                               "Automation": {"style": "row", "columns": 4, "icon": ico["Automation"]},
+                               "Downloads": {"style": "row", "columns": 3, "icon": ico["Downloads"]}}}, open(f"{d}/settings.yaml", "w"), sort_keys=False)
+    yaml.safe_dump([{"resources": {"label": "Server", "cpu": True, "memory": True, "uptime": True}},
+                    {"resources": {"label": "Disk", "disk": "/"}},
+                    {"search": {"provider": "duckduckgo", "target": "_blank"}},
+                    {"datetime": {"text_size": "xl", "format": {"timeStyle": "short", "hour12": False}}}], open(f"{d}/widgets.yaml", "w"), sort_keys=False)
+    open(f"{d}/custom.css", "w").write(HOMEPAGE_CSS)
     for f in ("bookmarks.yaml", "docker.yaml"):
         if not os.path.exists(f"{d}/{f}"):
-            open(f"{d}/{f}", "w").write("---\n" if f == "bookmarks.yaml" else "")
+            open(f"{d}/{f}", "w").write("---\n" if f == "bookmarks.yaml" else "local:\n  socket: /var/run/docker.sock\n")
     ctx.log("Homepage dashboard built with live widgets for every app")
 
 

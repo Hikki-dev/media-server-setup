@@ -254,7 +254,7 @@ def compose(cfg):
     if s.get("homepage"):
         svc["homepage"] = {"image": "ghcr.io/gethomepage/homepage:latest", "restart": "unless-stopped",
                            "environment": base_env + ["HOMEPAGE_ALLOWED_HOSTS=*"],
-                           "volumes": [f"{hostpath('config/homepage')}:/app/config"],
+                           "volumes": [f"{hostpath('config/homepage')}:/app/config", "/var/run/docker.sock:/var/run/docker.sock:ro"],      # read-only: live CPU/RAM per app
                            "ports": [f"{p['homepage']}:3000"]}
     extra = plan["mounts"][0]["host"] if plan["mounts"] else HOST_STACK
     if s.get("metube"):

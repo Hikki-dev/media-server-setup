@@ -101,3 +101,26 @@ MaxAuthTries 3
 3. **Test the memory once** with memtest86+ on a new or second-hand machine. Bad memory slowly damages databases, and shows up as "database disk image is malformed" in Sonarr or Radarr, or apps that crash for no reason.
 4. Watch free space. At 90 percent full, a drive gets slow, and at 100 percent the apps stop.
 5. After an unclean shutdown, check the filesystem before you trust it.
+
+## Subtitles that show up and line up
+
+A subtitle can exist on disk and still not appear in Jellyfin, or appear a second or two off. These settings fix both.
+
+1. In Jellyfin, open each person's profile, Playback: set Subtitle mode to Smart and the Subtitle language to English. Mode "Default" only shows subtitles the file itself marks as default, so many downloaded ones never appear.
+2. In Bazarr, Settings, Subtitles, turn on automatic synchronization and leave "Do not fix framerate" off. Bazarr then re-times each new subtitle against the audio, which fixes the "comes early or late" problem.
+3. Give Bazarr the same address Jellyfin has on your network, so it can ask Jellyfin to refresh the moment a subtitle arrives.
+4. Subtitles that were already there before you turned this on are never re-checked by Bazarr. A small nightly job can check a few at a time, newest first, backing up each file before it is changed, so the processor is never busy for long.
+
+## Jellyfin on a TV
+
+1. The official Android TV and Google TV app cannot play theme songs. The Theme Songs plugin works in the web app, in a browser, and in some third-party apps (for example Wholphin on Android TV). Pick the app by what you want: official for the most reliable playback, a third-party one for extras.
+2. Smart TVs play most files without conversion when the app supports the codec. Fewer conversions means a quicker start and a cooler server.
+3. For a snappier home screen, hide libraries you never open, turn off Live TV on profiles that do not use it, and keep the server on a wired connection.
+
+## Do you need Nginx Proxy Manager?
+
+Not for home use without a domain. It gives apps nice names and certificates, but certificates need a real domain, and the apps are already reachable by address. With Tailscale you already get a private https address for each app (see Private HTTPS). Add it later only if you buy a domain and want to share apps outside your home.
+
+## The dashboard
+
+Homepage shows CPU, memory and disk for the server and, on every app tile, its live CPU and memory. It reads that from the Docker socket, read-only. The look (glass tiles on a dark gradient) lives in config/homepage/custom.css, so you can edit it without touching the setup.
