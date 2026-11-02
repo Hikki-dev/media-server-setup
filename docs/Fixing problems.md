@@ -91,3 +91,7 @@ Open Docker Desktop, find the app in the list, and open its Logs tab. Ask Claude
 ## Cannot open a shared folder
 
 See File sharing.md. It has a table of the common problems, including a share that works over Tailscale but not on your home network.
+
+## Kaizoku uses a lot of processor or memory
+
+Look at its log: `docker logs --tail 50 kaizoku`. Many lines like "Unable to get Series ... Http Error: InternalServerError" mean one manga source is down, and Kaizoku keeps retrying it for every title it lists (tens of thousands of times). Stop Kaizoku, switch that source off in Kaizoku, Sources, and start it again. If the log keeps filling, a stuck "latest" job for that source is still in its queue and needs to be removed. A healthy Kaizoku idles near 250 MB of memory and a few percent of one core.
