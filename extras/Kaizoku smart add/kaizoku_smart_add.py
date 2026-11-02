@@ -12,17 +12,32 @@ NEXT chapters are downloaded, from the one source that is best, with the others 
 Needs only Python 3. Run it on the machine that has Kaizoku and the manga folder (or pass --library)."""
 import argparse, json, os, re, sys, urllib.parse, urllib.request
 
-# Chapter number from a file name: "Ch.230", "Chapter 230", "c230", "- 230.cbz", "[Group] Title 230.cbz" -- never "Vol.23", years or "(2020)"
-_CH = [re.compile(r"(?<![a-z])(?:ch(?:apter)?|c)[\s._-]*(\d+(?:\.\d+)?)", re.I), re.compile(r"[\s_-](\d{1,4}(?:\.\d+)?)(?:\s*v\d)?\.(?:cbz|cbr|zip|pdf|epub)$", re.I)]
+# Chapter numbers from a file name: "Ch.230", "Chapter 230", "c230", "- 230.cbz", "[Group] Title 230.cbz", and a file with
+# several chapters, "Ch.12-14". Never "Vol.23", years or "(2020)", and a "c" inside a word ("Disc 2") is not a marker.
+_MARKED = re.compile(r"(?<![a-z])(?:ch(?:apters?)?|c)[\s._-]*(\d+(?:\.\d+)?)(?:\s*[-\u2013~]\s*(\d+(?:\.\d+)?))?", re.I)
+_TRAILING = re.compile(r"[\s_-](\d{1,4}(?:\.\d+)?)(?:\s*[-\u2013~]\s*(\d{1,4}(?:\.\d+)?))?(?:\s*v\d)?$", re.I)
+_LONGEST_RANGE = 30
+
+
+def chapters_of(name):
+    base = re.sub(r"\(\d{4}\)|\bvol(?:ume)?s?[\s._-]*\d+(?:\.\d+)?", " ", os.path.splitext(name)[0], flags=re.I)
+    for rx in (_MARKED, _TRAILING):
+        m = rx.search(base)
+        if not m:
+            continue
+        first = float(m.group(1))
+        last = float(m.group(2)) if m.group(2) else None
+        if last is not None and last > first:
+            if first.is_integer() and last.is_integer() and last - first <= _LONGEST_RANGE:
+                return [float(n) for n in range(int(first), int(last) + 1)]
+            return [first, last] if last - first <= _LONGEST_RANGE else [first]
+        return [first]
+    return []
 
 
 def chapter_of(name):
-    base = re.sub(r"\(\d{4}\)|\bvol(?:ume)?[\s._-]*\d+(?:\.\d+)?", " ", name, flags=re.I)       # drop volume numbers and years
-    for rx in _CH:
-        m = rx.search(base)
-        if m:
-            return float(m.group(1))
-    return None
+    found = chapters_of(name)
+    return found[0] if found else None
 
 
 def norm(s):
@@ -39,9 +54,8 @@ def disk_chapters(library, title):
         if norm(os.path.basename(root)) == norm(title):
             folder = folder or root
             for f in files:
-                n = chapter_of(f)
-                if n is not None:
-                    found.add(n)
+                if f.lower().endswith((".cbz", ".cbr", ".zip", ".pdf", ".epub")):
+                    found.update(chapters_of(f))
     return found, folder
 
 
@@ -136,6 +150,8 @@ def main():
 
 def _selftest():
     assert chapter_of("Chainsaw Man - Vol.23 Ch.229.cbz") == 229 and chapter_of("One Piece - Ch.10.cbz") == 10
+    assert chapters_of("Title Ch.12-14.cbz") == [12.0, 13.0, 14.0] and chapters_of("Title Ch.1-500.cbz") == [1.0]
+    assert chapters_of("Title 12-13.cbz") == [12.0, 13.0] and chapters_of("Title Vol.2.cbz") == [] and chapter_of("Title Ch.0.cbz") == 0
     assert chapter_of("Disc 2.cbz") == 2 and chapter_of("Title Disc Chapter 9.cbz") == 9
     assert chapter_of("[MangaKatana][en] Chainsaw Man 231.cbz") == 231 and chapter_of("Title Ch.12.5.cbz") == 12.5 and chapter_of("cover.jpg") is None
     ch = lambda ns: [{"Number": n, "ProviderUploadDate": "2024-01-01T00:00:00"} for n in ns]
