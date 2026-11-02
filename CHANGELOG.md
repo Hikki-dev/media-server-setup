@@ -1,5 +1,9 @@
 # Changes
 
+## Manga
+
+1. New extras/Kaizoku smart add: adds a manga from the best source and only for chapters you do not have, with the other sources as back-ups, and refuses to guess when the folder is nearly empty.
+
 ## Monitoring
 
 1. New optional app, Beszel: processor, memory, drives and temperature, with a tile on Homepage. The setup adds this server to it and creates the alerts, so nothing is connected by hand.
