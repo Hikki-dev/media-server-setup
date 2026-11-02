@@ -13,7 +13,7 @@ import urllib.request
 HUB_PORT = 8090            # inside the container
 SOCKET_DIR = "config/beszel/socket"
 DATA_DIR = "config/beszel/hub_data"
-ADMIN_EMAIL = "admin@beszel.local"
+ADMIN_EMAIL = "admin@beszel.local"        # used only when the setup login gives nothing better
 
 # Read the CPU temperature limits from the machine itself. Runs in a throw-away helper container with /sys mounted.
 PROBE = (
@@ -90,6 +90,15 @@ def watched_drives(plan_mounts, host_os):
     return out
 
 
+def admin_email(cfg):
+    """The hub admin's email: the setup login when it is an email, otherwise <login name>@beszel.local, so it is the same name and password as everywhere else."""
+    u = ((cfg.get("login") or {}).get("username") or "").strip().lower()
+    if "@" in u:
+        return u
+    u = re.sub(r"[^a-z0-9._-]", "", u)
+    return f"{u}@beszel.local" if u else ADMIN_EMAIL
+
+
 def password_for(cfg):
     """The hub's admin password: the setup login when it is long enough, otherwise one made from it."""
     pw = (cfg.get("login") or {}).get("password") or ""
@@ -111,7 +120,7 @@ def services(cfg, plan_mounts, hw, hostpath, port, tz, public_key):
     agent_vols = [f"{hostpath(SOCKET_DIR)}:/beszel_socket", "/var/run/docker.sock:/var/run/docker.sock:ro"]
     agent_vols += [f"{host}:/extra-filesystems/{label}:ro" for label, host in drives]
     hub = {"image": "henrygd/beszel:latest", "restart": "unless-stopped",
-           "environment": [f"TZ={tz}", f"USER_EMAIL={ADMIN_EMAIL}", f"USER_PASSWORD={password_for(cfg)}"],
+           "environment": [f"TZ={tz}", f"USER_EMAIL={admin_email(cfg)}", f"USER_PASSWORD={password_for(cfg)}"],
            "volumes": [f"{hostpath(DATA_DIR)}:/beszel_data", f"{hostpath(SOCKET_DIR)}:/beszel_socket"],
            "mem_limit": size["hub_mem"], "cpus": size["hub_cpus"], "ports": [f"{port}:{HUB_PORT}"],
            "healthcheck": _health(["/beszel", "health", "--url", f"http://localhost:{HUB_PORT}"]), "labels": HEAL}
@@ -148,7 +157,7 @@ def configure(base, cfg, hw, log, wait=120):
     while time.time() < deadline and not token:
         try:
             token = _call("POST", f"{base}/api/collections/users/auth-with-password",
-                          {"identity": ADMIN_EMAIL, "password": password_for(cfg)}).get("token")
+                          {"identity": admin_email(cfg), "password": password_for(cfg)}).get("token")
         except Exception:  # noqa: BLE001 - the hub is still starting
             time.sleep(3)
     if not token:

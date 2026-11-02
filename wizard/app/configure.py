@@ -1664,7 +1664,7 @@ def setup_homepage(ctx):
     if cfg["services"].get("beszel"):
         import monitoring
         dl.append(entry("Beszel", "beszel", p["beszel"], "Server health, temperatures and alerts",
-                        {"type": "beszel", "url": f"http://beszel:{monitoring.HUB_PORT}", "username": monitoring.ADMIN_EMAIL,
+                        {"type": "beszel", "url": f"http://beszel:{monitoring.HUB_PORT}", "username": monitoring.admin_email(cfg),
                          "password": monitoring.password_for(cfg), "version": 2, "systemId": getattr(ctx, "beszel_system", "")}))
     groups = []
     if media: groups.append({"Watch & request": media})
@@ -1773,7 +1773,7 @@ def verify_logins(ctx):
         if cfg["services"].get(key):
             import monitoring
             bz = key == "beszel"
-            out.append({"app": name, "url": f"http://{host}:{p[key]}", "user": monitoring.ADMIN_EMAIL if bz else "",
+            out.append({"app": name, "url": f"http://{host}:{p[key]}", "user": monitoring.admin_email(cfg) if bz else "",
                         "password": monitoring.password_for(cfg) if bz else "", "ok": True,
                         "note": "Create the owner account on first visit" if key == "komga" else "Your server's health. Alerts only fire for real trouble" if bz else "Add your manga sources on first visit" if key == "kaizoku" else "No login needed"})
     return out
