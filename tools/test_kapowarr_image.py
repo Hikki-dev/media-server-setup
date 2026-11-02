@@ -25,4 +25,10 @@ docker_can_reach()
 assert S.pick_kapowarr_image() == (S.KAPOWARR_IMAGES[0], False), "offline: keep the first choice"
 docker_can_reach(*S.KAPOWARR_IMAGES, arch="aarch64")
 assert S.pick_kapowarr_image() == (S.KAPOWARR_IMAGES[1], True), "an ARM machine skips the copy, which is built for Intel/AMD only"
-print("Kapowarr image tests passed.")
+docker_can_reach(*S.KAIZOKU_IMAGES)
+assert S.pick_kaizoku_image() == (S.KAIZOKU_IMAGES[0], False), "the Kaizoku copy is used when it can be downloaded"
+docker_can_reach(S.KAIZOKU_IMAGES[1])
+assert S.pick_kaizoku_image() == (S.KAIZOKU_IMAGES[1], True), "the original Rensaio is used when the copy is private"
+docker_can_reach(*S.KAIZOKU_IMAGES, arch="aarch64")
+assert S.pick_kaizoku_image() == (S.KAIZOKU_IMAGES[0], False), "the Kaizoku copy is built for ARM too"
+print("Kapowarr and Kaizoku image tests passed.")

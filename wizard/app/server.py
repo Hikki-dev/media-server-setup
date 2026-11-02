@@ -158,6 +158,10 @@ def install(cfg):
             cfg["kapowarrImage"], fallback = S.pick_kapowarr_image()
             if fallback:
                 log(f"  Kapowarr: Hikki-dev's copy cannot be downloaded right now, so the original Kapowarr ({cfg['kapowarrImage']}) is used. Everything else works the same.")
+        if cfg["services"].get("kaizoku"):
+            cfg["kaizokuImage"], fallback = S.pick_kaizoku_image()
+            if fallback:
+                log(f"  Kaizoku: Hikki-dev's copy cannot be downloaded right now, so the original Rensaio ({cfg['kaizokuImage']}) is used. It works the same but may fetch chapters you already have.")
         S.write_compose(cfg)
         step("Downloading and starting the apps (first time takes a few minutes)")
         S.compose_cmd("up", "-d", "--remove-orphans")

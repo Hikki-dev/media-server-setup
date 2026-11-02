@@ -32,6 +32,9 @@ INTERNAL = {  # port each app listens on inside its container
 # Kapowarr: Hikki-dev's copy first, and the original project's image when the copy cannot be downloaded (for example while its package is private)
 KAPOWARR_IMAGES = ("ghcr.io/hikki-dev/kapowarr:latest", "mrcas/kapowarr:latest")
 
+# Kaizoku: Hikki-dev's Rensaio fork first (reads your folder, one site per chapter, source failover), then the original Rensaio
+KAIZOKU_IMAGES = ("ghcr.io/hikki-dev/rensaio:latest", "maxpiva/rensaio:latest")
+
 RUNNING = {"proc": None}
 
 
@@ -55,16 +58,24 @@ def sh(cmd, timeout=900, check=True):
     return subprocess.CompletedProcess(cmd, p.returncode, out, err)
 
 
-def pick_kapowarr_image():
-    """The first Kapowarr image Docker can reach. Returns (image, used_fallback)."""
+def pick_image(images, intel_only_first=False):
+    """The first image Docker can reach. Returns (image, used_fallback)."""
     arch = (sh(["docker", "info", "--format", "{{.Architecture}}"], timeout=30, check=False).stdout or "").strip()
     arm = arch in ("aarch64", "arm64") or arch.startswith("armv")
-    for i, image in enumerate(KAPOWARR_IMAGES):
-        if i == 0 and arm:          # Hikki-dev's copy is built for Intel/AMD only; a Raspberry Pi or other ARM machine uses the original
+    for i, image in enumerate(images):
+        if i == 0 and arm and intel_only_first:      # the first image is built for Intel/AMD only; a Raspberry Pi or other ARM machine uses the original
             continue
         if sh(["docker", "manifest", "inspect", image], timeout=60, check=False).returncode == 0:
             return image, i > 0
-    return KAPOWARR_IMAGES[0], False       # no answer at all (offline?): keep the first choice and let the pull report the real problem
+    return images[0], False       # no answer at all (offline?): keep the first choice and let the pull report the real problem
+
+
+def pick_kapowarr_image():
+    return pick_image(KAPOWARR_IMAGES, intel_only_first=True)
+
+
+def pick_kaizoku_image():
+    return pick_image(KAIZOKU_IMAGES)
 
 
 def kill_running():
@@ -274,9 +285,9 @@ def compose(cfg):
                            "volumes": [f"{hostpath('config/kapowarr')}:/app/db"] + mounts
                            + [f"{extra}/books/comics:/comics"]}
     if s.get("kaizoku"):
-        # Kaizoku.NET (maxpiva): manga downloads with Mihon sources. One container, no database.
-        svc["kaizoku"] = {"image": "maxpiva/kaizoku-net:2.0", "restart": "unless-stopped",
-                          "environment": [f"UID={uid}", f"PGID={gid}", "UMASK=022", f"TZ={tz}"],
+        # Kaizoku (Rensaio): manga downloads with Mihon sources. One container, no database server.
+        svc["kaizoku"] = {"image": cfg.get("kaizokuImage") or KAIZOKU_IMAGES[0], "restart": "unless-stopped",
+                          "environment": [f"PUID={uid}", f"PGID={gid}", "UMASK=022", f"TZ={tz}"],
                           "volumes": [f"{hostpath('config/kaizoku')}:/config", f"{extra}/books/manga:/series"],
                           "ports": [f"{p['kaizoku']}:9833"]}
     if s.get("scrutiny"):

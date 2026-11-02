@@ -39,11 +39,20 @@ Then add a volume (a comic series), choose the root folder, and press **Search M
 
 ## Kaizoku
 
-The setup uses Kaizoku.NET ([maxpiva/kaizoku-net](https://hub.docker.com/r/maxpiva/kaizoku-net)). It follows manga series and downloads each new chapter, using the same sources as the Mihon app. It is one container and needs no database.
+The setup uses [my copy of Rensaiō](https://github.com/Hikki-dev/Rensaio), which carries on the archived Kaizoku. It follows manga series and downloads each new chapter, using the same sources as the Mihon app. It is one container and needs no database.
+
+Most manga are on several sites, and sites break. My copy handles that:
+
+* It reads your manga folder when you add a series, so chapters you already have are never fetched again.
+* One chapter comes from one site, not from every site.
+* If a site fails on a chapter, the next working site takes it.
+* A site that is down is skipped instead of being asked tens of thousands of times.
 
 1. Open Kaizoku on port 9833 and add a manga source the first time.
 2. Search for a manga and add it. Chapters download into `books/manga`.
 3. Komga picks them up on its next scan.
+
+Already have part of a series on disk? Add it from the command line and let it choose the best site and the right place to continue: `extras/Kaizoku smart add`.
 
 ## Where the files go
 
@@ -68,4 +77,5 @@ Mylar is gone. If you switched it on before, running the setup again turns on Ka
 | The setup says it used the original Kapowarr | The copy on ghcr.io cannot be downloaded (its package is private) | Nothing breaks. Comics work the same, without the copy's extra fixes. Make the package public to use the copy |
 | A comic site does not open | FlareSolverr is not running | Restart FlareSolverr, then try again |
 | Kaizoku shows an error on first start | Its database was still starting | Wait a minute and refresh |
+| The setup says it used the original Rensaiō | The copy on ghcr.io cannot be downloaded (its package is private) | Nothing breaks. Manga work the same, without the copy's fixes. Make the package public to use the copy |
 | Komga shows nothing | It has not scanned yet | Press Scan library in Komga |

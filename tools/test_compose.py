@@ -14,7 +14,7 @@ svc = S.compose(CFG)["services"]
 assert len(svc) > 10, "the full stack is generated"
 for name, conf in svc.items():
     assert conf["logging"]["options"] == {"max-size": "50m", "max-file": "3"}, f"{name} has no log limit"
-assert svc["kaizoku"]["image"].startswith("maxpiva/kaizoku-net"), "manga uses Kaizoku.NET"
+assert svc["kaizoku"]["image"] == S.KAIZOKU_IMAGES[0] and "PUID=" in " ".join(svc["kaizoku"]["environment"]), "manga uses the Rensaio fork with PUID/PGID"
 assert not any("mylar" in n for n in svc), "Mylar is gone"
 assert "kaizoku-db" not in svc and "kaizoku-redis" not in svc, "Kaizoku.NET needs no database"
 print("Compose tests passed.")

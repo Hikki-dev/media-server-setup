@@ -1,5 +1,10 @@
 # Changes
 
+## Kaizoku, now Rensaiō
+
+1. The manga app is now [Hikki-dev's copy of Rensaiō](https://github.com/Hikki-dev/Rensaio), the maintained successor of the archived Kaizoku. It reads your folder before adding a series, downloads each chapter from one site, moves to the next working site when one fails, and skips a site that is down. If the copy cannot be downloaded, the original Rensaiō is used.
+2. Older Kaizoku 2.0 installs are upgraded on the same folders.
+
 ## Beszel login
 
 1. Beszel's admin now uses the same name and password as the rest of the setup (an email if that is what you typed, otherwise your name at beszel.local), not a separate odd one.
