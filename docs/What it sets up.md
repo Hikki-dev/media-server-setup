@@ -86,7 +86,7 @@ Some channels only work in their own country. With NordVPN you can try them thro
 
 ## Comics and manga
 
-Optional. Kapowarr (Hikki-dev's version) and Kaizoku save into the `books` folder that Komga reads. Kapowarr is linked to FlareSolverr, Prowlarr and qBittorrent, and gets `/comics` as its folder. Kaizoku keeps manga in `/manga`. You only paste a free ComicVine key. See Comics and manga.md.
+Optional. Kapowarr (Hikki-dev's version) and Kaizoku save into the `books` folder that Komga reads. Kapowarr is linked to FlareSolverr, Prowlarr and qBittorrent, and gets `/comics` as its folder. Kaizoku keeps manga in `/manga`. You only paste a free ComicVine key. See Comics and manga.md. Kaizoku is Hikki-dev's copy of Rensaiō: it reads your manga folder before adding a series (chapters you have are never fetched again), downloads each chapter from one site, moves to the next working site when one fails, and skips a site that is down. It runs on the same folders as the original and upgrades older Kaizoku installs.
 
 ## Server health
 
