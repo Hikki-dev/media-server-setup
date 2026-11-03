@@ -15,15 +15,13 @@ This is optional. Switch on **Kapowarr** for comics and **Kaizoku** for manga on
 
 ## Kapowarr
 
-The setup uses a personal copy of Kapowarr, [Hikki-dev/Kapowarr](https://github.com/Hikki-dev/Kapowarr), in place of Mylar. It is the original Kapowarr plus these fixes:
+The setup uses a personal copy of Kapowarr, [Hikki-dev/Kapowarr](https://github.com/Hikki-dev/Kapowarr), in place of Mylar. It follows the newest work of the original Kapowarr and adds:
 
-1. New releases found every 15 minutes from the GetComics feed and from Prowlarr.
-2. A **Search All** that no longer freezes or stops when one title fails.
-3. Prowlarr torrent links become magnet links, so they are no longer rejected.
-4. Programs and scripts hidden in a download are blocked.
-5. Older databases start without errors.
+1. **Prowlarr as a source.** One search asks all your torrent sites at once, comics first, so an answer comes in about ten seconds. Torrent links of every kind become magnet links for qBittorrent.
+2. **The Internet Archive as a source**, for public domain and archived comics, downloaded directly.
+3. A database from an older copy is upgraded by itself, and your Prowlarr settings become a Prowlarr source.
 
-The manga code of the original was taken out of this copy, because Kaizoku does manga.
+Comics from GetComics are downloaded straight into your comics folder. Comics from torrents are downloaded by qBittorrent and then copied into the same folder, so there are always two ways to get an issue.
 
 When the install finishes, the setup has already done this inside Kapowarr:
 

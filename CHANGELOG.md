@@ -1,5 +1,9 @@
 # Changes
 
+## Kapowarr, new base
+
+1. The Kapowarr copy now follows the original's newest work and has Prowlarr and the Internet Archive as sources of their own. The setup adds the Prowlarr source and qBittorrent for you. Databases of the older copy are upgraded by themselves.
+
 ## Kapowarr copy
 
 1. The Kapowarr copy is now a smaller image (170 MB) built for Intel/AMD and ARM, with a health check, so a Raspberry Pi uses it too. It is tested on every change, and the Tasks page shows "15 minutes" instead of "0 hours".
