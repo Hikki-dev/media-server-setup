@@ -1563,7 +1563,7 @@ def setup_kapowarr(ctx):
     Prowlarr is an indexer of its own (it searches all your torrent sites in one go); the original Kapowarr has no such indexer, which is not an error.
     """
     cfg, log = ctx.cfg, ctx.log
-    base = f"http://kapowarr:{INTERNAL['kapowarr']}"
+    base = cfg.get("kapowarrBase") or f"http://kapowarr:{INTERNAL['kapowarr']}"       # the override is for tests
     login, qb = cfg["login"], cfg["qbit"]
     anon = Api(base, prefix="/api")
 
@@ -1598,17 +1598,20 @@ def setup_kapowarr(ctx):
             except ApiError as e:
                 log(f"  Kapowarr: could not add folder {folder}: {str(e.body)[:120]}")
     clients = api.get("/externalclients", params=q).get("result", [])
-    if not any(c.get("client_type") == "qBittorrent" for c in clients) and not ctx.mine("qbittorrent"):
+    qbit_ok = any(c.get("client_type") == "qBittorrent" for c in clients) or ctx.mine("qbittorrent")
+    if not qbit_ok:
         body = {"client_type": "qBittorrent", "title": "qBittorrent", "base_url": ctx.host_url("qbittorrent"),
                 "username": qb["username"], "password": qb["password"]}
+        first = None
         for extra in ({"download_type": 2, "enabled": True}, {}):          # newer Kapowarr wants the type; older ones do not know it
             try:
                 api.call("POST", "/externalclients", {**body, **extra}, params=q)
+                qbit_ok = True
                 break
             except ApiError as e:
-                last = e
-        else:
-            log(f"  Kapowarr: could not add qBittorrent: {str(last.body)[:120]}")
+                first = first or e                                         # the first answer is the real reason; the second only says the type is unknown
+        if not qbit_ok:
+            log(f"  Kapowarr: could not add qBittorrent: {str(first.body)[:120]}")
     prowlarr = False
     prowlarr_key = ctx.keys.get("prowlarr", "")
     if prowlarr_key:
@@ -1622,7 +1625,7 @@ def setup_kapowarr(ctx):
         except ApiError as e:
             if e.status not in (400, 404):                                  # the original Kapowarr has no Prowlarr indexer: not an error
                 log(f"  Kapowarr: could not add Prowlarr: {str(e.body)[:120]}")
-    linked = ["qBittorrent"] + [n for n, ok in (("FlareSolverr", "flaresolverr_base_url" not in failed), ("Prowlarr", prowlarr)) if ok]
+    linked = [n for n, ok in (("qBittorrent", qbit_ok), ("FlareSolverr", "flaresolverr_base_url" not in failed), ("Prowlarr", prowlarr)) if ok]
     log(f"Kapowarr ready: comics in /comics, linked to {', '.join(linked)}"
         + ("" if cv else ". Paste your free ComicVine key in Kapowarr, Settings, before adding comics"))
 
