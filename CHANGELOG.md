@@ -1,5 +1,12 @@
 # Changes
 
+## Kapowarr: better results, hardlinks, messages
+
+1. Torrent results are ordered better: a torrent nobody shares goes last, and more seeders wins between equal results. If a search finds nothing, a looser one (without year, volume and issue number) is tried. The same search within ten minutes is answered from memory: on a real library the second search of the same series took 6 seconds instead of 132.
+2. A finished torrent is hard linked into the comics folder (instant, no second copy, keeps seeding), or copied when the folders are on different drives.
+3. Optional: a message (ntfy, Discord or a webhook) when a comic is imported or a download fails, and a Komga scan after each import. Set `KAPOWARR_NOTIFY_URL` and `KAPOWARR_KOMGA_URL` on the container. See the fork's guide "Notifications, Komga and metrics".
+4. `/api/system/metrics` gives plain-text numbers (queue, library size, Prowlarr speed) for Homepage, Beszel or Prometheus.
+
 ## Kapowarr is now a real fork
 
 1. The Kapowarr copy is now a proper GitHub fork of the original (Casvt/Kapowarr), with the original's history. It merges the original every week, nothing is pushed back to it, and every change is listed in its FORK-NOTES.md.

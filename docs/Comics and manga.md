@@ -21,6 +21,8 @@ The setup uses my fork of Kapowarr, [Hikki-dev/Kapowarr](https://github.com/Hikk
 2. **The Internet Archive as a source**, for public domain and archived comics, downloaded directly.
 3. A database from an older copy is upgraded by itself, and your Prowlarr settings become a Prowlarr source.
 
+Torrent results are ranked with seeders in mind (a torrent nobody shares goes last), searches are remembered for ten minutes, and a finished torrent is hard linked into the comics folder, so it takes no second copy. Optional messages (ntfy, Discord) and a Komga scan after each import are switched on with environment variables; see the fork's [Notifications, Komga and metrics](https://github.com/Hikki-dev/Kapowarr/blob/main/docs/Notifications%20Komga%20and%20metrics.md).
+
 Comics from GetComics are downloaded straight into your comics folder. Comics from torrents are downloaded by qBittorrent and then copied into the same folder, so there are always two ways to get an issue.
 
 When the install finishes, the setup has already done this inside Kapowarr:
