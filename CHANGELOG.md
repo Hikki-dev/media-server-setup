@@ -1,5 +1,11 @@
 # Changes
 
+## A new home page
+
+1. The website's home page now tells one story in order: why this exists, how it works, what you get, why people pick it, how easy it is, a demo, and the questions people ask first. A bar at the top jumps between the parts.
+2. It is light by default, with a button in the top bar to switch to dark. The choice is remembered on that device. Each theme has its own screenshots of the setup page, so no dark screens show up in light mode.
+3. It uses the same fonts as the setup page.
+
 ## Kapowarr: better results, hardlinks, messages
 
 1. Torrent results are ordered better: a torrent nobody shares goes last, and more seeders wins between equal results. If a search finds nothing, a looser one (without year, volume and issue number) is tried. The same search within ten minutes is answered from memory: on a real library the second search of the same series took 6 seconds instead of 132.

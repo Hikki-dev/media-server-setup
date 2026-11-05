@@ -1,5 +1,22 @@
-/* Tabs, and a copy button for the install command. Nothing else is needed: the page works without it. */
+/* The light and dark switch, the Windows and Linux tabs, and a copy button for the install command.
+   Nothing else is needed: the page reads fine without any of it. */
 (() => {
+  /* theme: light is the default, and the visitor's own choice is remembered */
+  const root = document.documentElement, toggle = document.getElementById("theme");
+  const paint = () => {
+    const dark = root.dataset.theme === "dark";
+    const label = dark ? "Switch to light mode" : "Switch to dark mode";
+    toggle.setAttribute("aria-label", label);
+    toggle.title = label;
+  };
+  toggle.addEventListener("click", () => {
+    root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) { /* private window: fine, it just is not remembered */ }
+    paint();
+  });
+  paint();
+
+  /* tabs */
   const tabs = [...document.querySelectorAll('[role="tab"]')];
   const show = tab => {
     tabs.forEach(t => {
@@ -18,12 +35,11 @@
     });
   });
 
-  const btn = document.getElementById("copy"), msg = document.getElementById("copied"), slate = document.querySelector(".slate");
+  /* copy */
+  const btn = document.getElementById("copy"), msg = document.getElementById("copied");
   const text = () => document.getElementById("cmd").textContent.trim();
   const done = ok => {
     msg.textContent = ok ? "Copied. Paste it into your terminal." : "Select the command and copy it.";
-    slate.classList.add("clap");
-    setTimeout(() => slate.classList.remove("clap"), 350);
     setTimeout(() => { msg.textContent = ""; }, 4000);
   };
   btn.addEventListener("click", async () => {

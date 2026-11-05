@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,122 +19,289 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23f2a93b%27/%3E%3Cpath d=%27M12 9l11 7-11 7z%27 fill=%27%2314171c%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+/* Light is the default. A visitor's own choice is remembered. This runs first so the page never flashes the wrong colours. */
+try { var t = localStorage.getItem("theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <link rel="stylesheet" href="landing.css">
 </head>
 <body>
 <a class="skip" href="#install">Skip to the install command</a>
 
-<header class="top">
-  <a class="brand" href="./" aria-label="Media Server Setup, home"><span class="mark" aria-hidden="true"></span>Media Server Setup</a>
-  <nav aria-label="Main">
-    <a href="demo/">Try the demo</a>
-    <a href="demo/guide">Guide</a>
-    <a class="gh" href="https://github.com/Hikki-dev/media-server-setup" rel="noopener">GitHub</a>
+<div class="topbar">
+<header class="top wrap">
+  <a class="brand" href="#top" aria-label="Media Server Setup, top of page"><span class="mark" aria-hidden="true"></span>Media Server Setup</a>
+  <nav aria-label="Sections">
+    <a href="#why">Why</a>
+    <a href="#how">How it works</a>
+    <a href="#get">What you get</a>
+    <a href="#benefits">Benefits</a>
+    <a href="#easy">How easy</a>
+    <a href="#faq">Questions</a>
+    <button class="theme" id="theme" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+      <svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+    <a class="btn-sm" href="#install">Install</a>
   </nav>
 </header>
+</div>
 
-<main>
-  <section class="hero" id="install">
+<main class="wrap">
+
+  <!-- the home of the install command -->
+  <section class="hero" id="top">
     <div class="hero-copy">
       <p class="eyebrow">Free and open source &middot; Windows, Mac, Linux, home servers</p>
       <h1>Your own streaming service. <span>One line to install.</span></h1>
-      <p class="lead">Movies, shows, anime, comics and manga that find, download and organise themselves. You answer a few questions. It sets up every app, links them, and tries a real search to prove it works.</p>
+      <p class="lead">Movies, shows, anime, comics and manga that find, download and organise themselves. You answer a few questions. It sets up every app, links them, and runs a real search to prove it works.</p>
     </div>
 
-    <div class="slate" role="group" aria-label="Install command">
-      <div class="clapper" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="board">
-        <div class="tabs" role="tablist" aria-label="Your computer">
-          <button role="tab" id="t-unix" aria-selected="true" aria-controls="p-unix">Linux, Mac, server</button>
-          <button role="tab" id="t-win" aria-selected="false" aria-controls="p-win" tabindex="-1">Windows</button>
-        </div>
+    <div class="install" id="install" role="group" aria-label="Install command">
+      <div class="tabs" role="tablist" aria-label="Your computer">
+        <button role="tab" id="t-unix" aria-selected="true" aria-controls="p-unix" type="button">Linux, Mac, server</button>
+        <button role="tab" id="t-win" aria-selected="false" aria-controls="p-win" tabindex="-1" type="button">Windows</button>
+      </div>
 
-        <div role="tabpanel" id="p-unix" aria-labelledby="t-unix">
-          <p class="field">Paste this into a terminal</p>
-          <pre class="cmd"><code id="cmd">curl -fsSL https://raw.githubusercontent.com/Hikki-dev/media-server-setup/main/install.sh | bash</code></pre>
-          <div class="row">
-            <button class="copy" id="copy" type="button">Copy command</button>
-            <span class="note" id="copied" role="status" aria-live="polite"></span>
-          </div>
+      <div role="tabpanel" id="p-unix" aria-labelledby="t-unix">
+        <p class="label">Paste this into a terminal</p>
+        <pre class="cmd"><code id="cmd">curl -fsSL https://raw.githubusercontent.com/Hikki-dev/media-server-setup/main/install.sh | bash</code></pre>
+        <div class="row">
+          <button class="btn" id="copy" type="button">Copy command</button>
+          <span class="note" id="copied" role="status" aria-live="polite"></span>
         </div>
+      </div>
 
-        <div role="tabpanel" id="p-win" aria-labelledby="t-win" hidden>
-          <p class="field">No terminal needed</p>
-          <ol class="steps">
-            <li>Download the project and unzip it.</li>
-            <li>Double click <b>Start on Windows.bat</b>.</li>
-          </ol>
-          <div class="row"><a class="copy" href="https://github.com/Hikki-dev/media-server-setup/archive/refs/heads/main.zip" rel="noopener">Download the zip</a></div>
-        </div>
+      <div role="tabpanel" id="p-win" aria-labelledby="t-win" hidden>
+        <p class="label">No terminal needed</p>
+        <ol class="steps-list">
+          <li>Download the project and unzip it.</li>
+          <li>Double click <b>Start on Windows.bat</b>.</li>
+        </ol>
+        <div class="row"><a class="btn" href="https://github.com/Hikki-dev/media-server-setup/archive/refs/heads/main.zip" rel="noopener">Download the zip</a></div>
+      </div>
 
-        <p class="after">Needs Docker. The command checks for it, and shows its download page if it is missing. Then your browser opens the setup page.</p>
+      <p class="after">Needs Docker. The command checks for it, and shows its download page if it is missing. Then your browser opens the setup page.</p>
+    </div>
+  </section>
+
+  <!-- 1. why -->
+  <section id="why" aria-labelledby="why-h">
+    <p class="eyebrow">Why this exists</p>
+    <h2 id="why-h">A media server is thirteen apps that have to talk to each other.</h2>
+    <p class="sub">Each one does a small job well. Wiring them together is the hard part. This does the wiring for you.</p>
+    <div class="versus">
+      <div class="side by-hand">
+        <h3 class="label">By hand</h3>
+        <ul>
+          <li><span class="mk no" aria-hidden="true">&times;</span>Install each app one at a time, and learn what it does.</li>
+          <li><span class="mk no" aria-hidden="true">&times;</span>Find every app&rsquo;s key and paste it into the others.</li>
+          <li><span class="mk no" aria-hidden="true">&times;</span>Set up search sites, the downloader, folders and subtitles yourself.</li>
+          <li><span class="mk no" aria-hidden="true">&times;</span>Hope it works, and find out only when nothing arrives.</li>
+        </ul>
+      </div>
+      <div class="side with-us">
+        <h3 class="label accent">With Media Server Setup</h3>
+        <ul>
+          <li><span class="mk yes" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.3l2.4 2.4 4.6-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Answer a few questions in your browser, in plain words.</li>
+          <li><span class="mk yes" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.3l2.4 2.4 4.6-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Every app you pick is installed and linked for you.</li>
+          <li><span class="mk yes" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.3l2.4 2.4 4.6-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A real search is run at the end to prove it works.</li>
+          <li><span class="mk yes" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.3l2.4 2.4 4.6-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>You never need to know how any of the apps work.</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="tour" id="tour" aria-labelledby="tour-h">
-    <div class="head">
-      <h2 id="tour-h">Watch it in a minute and a half</h2>
-      <p>A real walk through the setup page: picking a drive, choosing apps, and the install. There is no sound. The captions say what is happening.</p>
-    </div>
-    <video controls preload="none" playsinline poster="media/tour-poster.jpg" width="1920" height="1080" aria-label="A walk through the setup page, with captions">
-      <source src="media/tour.mp4" type="video/mp4">
-      <a href="media/tour.mp4">Download the video</a>
-    </video>
-  </section>
-
-  <section class="look" aria-labelledby="look-h">
-    <div class="head">
-      <h2 id="look-h">See it before you install it</h2>
-      <p>The demo is the real setup page with pretend answers. Click through every screen. Nothing is installed or saved.</p>
-      <p class="btns"><a class="btn primary" href="demo/">Open the demo</a><a class="btn" href="demo/guide">Read the guide</a></p>
-    </div>
-    <div class="shots">
-      <figure class="shot wide"><img src="img/shot-apps.jpg" width="1600" height="1000" alt="The Apps screen in dark mode, with a tile for every app" loading="lazy" decoding="async"><figcaption>Choose what to install, comics and manga included.</figcaption></figure>
-      <figure class="shot"><img src="img/shot-storage.jpg" width="1600" height="1000" alt="The folder picker listing this computer and its other drives" loading="lazy" decoding="async"><figcaption>Pick where it lives. Your own drive is always on the list.</figcaption></figure>
-      <figure class="shot"><img src="img/shot-review.jpg" width="1600" height="1000" alt="The review screen listing every choice before installing" loading="lazy" decoding="async"><figcaption>Check your choices, then install.</figcaption></figure>
-      <figure class="shot phone"><img src="img/shot-phone.jpg" width="780" height="1688" alt="The setup page on a phone" loading="lazy" decoding="async"><figcaption>It fits a phone too, so you can look around from the sofa.</figcaption></figure>
-    </div>
-  </section>
-
-  <section class="apps" aria-labelledby="apps-h">
-    <div class="head">
-      <h2 id="apps-h">What it sets up</h2>
-      <p>Each app does one small job. The setup installs the ones you pick and connects them.</p>
-    </div>
-    <ul class="grid">
-      <li><img src="img/icons/jellyfin.png" alt="" width="48" height="48"><div><b>Jellyfin</b><span>Watch movies, shows, anime and live TV on any device</span></div></li>
-      <li><img src="img/icons/seerr.png" alt="" width="48" height="48"><div><b>Seerr</b><span>A page where family and friends ask for something to watch</span></div></li>
-      <li><img src="img/icons/sonarr.png" alt="" width="48" height="48"><div><b>Sonarr</b><span>Finds and downloads TV shows and anime</span></div></li>
-      <li><img src="img/icons/radarr.png" alt="" width="48" height="48"><div><b>Radarr</b><span>Finds and downloads movies</span></div></li>
-      <li><img src="img/icons/prowlarr.png" alt="" width="48" height="48"><div><b>Prowlarr</b><span>Keeps the list of search sites, and tests them</span></div></li>
-      <li><img src="img/icons/qbittorrent.png" alt="" width="48" height="48"><div><b>qBittorrent</b><span>Does the downloading, and stops uploading when it is done</span></div></li>
-      <li><img src="img/icons/bazarr.png" alt="" width="48" height="48"><div><b>Bazarr</b><span>Finds subtitles, English first</span></div></li>
-      <li><img src="img/icons/flaresolverr.png" alt="" width="48" height="48"><div><b>FlareSolverr</b><span>Gets searches past robot checks</span></div></li>
-      <li><img src="img/icons/kapowarr.png" alt="" width="48" height="48"><div><b>Kapowarr</b><span>Finds and downloads comics</span></div></li>
-      <li><img src="img/icons/beszel.png" alt="" width="48" height="48"><div><b>Beszel</b><span>Watches temperature and drives, pings only for real trouble</span></div></li>
-      <li><img src="img/icons/kaizoku.png" alt="" width="48" height="48"><div><b>Kaizoku</b><span>Follows manga and downloads new chapters</span></div></li>
-      <li><img src="img/icons/homepage.png" alt="" width="48" height="48"><div><b>Homepage</b><span>One page with a button for every app</span></div></li>
-      <li><img src="img/icons/tailscale.png" alt="" width="48" height="48"><div><b>Tailscale</b><span>Optional. Safe HTTPS addresses that work from anywhere</span></div></li>
-    </ul>
-  </section>
-
-  <section class="how" aria-labelledby="how-h">
-    <div class="head"><h2 id="how-h">How it goes</h2></div>
+  <!-- 2. how it works -->
+  <section id="how" aria-labelledby="how-h">
+    <p class="eyebrow">How it works</p>
+    <h2 id="how-h">Ask for a title. Watch it. In between, nobody lifts a finger.</h2>
+    <p class="sub">One request travels through five apps. They are already connected, so it just arrives.</p>
     <ol class="flow">
-      <li><b>Run the line.</b><span>It checks Docker, downloads the setup, and prints a web address.</span></li>
-      <li><b>Answer a few questions.</b><span>In your browser. What you watch, where files live, which apps to add. About 5 minutes.</span></li>
-      <li><b>It does the rest.</b><span>Installs, links every app, then runs a real search to prove it works. 5 to 15 minutes.</span></li>
+      <li><span class="label">01 &middot; Ask</span><span class="logos"><img src="img/icons/seerr.png" alt="" width="40" height="40"></span><b>Seerr</b><span>Family and friends ask for something to watch.</span></li>
+      <li><span class="label">02 &middot; Find</span><span class="logos"><img src="img/icons/prowlarr.png" alt="" width="40" height="40"><img src="img/icons/sonarr.png" alt="" width="40" height="40"><img src="img/icons/radarr.png" alt="" width="40" height="40"></span><b>Prowlarr, Sonarr, Radarr</b><span>Search sites are checked and the right release is picked.</span></li>
+      <li><span class="label">03 &middot; Download</span><span class="logos"><img src="img/icons/qbittorrent.png" alt="" width="40" height="40"></span><b>qBittorrent</b><span>Downloads it, then stops uploading once it is in your library.</span></li>
+      <li><span class="label">04 &middot; Tidy</span><span class="logos"><img src="img/icons/bazarr.png" alt="" width="40" height="40"></span><b>Bazarr</b><span>Finds subtitles, English first.</span></li>
+      <li><span class="label">05 &middot; Watch</span><span class="logos"><img src="img/icons/jellyfin.png" alt="" width="40" height="40"></span><b>Jellyfin</b><span>Movies, shows, anime and live TV on any device.</span></li>
     </ol>
-    <p class="fine">Stopping is always safe, and your media is never touched. Works on a Proxmox LXC and any computer with Docker.</p>
+    <p class="fine">Then, when the download is finished, it is deleted from the downloader so nothing keeps uploading. Comics and manga take the same road, through Kapowarr and Kaizoku.</p>
+  </section>
+
+  <!-- 3. what you get -->
+  <section id="get" aria-labelledby="get-h">
+    <p class="eyebrow">What you get</p>
+    <h2 id="get-h">Thirteen apps, grouped by the job they do.</h2>
+    <p class="sub">Pick the groups you want. Each app is installed and linked to the others.</p>
+    <div class="groups">
+      <article class="group">
+        <h3 class="label accent">Watch and ask</h3>
+        <p class="lead-line">Where it all ends up, and how people ask for more.</p>
+        <ul class="apps">
+          <li><img src="img/icons/jellyfin.png" alt="" width="36" height="36"><div><b>Jellyfin</b><span>Movies, shows, anime and live TV on any device</span></div></li>
+          <li><img src="img/icons/seerr.png" alt="" width="36" height="36"><div><b>Seerr</b><span>A page where family and friends ask for something to watch</span></div></li>
+        </ul>
+      </article>
+      <article class="group">
+        <h3 class="label accent">Find</h3>
+        <p class="lead-line">Searches for you and picks the right release.</p>
+        <ul class="apps">
+          <li><img src="img/icons/sonarr.png" alt="" width="36" height="36"><div><b>Sonarr</b><span>Finds and downloads TV shows and anime</span></div></li>
+          <li><img src="img/icons/radarr.png" alt="" width="36" height="36"><div><b>Radarr</b><span>Finds and downloads movies</span></div></li>
+          <li><img src="img/icons/prowlarr.png" alt="" width="36" height="36"><div><b>Prowlarr</b><span>Keeps the list of search sites, and tests them</span></div></li>
+          <li><img src="img/icons/flaresolverr.png" alt="" width="36" height="36"><div><b>FlareSolverr</b><span>Gets searches past robot checks</span></div></li>
+        </ul>
+      </article>
+      <article class="group">
+        <h3 class="label accent">Download and subtitles</h3>
+        <p class="lead-line">Brings it home, then makes it easy to follow.</p>
+        <ul class="apps">
+          <li><img src="img/icons/qbittorrent.png" alt="" width="36" height="36"><div><b>qBittorrent</b><span>Does the downloading, and stops uploading when it is done</span></div></li>
+          <li><img src="img/icons/bazarr.png" alt="" width="36" height="36"><div><b>Bazarr</b><span>Finds subtitles, English first</span></div></li>
+        </ul>
+      </article>
+      <article class="group">
+        <h3 class="label accent">Comics and manga</h3>
+        <p class="lead-line">Not just video. Your reading shelf fills itself too.</p>
+        <ul class="apps">
+          <li><img src="img/icons/kapowarr.png" alt="" width="36" height="36"><div><b>Kapowarr</b><span>Finds and downloads comics</span></div></li>
+          <li><img src="img/icons/kaizoku.png" alt="" width="36" height="36"><div><b>Kaizoku</b><span>Follows manga and downloads new chapters</span></div></li>
+        </ul>
+      </article>
+      <article class="group">
+        <h3 class="label accent">Look after it</h3>
+        <p class="lead-line">Know it is healthy without checking.</p>
+        <ul class="apps">
+          <li><img src="img/icons/beszel.png" alt="" width="36" height="36"><div><b>Beszel</b><span>Watches temperature and drives, pings only for real trouble</span></div></li>
+          <li><img src="img/icons/homepage.png" alt="" width="36" height="36"><div><b>Homepage</b><span>One page with a button for every app</span></div></li>
+          <li><img src="img/icons/tailscale.png" alt="" width="36" height="36"><div><b>Tailscale</b><span>Optional. Safe HTTPS addresses that work from anywhere</span></div></li>
+        </ul>
+      </article>
+      <article class="group choice">
+        <h3 class="label accent">Your choice</h3>
+        <p class="lead-line">Only install what you want.</p>
+        <p class="plain">The setup installs just the apps you tick, and links those. You can change your mind later without installing again.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4. benefits -->
+  <section id="benefits" aria-labelledby="ben-h">
+    <p class="eyebrow">Why people pick it</p>
+    <h2 id="ben-h">Built so you never have to learn how the apps work.</h2>
+    <div class="benefits">
+      <div><h3>It proves it works</h3><p>At the end it runs a real search, so you know the apps are talking before you rely on them.</p></div>
+      <div><h3>Any way you store things</h3><p>One drive, or movies, shows, anime and downloads spread over several. Folders you already have stay where they are.</p></div>
+      <div><h3>Your languages</h3><p>English, Malayalam, Tamil, Korean, Japanese and more. English subtitles are found for everything else.</p></div>
+      <div><h3>No uploading afterwards</h3><p>Each download is removed once it is in your library, so nothing keeps uploading and nothing takes up space.</p></div>
+      <div><h3>Stopping is always safe</h3><p>Quit at any point. Your media is never touched, and this project hosts none of it.</p></div>
+      <div><h3>Runs where you already are</h3><p>Windows, Mac, Linux, a Proxmox LXC, or any computer with Docker. The setup page fits a phone too.</p></div>
+    </div>
+  </section>
+
+  <!-- 5. how easy -->
+  <section id="easy" aria-labelledby="easy-h">
+    <p class="eyebrow">How easy it is</p>
+    <h2 id="easy-h">Three steps. About twenty minutes. Five of them are yours.</h2>
+    <p class="sub">Stopping is always safe, and your media is never touched.</p>
+
+    <div class="step">
+      <div class="step-text">
+        <p class="eyebrow">Step 1 &middot; under a minute</p>
+        <h3>Run one line</h3>
+        <p>It checks Docker, downloads the setup, and prints a web address. On Windows, double click one file instead.</p>
+        <div class="bar" aria-hidden="true"><i style="left:0%;width:5%"></i></div>
+      </div>
+      <div class="step-visual panel">
+        <pre class="cmd"><code><span class="ac">$</span> curl -fsSL https://raw.githubusercontent.com/Hikki-dev/media-server-setup/main/install.sh | bash
+<span class="dim">Checking Docker…</span>
+<span class="ok">Your browser opens the setup page.</span></code></pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-text">
+        <p class="eyebrow">Step 2 &middot; about 5 minutes</p>
+        <h3>Answer a few questions</h3>
+        <p>In your browser, in plain words. What you watch, where files live, which apps to add. Every choice has a sensible default.</p>
+        <div class="bar" aria-hidden="true"><i style="left:5%;width:24%"></i></div>
+      </div>
+      <figure class="step-visual shot">
+        <img class="lt" src="img/shot-apps-light.jpg" width="1600" height="1000" alt="The Apps screen, with a tile for every app" loading="lazy" decoding="async">
+        <img class="dk" src="img/shot-apps.jpg" width="1600" height="1000" alt="The Apps screen in dark mode, with a tile for every app" loading="lazy" decoding="async">
+      </figure>
+    </div>
+
+    <div class="step">
+      <div class="step-text">
+        <p class="eyebrow">Step 3 &middot; 5 to 15 minutes</p>
+        <h3>It does the rest</h3>
+        <p>Check your choices, press install, and go and make tea. It installs every app, links them, then runs a real search to prove it works.</p>
+        <div class="bar" aria-hidden="true"><i style="left:29%;width:71%"></i></div>
+      </div>
+      <figure class="step-visual shot">
+        <img class="lt" src="img/shot-review-light.jpg" width="1600" height="1000" alt="The review screen listing every choice before installing" loading="lazy" decoding="async">
+        <img class="dk" src="img/shot-review.jpg" width="1600" height="1000" alt="The review screen in dark mode, listing every choice before installing" loading="lazy" decoding="async">
+      </figure>
+    </div>
+  </section>
+
+  <!-- 6. try -->
+  <section id="try" aria-labelledby="try-h">
+    <p class="eyebrow">Try it first</p>
+    <h2 id="try-h">See it before you install it.</h2>
+    <div class="try">
+      <div class="panel demo">
+        <div class="demo-text">
+          <h3>The live demo</h3>
+          <p>The real setup page with pretend answers. Click through every screen. Nothing is installed or saved. It fits a phone too.</p>
+          <p class="btns"><a class="btn" href="demo/">Open the demo</a><a class="btn ghost" href="demo/guide">Read the guide</a></p>
+        </div>
+        <figure class="phone">
+          <img class="lt" src="img/shot-phone-light.jpg" width="390" height="844" alt="The setup page on a phone" loading="lazy" decoding="async">
+          <img class="dk" src="img/shot-phone.jpg" width="780" height="1688" alt="The setup page on a phone, in dark mode" loading="lazy" decoding="async">
+        </figure>
+      </div>
+      <div class="panel tour" id="tour">
+        <h3>The 90 second tour</h3>
+        <p>Picking a drive, choosing apps, and the install. There is no sound. The captions say what is happening.</p>
+        <video controls preload="none" playsinline poster="media/tour-poster.jpg" width="1280" height="720" aria-label="A walk through the setup page, with captions">
+          <source src="media/tour.mp4" type="video/mp4">
+          <a href="media/tour.mp4">Download the video</a>
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. faq -->
+  <section id="faq" aria-labelledby="faq-h">
+    <p class="eyebrow">Questions</p>
+    <h2 id="faq-h">The things people ask first.</h2>
+    <div class="faq">
+      <div><h3>What do I need?</h3><p>A computer with Docker. The install command checks for it and shows its download page if it is missing.</p></div>
+      <div><h3>Is it free?</h3><p>Yes. It is free and open source, under the MIT licence.</p></div>
+      <div><h3>Does it host or provide media?</h3><p>No. It installs and connects other free programs on your own computer. Use it only for content you have the right to.</p></div>
+      <div><h3>What if I stop halfway?</h3><p>Stopping is always safe, and your media is never touched.</p></div>
+      <div><h3>Can I change my choices later?</h3><p>Yes. You can change any of the settings later without installing again.</p></div>
+      <div><h3>Do I need to understand the apps?</h3><p>No. Everything is explained in plain words, with sensible defaults already chosen.</p></div>
+    </div>
+  </section>
+
+  <section class="cta" aria-labelledby="cta-h">
+    <div>
+      <h2 id="cta-h">Ready when you are.</h2>
+      <p>Run one line. Answer a few questions. Your library starts filling itself.</p>
+    </div>
+    <p class="btns"><a class="btn-cta" href="#install">Get the install line</a><a class="btn-cta ghost" href="demo/">Try the demo</a></p>
   </section>
 </main>
 
-<footer>
-  <p><a href="https://github.com/Hikki-dev/media-server-setup" rel="noopener">GitHub</a> &middot; <a href="demo/guide">Guide</a> &middot; <a href="demo/">Demo</a> &middot; <a href="https://github.com/Hikki-dev/media-server-setup/blob/main/LICENSE" rel="noopener">Licence</a></p>
-  <p class="fine legal"><b>Legal and responsibility.</b> This project hosts no media. It installs and connects other free programs on your own computer. Use it only for content you have the right to. You are responsible for what you download, share and watch. <a href="https://github.com/Hikki-dev/media-server-setup#legal-and-responsibility" rel="noopener">Read the full notice</a>.</p>
-  <p class="fine">The logos belong to their projects.</p>
+<footer class="wrap">
+  <div class="foot-row">
+    <b>Media Server Setup</b>
+    <nav aria-label="Footer"><a href="https://github.com/Hikki-dev/media-server-setup" rel="noopener">GitHub</a><a href="demo/">Demo</a><a href="demo/guide">Guide</a><a href="https://github.com/Hikki-dev/media-server-setup/blob/main/LICENSE" rel="noopener">Licence</a></nav>
+  </div>
+  <p class="legal"><b>Legal and responsibility.</b> This project hosts no media. It installs and connects other free programs on your own computer. Use it only for content you have the right to. You are responsible for what you download, share and watch. <a href="https://github.com/Hikki-dev/media-server-setup#legal-and-responsibility" rel="noopener">Read the full notice</a>. The logos belong to their projects.</p>
 </footer>
 <script src="landing.js"></script>
 </body>

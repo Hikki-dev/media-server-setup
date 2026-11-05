@@ -7,6 +7,8 @@ The website has two parts, both plain static files hosted for free on Cloudflare
 
 Nothing in the demo installs or saves anything. A bar at the top says so, and links to this project on GitHub.
 
+The home page is light by default and has a light and dark switch in the top bar. It keeps two sets of screenshots of the setup page (`landing/img/shot-*-light.jpg` and `landing/img/shot-*.jpg`), so a theme never shows the other one's screens. If the setup page changes, take them again from the demo in each theme.
+
 The live site is at https://media-server-setup.makkoacknowledgesstress.workers.dev.
 
 ## The tour video
