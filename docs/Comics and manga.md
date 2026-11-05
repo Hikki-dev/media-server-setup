@@ -15,7 +15,7 @@ This is optional. Switch on **Kapowarr** for comics and **Kaizoku** for manga on
 
 ## Kapowarr
 
-The setup uses a personal copy of Kapowarr, [Hikki-dev/Kapowarr](https://github.com/Hikki-dev/Kapowarr), in place of Mylar. It follows the newest work of the original Kapowarr and adds:
+The setup uses my fork of Kapowarr, [Hikki-dev/Kapowarr](https://github.com/Hikki-dev/Kapowarr), in place of Mylar. It is a real GitHub fork of the original: it follows the original's newest work (merged every week), nothing is ever pushed back to the original, and every change is listed in its [FORK-NOTES.md](https://github.com/Hikki-dev/Kapowarr/blob/main/FORK-NOTES.md). The image is `ghcr.io/hikki-dev/kapowarr-fork`, which is public. It adds:
 
 1. **Prowlarr as a source.** One search asks all your torrent sites at once, comics first, so an answer comes in about ten seconds. Torrent links of every kind become magnet links for qBittorrent.
 2. **The Internet Archive as a source**, for public domain and archived comics, downloaded directly.
@@ -37,7 +37,7 @@ Then add a volume (a comic series), choose the root folder, and press **Search M
 
 ## Kaizoku
 
-The setup uses [my copy of Rensaiō](https://github.com/Hikki-dev/Rensaio), which carries on the archived Kaizoku. It follows manga series and downloads each new chapter, using the same sources as the Mihon app. It is one container and needs no database.
+The setup uses [my fork of Rensaiō](https://github.com/Hikki-dev/Rensaio), which carries on the archived Kaizoku. Like the Kapowarr fork, it follows the original every week and lists every change in its [FORK-NOTES.md](https://github.com/Hikki-dev/Rensaio/blob/main/FORK-NOTES.md). It follows manga series and downloads each new chapter, using the same sources as the Mihon app. It is one container and needs no database.
 
 Most manga are on several sites, and sites break. My copy handles that:
 
@@ -72,8 +72,8 @@ Mylar is gone. If you switched it on before, running the setup again turns on Ka
 | What you see | Reason | What to do |
 |---|---|---|
 | Kapowarr cannot find any comic | No ComicVine key | Paste the key in Kapowarr, Settings |
-| The setup says it used the original Kapowarr | The copy on ghcr.io cannot be downloaded (its package is private) | Nothing breaks. Comics work the same, without the copy's extra fixes. Make the package public to use the copy |
+| The setup says it used the original Kapowarr | The fork's image (`ghcr.io/hikki-dev/kapowarr-fork`) could not be downloaded, for example with no internet to ghcr.io | Nothing breaks. Comics work the same, without the fork's extra fixes. Run the setup again once ghcr.io is reachable |
 | A comic site does not open | FlareSolverr is not running | Restart FlareSolverr, then try again |
 | Kaizoku shows an error on first start | Its database was still starting | Wait a minute and refresh |
-| The setup says it used the original Rensaiō | The copy on ghcr.io cannot be downloaded (its package is private) | Nothing breaks. Manga work the same, without the copy's fixes. Make the package public to use the copy |
+| The setup says it used the original Rensaiō | The fork's image (`ghcr.io/hikki-dev/rensaio`) could not be downloaded | Nothing breaks. Manga work the same, without the fork's fixes. Run the setup again once ghcr.io is reachable |
 | Komga shows nothing | It has not scanned yet | Press Scan library in Komga |

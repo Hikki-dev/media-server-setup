@@ -1,5 +1,12 @@
 # Changes
 
+## Kapowarr is now a real fork
+
+1. The Kapowarr copy is now a proper GitHub fork of the original (Casvt/Kapowarr), with the original's history. It merges the original every week, nothing is pushed back to it, and every change is listed in its FORK-NOTES.md.
+2. Its image is now `ghcr.io/hikki-dev/kapowarr-fork`, public and linked to the fork. The setup uses that name. Older installs keep working; change the image name when you next update.
+3. Both forks (Kapowarr and Rensaiō) now have the same set of guides: a flow diagram, FORK-NOTES, Upgrading and Troubleshooting. Kapowarr also has Prowlarr and torrents.
+4. The old standalone Kapowarr repository was made private and archived (Kapowarr-pre-fork), not deleted.
+
 ## Staying current with the originals
 
 1. Both copies (Kapowarr and Rensaiō) now check the original projects every week and bring in new work by themselves: a pull request when it merges cleanly and the checks pass, an issue when it needs a hand. Rensaiō has just been brought level with the original's newest work, and Kapowarr already is.

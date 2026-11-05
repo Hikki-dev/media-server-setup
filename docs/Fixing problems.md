@@ -26,7 +26,7 @@ Those websites change address often. Open Apps and links and press Find the addr
 | What you see | What to do |
 |---|---|
 | Kapowarr finds nothing | Paste your free ComicVine key in Kapowarr, Settings |
-| Kapowarr or Kaizoku image will not download | Its package is private. Make it public on GitHub, or run `docker login ghcr.io` on the server. Until then the original app is used |
+| Kapowarr or Kaizoku image will not download | ghcr.io cannot be reached from the server. Check its internet connection and DNS, then run the setup again. Until then the original app is used |
 | A comic site will not open | Restart FlareSolverr, then try again |
 
 More in Comics and manga.md.

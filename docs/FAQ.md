@@ -79,7 +79,7 @@ Not built in yet. A VPN is only offered for Live TV channels that work in one co
 
 ### Why did the setup say it used the original Kapowarr?
 
-The maintainer's own copies of Kapowarr and Kaizoku are on GitHub's package list. If one cannot be downloaded (for example while its package is private), the setup uses the original app instead. Comics work the same, without the copy's extra fixes. See [Comics and manga](Comics%20and%20manga.md).
+The maintainer's own forks of Kapowarr and Rensaiō (the manga app) are public on GitHub (`ghcr.io/hikki-dev/kapowarr-fork` and `ghcr.io/hikki-dev/rensaio`). If one cannot be downloaded, for example with no connection to ghcr.io, the setup uses the original app instead. Comics work the same, without the fork's extra fixes. See [Comics and manga](Comics%20and%20manga.md).
 
 ## Problems
 
