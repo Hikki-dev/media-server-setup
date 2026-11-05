@@ -1,5 +1,11 @@
 # Changes
 
+## Staying current with the originals
+
+1. Both copies (Kapowarr and Rensaiō) now check the original projects every week and bring in new work by themselves: a pull request when it merges cleanly and the checks pass, an issue when it needs a hand. Rensaiō has just been brought level with the original's newest work, and Kapowarr already is.
+2. Upgrading from the original Kapowarr was tested on databases from versions 1.0.0 to 1.3.2. Version 1.0.0 and 1.1.0 used to stop part-way and now upgrade cleanly.
+3. A torrent from Prowlarr was followed through to a real download in qBittorrent. Links that redirect to a magnet or point at a `.torrent` file now work too.
+
 ## Kapowarr, new base
 
 1. The Kapowarr copy now follows the original's newest work and has Prowlarr and the Internet Archive as sources of their own. The setup adds the Prowlarr source and qBittorrent for you. Databases of the older copy are upgraded by themselves.
