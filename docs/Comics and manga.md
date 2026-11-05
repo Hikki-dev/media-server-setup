@@ -21,7 +21,7 @@ The setup uses my fork of Kapowarr, [Hikki-dev/Kapowarr](https://github.com/Hikk
 2. **The Internet Archive as a source**, for public domain and archived comics, downloaded directly.
 3. A database from an older copy is upgraded by itself, and your Prowlarr settings become a Prowlarr source.
 
-Kapowarr's **Extras** page (under Volumes) has a release calendar that can follow new series by itself, a request list, quality upgrades and your Komga reading progress. See the fork's [Extras guide](https://github.com/Hikki-dev/Kapowarr/blob/main/docs/Extras.md).
+Kapowarr's **New This Week** page (in its menu) has a release calendar that can follow new series by itself, a request list, quality upgrades and your Komga reading progress. See the fork's [Extras guide](https://github.com/Hikki-dev/Kapowarr/blob/main/docs/Extras.md).
 
 Torrent results are ranked with seeders in mind (a torrent nobody shares goes last), searches are remembered for ten minutes, and a finished torrent is hard linked into the comics folder, so it takes no second copy. Optional messages (ntfy, Discord) and a Komga scan after each import are switched on with environment variables; see the fork's [Notifications, Komga and metrics](https://github.com/Hikki-dev/Kapowarr/blob/main/docs/Notifications%20Komga%20and%20metrics.md).
 
@@ -37,7 +37,31 @@ When the install finishes, the setup has already done this inside Kapowarr:
 
 You do one thing yourself: paste a **ComicVine key**. It is free at comicvine.gamespot.com/api. Paste it on the Apps step, or later in Kapowarr under Settings. Without it Kapowarr cannot look up comics.
 
-Then add a volume (a comic series), choose the root folder, and press **Search Monitored**.
+Then open **Add Series**, search for a comic, and choose **Add to shelf**. Pick the root folder, and Kapowarr starts looking for its issues. You can also open the series and press **Search Monitored**.
+
+### What Kapowarr looks like
+
+Kapowarr has the familiar Sonarr and Radarr layout, made easier to read. Your shelf shows how complete every comic is.
+
+![Kapowarr's shelf: every comic with a progress bar and how many issues are missing](images/kapowarr-shelf.png)
+
+A series page opens with how many issues you have, how many are missing, and the issue list.
+
+![A series in Kapowarr: Have, Missing and In the run, then the issues](images/kapowarr-series.png)
+
+Adding a comic is a search box. Results come from ComicVine.
+
+![Adding a comic in Kapowarr: search, filters and result cards](images/kapowarr-add.png)
+
+**New This Week** shows what is coming out and can add new series for you.
+
+![New This Week in Kapowarr: the release calendar and new series](images/kapowarr-new-this-week.png)
+
+On a phone, the menu is a bar at the bottom.
+
+<img src="images/kapowarr-phone.png" alt="Kapowarr on a phone" width="280">
+
+The screenshots come from the fork's [interface guide](https://github.com/Hikki-dev/Kapowarr/blob/main/docs/Interface.md), which also shows the light theme.
 
 ## Kaizoku
 

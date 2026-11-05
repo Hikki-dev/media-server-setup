@@ -1,8 +1,16 @@
 # Changes
 
+## Kapowarr: a clearer interface
+
+1. Kapowarr has a new look in the style of Sonarr and Radarr, made easier to read for beginners and quicker for daily use. A sidebar with sections, a title and a plain sentence on every page, one icon set, one typeface, and the same spacing everywhere.
+2. Every comic on the shelf shows how complete it is (`14 / 15` and "1 missing", or "Complete"). A series page opens with how many issues you have and how many are missing. When something is still needed to start (root folder, ComicVine key, download client), a short setup card says so.
+3. On a phone there is a tab bar at the bottom. Dark is the default, light is under Settings, General.
+4. The menu names are plainer: Volumes is now Series, Add Volume is Add Series, and Extras is New This Week. Nothing moved or stopped working.
+5. The Kapowarr guide has screenshots of all of it ([Comics and manga](docs/Comics%20and%20manga.md)).
+
 ## Kapowarr: the Extras page
 
-1. A new **Extras** page in Kapowarr with four tabs. **Calendar** shows what comes out this week and the new series starting, and can follow the ones that match your watch list (a publisher or a word in the title) by itself. **Requests** lets anyone ask for a series and see how far it got. **Upgrades** lists issues in a less wanted format than your format preference. **Reading** shows your progress from Komga and searches caught-up series first.
+1. A new page in Kapowarr (now called **New This Week**, it was Extras) with four tabs. **Calendar** shows what comes out this week and the new series starting, and can follow the ones that match your watch list (a publisher or a word in the title) by itself. **Requests** lets anyone ask for a series and see how far it got. **Upgrades** lists issues in a less wanted format than your format preference. **Reading** shows your progress from Komga and searches caught-up series first.
 2. Metron can be used as a second source for the calendar when ComicVine fails (needs a free metron.cloud account; not tried against the real service).
 3. Removing the old file after an upgrade is off unless you set `KAPOWARR_UPGRADE_REMOVE_OLD=1`.
 
