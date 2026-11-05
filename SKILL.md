@@ -66,7 +66,7 @@ Never run `tailscale serve reset`. It removes entries made by hand that cannot b
 ## Portainer
 
 If the person uses Portainer, read docs/Portainer.md before changing a stack.
-For server health, temperatures and the thermal guard (Beszel), read docs/Monitoring and temperatures.md. For comics and manga (Kapowarr, Kaizoku, Komga), read docs/Comics and manga.md. Kapowarr is the person's own fork (comics only; manga is Kaizoku), ghcr.io/hikki-dev/kapowarr-fork; its package must be public or the server must be signed in to ghcr.io. Mylar was removed.
+For server health, temperatures and the thermal guard (Beszel), read docs/Monitoring and temperatures.md. For comics and manga (Kapowarr, Kaizoku, Komga), read docs/Comics and manga.md. Kapowarr is the person's own fork (comics only; manga is Kaizoku), ghcr.io/hikki-dev/kapowarr-fork; the image is public; if the server cannot reach ghcr.io the original app is used. Mylar was removed.
 
 Updating a stack removes and recreates every container in it. After any update run `docker ps -a` and start anything left in Created.
 

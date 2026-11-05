@@ -29,7 +29,7 @@ INTERNAL = {  # port each app listens on inside its container
     "metube": 8081, "komga": 25600, "kapowarr": 5656, "kaizoku": 9833, "scrutiny": 8080, "beszel": 8090, "regional": 9120, "samba": 445,
 }
 
-# Kapowarr: Hikki-dev's copy first, and the original project's image when the copy cannot be downloaded (for example while its package is private)
+# Kapowarr: Hikki-dev's copy first, and the original project's image when the copy cannot be downloaded (for example when ghcr.io cannot be reached)
 KAPOWARR_IMAGES = ("ghcr.io/hikki-dev/kapowarr-fork:latest", "mrcas/kapowarr:latest")
 
 # Kaizoku: Hikki-dev's Rensaio fork first (reads your folder, one site per chapter, source failover), then the original Rensaio
