@@ -1,5 +1,11 @@
 # Changes
 
+## Kapowarr: the Extras page
+
+1. A new **Extras** page in Kapowarr with four tabs. **Calendar** shows what comes out this week and the new series starting, and can follow the ones that match your watch list (a publisher or a word in the title) by itself. **Requests** lets anyone ask for a series and see how far it got. **Upgrades** lists issues in a less wanted format than your format preference. **Reading** shows your progress from Komga and searches caught-up series first.
+2. Metron can be used as a second source for the calendar when ComicVine fails (needs a free metron.cloud account; not tried against the real service).
+3. Removing the old file after an upgrade is off unless you set `KAPOWARR_UPGRADE_REMOVE_OLD=1`.
+
 ## A new home page
 
 1. The website's home page now tells one story in order: why this exists, how it works, what you get, why people pick it, how easy it is, a demo, and the questions people ask first. A bar at the top jumps between the parts.
