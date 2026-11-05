@@ -43,7 +43,7 @@ Then open **Add Series**, search for a comic, and choose **Add to shelf**. Pick 
 
 Kapowarr has the familiar Sonarr and Radarr layout, made easier to read. Your shelf shows how complete every comic is.
 
-![Kapowarr's shelf: every comic with a progress bar and how many issues are missing](images/kapowarr-shelf.png)
+![Kapowarr's shelf: every comic with a progress bar and how many issues are missing](images/kapowarr-shelf.jpg)
 
 A series page opens with how many issues you have, how many are missing, and the issue list.
 
@@ -53,13 +53,15 @@ Adding a comic is a search box. Results come from ComicVine.
 
 ![Adding a comic in Kapowarr: search, filters and result cards](images/kapowarr-add.png)
 
-**New This Week** shows what is coming out and can add new series for you.
+**New This Week** is a calendar. Choose Day, Week, Month or Year to see when the next issue of each comic comes out, and what is coming in the next few months. It can also add new series for you.
 
-![New This Week in Kapowarr: the release calendar and new series](images/kapowarr-new-this-week.png)
+![New This Week in Kapowarr: the month calendar](images/kapowarr-new-this-week.png)
 
-On a phone, the menu is a bar at the bottom.
+![The year view: how many issues come out each month](images/kapowarr-calendar-year.png)
 
-<img src="images/kapowarr-phone.png" alt="Kapowarr on a phone" width="280">
+On a phone, the menu is a bar at the bottom. Both a light and a dark theme are built in (Settings, General).
+
+<img src="images/kapowarr-phone.jpg" alt="Kapowarr on a phone" width="280">
 
 The screenshots come from the fork's [interface guide](https://github.com/Hikki-dev/Kapowarr/blob/main/docs/Interface.md), which also shows the light theme.
 
@@ -75,7 +77,7 @@ Most manga are on several sites, and sites break. My copy handles that:
 * A site that is down is skipped instead of being asked tens of thousands of times.
 
 1. Open Kaizoku on port 9833 and add a manga source the first time.
-2. Search for a manga and add it. Chapters download into `books/manga`.
+2. Search for a manga and add it. Each series gets its own folder straight inside `books/manga`. There are no extra `Manga` or `Manhwa` folders in between, so you have one manga folder.
 3. Komga picks them up on its next scan.
 
 Already have part of a series on disk? Add it from the command line and let it choose the best site and the right place to continue: `extras/Kaizoku smart add`.

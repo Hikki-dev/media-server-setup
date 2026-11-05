@@ -1,5 +1,15 @@
 # Changes
 
+## Kapowarr: a better calendar, a steadier look
+
+1. **New This Week** is now a real calendar with **Day, Week, Month and Year** views, a **Coming up** list that shows the next issue of every series ("in 4 weeks"), and states in words (Downloaded, Wanted, Not out yet, Not monitored). It works from the dates your library already knows, and only asks ComicVine for new series when you press a button.
+2. One colour family for light and dark, so text, buttons and cards read well in both. The logo stands alone at the top of the menu.
+3. Checked in Safari as well as Chrome.
+
+## Manga: one folder
+
+1. Rensaiō now saves each series straight inside the manga folder (`CategorizedFolders` is off by default), so there is one manga folder instead of `Manga/Manga` and `Manga/Manhwa`.
+
 ## Kapowarr: a clearer interface
 
 1. Kapowarr has a new look in the style of Sonarr and Radarr, made easier to read for beginners and quicker for daily use. A sidebar with sections, a title and a plain sentence on every page, one icon set, one typeface, and the same spacing everywhere.
