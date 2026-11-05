@@ -30,7 +30,7 @@ INTERNAL = {  # port each app listens on inside its container
 }
 
 # Kapowarr: Hikki-dev's copy first, and the original project's image when the copy cannot be downloaded (for example while its package is private)
-KAPOWARR_IMAGES = ("ghcr.io/hikki-dev/kapowarr:latest", "mrcas/kapowarr:latest")
+KAPOWARR_IMAGES = ("ghcr.io/hikki-dev/kapowarr-fork:latest", "mrcas/kapowarr:latest")
 
 # Kaizoku: Hikki-dev's Rensaio fork first (reads your folder, one site per chapter, source failover), then the original Rensaio
 KAIZOKU_IMAGES = ("ghcr.io/hikki-dev/rensaio:latest", "maxpiva/rensaio:latest")
