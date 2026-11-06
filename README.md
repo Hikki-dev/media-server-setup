@@ -4,6 +4,10 @@
 [![Licence: MIT](https://img.shields.io/github/license/Hikki-dev/media-server-setup)](LICENSE)
 [![Live demo](https://img.shields.io/badge/live-demo-f2a93b)](https://media-server-setup.makkoacknowledgesstress.workers.dev/demo/)
 [![Website](https://img.shields.io/badge/website-install%20command-14171c)](https://media-server-setup.makkoacknowledgesstress.workers.dev)
+[![CodeQL](https://github.com/Hikki-dev/media-server-setup/actions/workflows/codeql.yml/badge.svg)](https://github.com/Hikki-dev/media-server-setup/actions/workflows/codeql.yml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/Hikki-dev/media-server-setup/badge)](https://scorecard.dev/viewer/?uri=github.com/Hikki-dev/media-server-setup)
+[![Last commit](https://img.shields.io/github/last-commit/Hikki-dev/media-server-setup)](https://github.com/Hikki-dev/media-server-setup/commits/main)
+[![Linux, Mac and Windows](https://img.shields.io/badge/runs%20on-Linux%20%7C%20Mac%20%7C%20Windows-455a64)](docs)
 
 One page in your browser that installs a complete home media server, and connects every part of it for you.
 
