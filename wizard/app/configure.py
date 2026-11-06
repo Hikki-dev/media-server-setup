@@ -1592,7 +1592,7 @@ def setup_kapowarr(ctx):
             failed.add(name)
             log(f"  Kapowarr: could not set {name}: {str(e.body)[:120]}")
     have = {r["folder"].rstrip("/") for r in api.get("/rootfolder", params=q).get("result", [])}
-    for folder in ("/comics",):
+    for folder in ("/library/comics",):
         if folder not in have:
             try:
                 api.call("POST", "/rootfolder", {"folder": folder}, params=q)
@@ -1627,7 +1627,7 @@ def setup_kapowarr(ctx):
             if e.status not in (400, 404):                                  # the original Kapowarr has no Prowlarr indexer: not an error
                 log(f"  Kapowarr: could not add Prowlarr: {str(e.body)[:120]}")
     linked = [n for n, ok in (("qBittorrent", qbit_ok), ("FlareSolverr", "flaresolverr_base_url" not in failed), ("Prowlarr", prowlarr)) if ok]
-    log(f"Kapowarr ready: comics in /comics, linked to {', '.join(linked)}"
+    log(f"Kapowarr ready: comics in /library/comics, linked to {', '.join(linked)}"
         + ("" if cv else ". Paste your free ComicVine key in Kapowarr, Settings, before adding comics"))
 
 

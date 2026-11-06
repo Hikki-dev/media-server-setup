@@ -1,5 +1,12 @@
 # Changes
 
+## Manga and comics: more libraries, no second copies, safer downloads
+
+1. **Extra libraries.** Rensaiō (Kaizoku) has an **Extra libraries** setting (for example `Manga 18+`) and a **Library** box when you add a series and when you edit one. Kapowarr can create a root folder from its page. Moving a series between libraries is a rename on the same drive, never a copy, and Komga gets a library for each folder.
+2. **One mount for all libraries.** New installs mount the `books` folder once (`/library`) in both apps so those moves stay renames. Existing installs can do the same; see [Comics and manga](docs/Comics%20and%20manga.md).
+3. **Safe downloads.** Kapowarr refuses programs and scripts, fake comics, archives with a program inside and PDFs that run code before anything reaches the library.
+4. Fixed: moving a series out of a folder could remove the empty library folder itself.
+
 ## Kapowarr: zipped downloads are unpacked safely
 
 1. A `.zip` or `.rar` with comics inside (CBZ, CBR or PDF) is now unpacked for you and its issues are filed in the library, in the same format they came in. Before anything is written, the archive is checked for unsafe names, links, passwords, zip bombs and free space. It is unpacked in a separate folder, nothing already in your library is overwritten, and the archive is only deleted once its issues are in. If anything looks wrong, the archive is kept and the reason is in the log.

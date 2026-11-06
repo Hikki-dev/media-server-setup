@@ -93,6 +93,21 @@ Both apps write inside the media folder you chose, in the `books` folder:
 
 In Komga, add the library `books` (or each folder on its own) once.
 
+### More libraries, for example Manga 18+
+
+You can keep as many libraries as you like, for example a separate folder for adult manga, so Komga shows them as separate libraries.
+
+1. Both apps see the whole `books` folder as one mount (`/library`), so moving a series from one library to another is a rename on the same drive. It never makes a second copy.
+2. **Kaizoku:** Settings, **Extra libraries**, type `Manga 18+` and save. The folder is created next to `manga`. When you add a series, pick the library in the **Library** box; to move one later, open it, press Edit and change the library.
+3. **Kapowarr:** Settings, Media Management, **Add Root Folder**, type `/library/Manga 18+` (the folder is created for you if its parent exists). Pick it when you add a series, or change a series' root folder to move it.
+4. **Komga:** add a library for the new folder.
+
+Drives formatted as exFAT (many external drives) cannot make hardlinks, so a finished torrent is moved instead of linked there. There is still only one copy.
+
+### Downloads are checked
+
+Kapowarr refuses programs and scripts (`.exe`, `.bat`, `.ps1`, `.sh` and more), files that are not what their name says, archives with a program inside and PDFs that run code. They are blocklisted and deleted instead of filed. See the fork's [Safe downloads](https://github.com/Hikki-dev/Kapowarr/blob/main/docs/Safe%20downloads.md).
+
 ## Moving from Mylar
 
 Mylar is gone. If you switched it on before, running the setup again turns on Kapowarr in its place and leaves your old `config/mylar3` folder alone. Your comic files stay where they are.

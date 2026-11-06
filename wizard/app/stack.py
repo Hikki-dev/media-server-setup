@@ -283,12 +283,12 @@ def compose(cfg):
         svc["kapowarr"] = {"image": cfg.get("kapowarrImage") or KAPOWARR_IMAGES[0], "restart": "unless-stopped",
                            "environment": base_env, "ports": [f"{p['kapowarr']}:5656"],
                            "volumes": [f"{hostpath('config/kapowarr')}:/app/db"] + mounts
-                           + [f"{extra}/books/comics:/comics"]}
+                           + [f"{extra}/books:/library"]}  # the parent folder, so moving a series between libraries is a rename, never a copy
     if s.get("kaizoku"):
         # Kaizoku (Rensaio): manga downloads with Mihon sources. One container, no database server.
         svc["kaizoku"] = {"image": cfg.get("kaizokuImage") or KAIZOKU_IMAGES[0], "restart": "unless-stopped",
-                          "environment": [f"PUID={uid}", f"PGID={gid}", "UMASK=022", f"TZ={tz}"],
-                          "volumes": [f"{hostpath('config/kaizoku')}:/config", f"{extra}/books/manga:/series"],
+                          "environment": [f"PUID={uid}", f"PGID={gid}", "UMASK=022", f"TZ={tz}", "RENSAIO_STORAGEDIR=/library/manga"],
+                          "volumes": [f"{hostpath('config/kaizoku')}:/config", f"{extra}/books:/library"],
                           "ports": [f"{p['kaizoku']}:9833"]}
     if s.get("scrutiny"):
         svc["scrutiny"] = {"image": "ghcr.io/analogj/scrutiny:master-omnibus", "restart": "unless-stopped",
