@@ -3,7 +3,7 @@
 ## Kapowarr: a better calendar, a steadier look
 
 1. **New This Week** is now a real calendar with **Day, Week, Month and Year** views, a **Coming up** list that shows the next issue of every series ("in 4 weeks"), and states in words (Downloaded, Wanted, Not out yet, Not monitored). It works from the dates your library already knows, and only asks ComicVine for new series when you press a button.
-2. One colour family for light and dark, so text, buttons and cards read well in both. The logo stands alone at the top of the menu.
+2. A bold, bright look: a royal-blue menu with the large logo and the name, yellow for where you are and what to press, and blue, orange and red for "have it", "partly there" and "missing". Dark mode is deep navy, not grey. Every state also has a word.
 3. Checked in Safari as well as Chrome.
 
 ## Manga: one folder
