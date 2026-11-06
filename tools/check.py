@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SKIP = {".git", "__pycache__", "node_modules"}
+SKIP = {".git", "__pycache__", "node_modules", ".remember", "Guide grabber"}
 problems = []
 
 

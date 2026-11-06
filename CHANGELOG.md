@@ -1,5 +1,12 @@
 # Changes
 
+## Komga shows the right names, numbers and covers
+
+1. **Kapowarr** now writes what ComicVine knows into every CBZ (a `ComicInfo.xml` with series, issue number, title, summary, date and publisher), and a cover and `series.json` in each series folder, after every download and every refresh. Another tool's details in the file are kept. Turn it off under Media Management, **Write metadata for Komga**.
+2. **Rensaiō** now adds the summary, genres, reading direction (right to left for manga) and an age rating (`Adults Only 18+`, `Mature 17+`) to each chapter, and writes the missing cover and `series.json` of every series when it starts and after each download.
+3. New screenshots of Kapowarr with every cover loaded.
+4. The checks no longer trip on local-only folders, and the unused GitHub Pages workflows of the portfolio were removed.
+
 ## Manga and comics: more libraries, no second copies, safer downloads
 
 1. **Extra libraries.** Rensaiō (Kaizoku) has an **Extra libraries** setting (for example `Manga 18+`) and a **Library** box when you add a series and when you edit one. Kapowarr can create a root folder from its page. Moving a series between libraries is a rename on the same drive, never a copy, and Komga gets a library for each folder.
