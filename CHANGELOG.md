@@ -1,5 +1,10 @@
 # Changes
 
+## Kapowarr: zipped downloads are unpacked safely
+
+1. A `.zip` or `.rar` with comics inside (CBZ, CBR or PDF) is now unpacked for you and its issues are filed in the library, in the same format they came in. Before anything is written, the archive is checked for unsafe names, links, passwords, zip bombs and free space. It is unpacked in a separate folder, nothing already in your library is overwritten, and the archive is only deleted once its issues are in. If anything looks wrong, the archive is kept and the reason is in the log.
+2. The setup turns this on for new installs.
+
 ## Kapowarr: a better calendar, a steadier look
 
 1. **New This Week** is now a real calendar with **Day, Week, Month and Year** views, a **Coming up** list that shows the next issue of every series ("in 4 weeks"), and states in words (Downloaded, Wanted, Not out yet, Not monitored). It works from the dates your library already knows, and only asks ComicVine for new series when you press a button.

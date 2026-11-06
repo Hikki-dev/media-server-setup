@@ -1579,7 +1579,8 @@ def setup_kapowarr(ctx):
     api = Api(base, prefix="/api")
     q = {"api_key": k}
     put = {"flaresolverr_base_url": ctx.host_url("flaresolverr"),
-           "auth_username": login["username"], "auth_password": login["password"]}
+           "auth_username": login["username"], "auth_password": login["password"],
+           "extract_issue_ranges": True}      # a zip with whole issues inside is unpacked safely
     cv = ((cfg.get("comics") or {}).get("comicvine_key") or "").strip()
     if cv:
         put["comicvine_api_key"] = cv
